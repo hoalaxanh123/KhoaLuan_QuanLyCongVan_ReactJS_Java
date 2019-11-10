@@ -29,7 +29,8 @@
     "start": "set PORT=1414 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fix":"./node_modules/.bin/eslint --fix src/"
   },
   "eslintConfig": {
     "extends": "react-app"
