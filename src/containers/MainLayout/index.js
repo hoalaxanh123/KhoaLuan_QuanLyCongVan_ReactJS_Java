@@ -9,18 +9,22 @@ import HeaderComponent from '../../components/Header'
 import LeftMenu from '../../components/LeftMenu'
 import FooterComponent from '../../components/Footer/Footer'
 import ContentConponent from '../../components/Content'
+import Routers from './../../Routers/Routers'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 class MainLayout extends Component {
   render() {
     return (
-      <Layout>
-        <LeftMenu />
+      <Router>
         <Layout>
-          <HeaderComponent />
-          <ContentConponent />
-          <FooterComponent />
+          <LeftMenu />
+          <Layout>
+            <HeaderComponent />
+            <ContentConponent />
+            <FooterComponent />
+          </Layout>
         </Layout>
-      </Layout>
+      </Router>
     )
   }
 }

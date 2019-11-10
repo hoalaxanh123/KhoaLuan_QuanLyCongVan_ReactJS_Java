@@ -1,9 +1,103 @@
 import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 const { Sider } = Layout
 const { SubMenu } = Menu
 
+const MyLink = ({ label, link, exactYES, icon }) => {
+  return (
+    <Route
+      path={link}
+      exact={exactYES}
+      children={({ match }) => {
+        let active = match ? 'li_active' : ''
+        return (
+          //className={active}
+          <Menu.Item key={label}>
+            <Icon type={icon} />
+            <Link
+              to={{ pathname: link, state: { from: window.location.pathname } }}
+              className="menuItem"
+            >
+              <span>{label}</span>
+            </Link>
+          </Menu.Item>
+        )
+      }}
+    />
+  )
+}
+
+let menus = [
+  {
+    index: 1,
+    label: 'Trang chủ',
+    to: '/',
+    exactYES: true,
+    icon: 'home'
+  },
+  {
+    index: 2,
+    label: 'Số hoá công văn',
+    to: '/so-hoa-cong-van',
+    exactYES: false,
+    icon: 'scan'
+  },
+  {
+    index: 3,
+    label: 'Ứng dụng mobile',
+    to: '/mobile-application',
+    exactYES: false,
+    icon: 'mobile'
+  },
+  {
+    index: 4,
+    label: 'Trang quản trị',
+    to: '/quan-tri',
+    exactYES: false,
+    icon: 'user'
+  },
+  {
+    index: 5,
+    label: 'Tài khoản',
+    to: '/tai-khoan',
+    exactYES: false,
+    icon: 'user'
+  }
+]
 class LeftMenu extends Component {
+  showMenu = menus => {
+    let result = []
+    if (menus.length > 0) {
+      result = menus.map((menu, index) => {
+        return (
+          <MyLink
+            key={menu.index}
+            label={menu.label}
+            link={menu.to}
+            exactYES={menu.exactYES}
+            icon={menu.icon}
+            className="menuItem"
+          />
+        )
+      })
+    }
+    let loged = localStorage.getItem('loged')
+    if (loged) {
+      let index = result.findIndex(item => item.key === '6')
+      result.splice(index, 1)
+      result.push(
+        <MyLink
+          key={-1}
+          label={'Đăng xuất'}
+          link={'/logout'}
+          exactYES={true}
+          className="menuItem"
+        />
+      )
+    }
+    return result
+  }
   state = {
     collapsed: false,
     position: 'block',
@@ -41,43 +135,7 @@ class LeftMenu extends Component {
           </p>
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1">
-            <Icon type="home" />
-            <span>Trang chủ</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="scan" />
-            <span>Số hoá công văn</span>
-          </Menu.Item>
-
-          <Menu.Item>
-            <Icon type="mobile" />
-            <span>Ứng dụng mobile</span>
-          </Menu.Item>
-          <Menu.Item>
-            <Icon type="control" />
-            <span>Trang quản trị</span>
-          </Menu.Item>
-
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="user" />
-                <span>Tài khoản</span>
-              </span>
-            }
-          >
-            <Menu.Item key="3">
-              <i className="fas fa-user-edit"></i> &nbsp; Thông tin
-            </Menu.Item>
-            <Menu.Item key="4">
-              <i class="fas fa-user-cog"></i> &nbsp; Đổi mật khẩu
-            </Menu.Item>
-            <Menu.Item key="5">
-              <i class="fas fa-sign-out-alt"></i> &nbsp; Đăng xuất
-            </Menu.Item>
-          </SubMenu>
+          {this.showMenu(menus)}
         </Menu>
       </Sider>
     )

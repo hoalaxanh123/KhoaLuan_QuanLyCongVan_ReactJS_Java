@@ -3,6 +3,7 @@ import MainLayout from '../MainLayout'
 import { Provider } from 'react-redux'
 import configureStore from './../../redux/configStore'
 import { Spinner } from './../../components/Spinner'
+
 const store = configureStore()
 
 class App extends Component {

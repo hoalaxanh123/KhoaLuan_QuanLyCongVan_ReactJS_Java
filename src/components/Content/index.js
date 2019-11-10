@@ -17,9 +17,9 @@ class ContentConponent extends Component {
           minHeight: '770px'
         }}
       >
-        {/* <FormFind /> */}
-        {/* <ListCV /> */}
-        {/* <MobileApp /> */}
+        <FormFind />
+        <ListCV />
+        <MobileApp />
         <Admin />
       </Content>
     )
