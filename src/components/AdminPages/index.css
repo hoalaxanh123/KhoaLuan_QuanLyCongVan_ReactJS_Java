@@ -1,0 +1,42 @@
+.ant-tabs .ant-tabs-top-content.ant-tabs-content-animated, .ant-tabs .ant-tabs-bottom-content.ant-tabs-content-animated{
+  display: flex;
+}
+.MobileAppLogo {
+  -webkit-animation-name: mobileLogoAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: mobileLogoAnimation;
+  animation-duration: 1.5s;
+  border-radius: 10px;
+  max-width: 900px;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mobileLogoAnimation {
+  from {
+    opacity: 0;
+    padding: 100%;
+  }
+  to {
+    opacity: 1;
+    padding: 0%;
+
+  }
+}
+
+/* Standard syntax */
+@keyframes mobileLogoAnimation {
+  from {
+    opacity: 0;
+    margin-left: -100px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+.DownloadButtonAndroid{
+  max-width: 130px;
+}
+.DownloadButtonIOS{
+  max-width: 140px;
+  margin-left: 5px;
+}

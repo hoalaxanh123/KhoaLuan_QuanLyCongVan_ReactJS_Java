@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import { Card, Row, Col, Input, Form, Icon, Button } from 'antd'
 const { TextArea } = Input
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field])
-}
-
 class Scanner extends Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
@@ -22,11 +18,10 @@ class Scanner extends Component {
   }
   render() {
     // Only show error after a field is touched.
-    const { getFieldDecorator, getFieldError, isFieldTouched } = this.props.form
+    const { getFieldDecorator } = this.props.form
     let result =
       'Đây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\n'
-    const usernameError =
-      isFieldTouched('username') && getFieldError('username')
+
     return (
       <Card
         type="inner"
