@@ -1,16 +1,40 @@
-
-.MuiGrid-root {
+.monition_width, body {
   -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
   animation-name: example;
-  animation-duration: 1s;
-  /* animation-iteration-count: infinite;
-    -moz-animation-iteration-count: infinite;
-    -webkit-animation-iteration-count: infinite;
-    -o-animation-iteration-count: infinite; */
+  animation-duration: 1.5s;
 }
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
+  from {
+    opacity: 0;
+    width: 0px;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes example {
+  from {
+    opacity: 0;
+    width: 0px;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.monition_height {
+  -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 1.5s;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example2 {
   from {
     opacity: 0;
     height: 0px;
@@ -22,13 +46,74 @@
 }
 
 /* Standard syntax */
-@keyframes example {
+@keyframes example2 {
   from {
     opacity: 0;
-    width: 0px;
+    height: 0px;
   }
   to {
     opacity: 1;
-    width: 100%;
+    height: 100%;
   }
 }
+
+.logo {
+  text-align: center;
+  color: white;
+  min-height: 60px;
+}
+.logo b{
+  font-size: 20px;
+  padding-top: 50%;
+  vertical-align: middle;
+}
+.logo p{
+  padding-top: 5%;
+}
+
+.ant-form-item-label{
+  min-width: 50px;
+  max-width: 80px;
+}
+.ant-form-item-label label{
+  vertical-align: middle;
+}
+.ant-advanced-search-form .ant-form-item {
+  display: flex;
+}
+
+.ant-advanced-search-form .ant-form-item-control-wrapper {
+  flex: 1;
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("/images/loading3.gif") center no-repeat #fff ;
+}
+
+.LeftMenu{
+  position: fixed;
+  z-index: 9999999999999;
+}
+.ant-layout-sider-zero-width-trigger{
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 600px) {
+  .medium {
+    display: none;
+  }
+  .LeftMenu{
+    position: fixed;
+  }
+}
+
+
+

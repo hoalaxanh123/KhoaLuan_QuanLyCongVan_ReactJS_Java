@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
-import { ThemeProvider } from '@material-ui/styles'
-import { withStyles, Container } from '@material-ui/core'
-import styles from './style'
-import theme from './../../commons/themes/themes'
-import Taskboard from '../Taskboard'
+import MainLayout from '../MainLayout'
 import { Provider } from 'react-redux'
 import configureStore from './../../redux/configStore'
 import { Spinner } from './../../components/Spinner'
@@ -13,14 +9,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Container>
-            <Taskboard />
-            <Spinner />
-          </Container>
-        </ThemeProvider>
+        <MainLayout />
+        <Spinner />
       </Provider>
     )
   }
 }
-export default withStyles(styles)(App)
+export default App
