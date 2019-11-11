@@ -1,3 +1,58 @@
+div {
+  -webkit-animation-name: divAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: divAnimation;
+  animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes divAnimation {
+  from {
+    opacity: 0.5;
+    margin-left: -10px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+@keyframes divAnimation {
+  from {
+    opacity: 0.5;
+    margin-left: -10px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+
+.ant-layout-content {
+  -webkit-animation-name: contentAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: contentAnimation;
+  animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes contentAnimation {
+  from {
+    background: rgb(0, 0, 0,0.9);
+  }
+  to {
+    background: transparent;
+  }
+}
+@keyframes contentAnimation {
+  from {
+    background: rgb(0, 0, 0,0.9);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+
 .monition_width, body {
   -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
   -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
@@ -5,10 +60,7 @@
   animation-duration: 1.5s;
 }
 
-.ant-layout-content{
-  background: red;
-  color:red;
-}
+
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
   from {
