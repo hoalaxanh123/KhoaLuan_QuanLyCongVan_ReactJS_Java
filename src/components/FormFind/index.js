@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+// import moment from 'moment'
 import {
   Card,
   Form,
@@ -13,9 +13,9 @@ import {
 } from 'antd'
 const { Option } = Select
 
-const dateFormat = 'YYYY/MM/DD'
-const monthFormat = 'YYYY/MM'
-const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY']
+// const dateFormat = 'YYYY/MM/DD'
+// const monthFormat = 'YYYY/MM'
+// const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY']
 
 class FormFind extends Component {
   state = {
@@ -57,9 +57,9 @@ class FormFind extends Component {
       ]
     }
     return (
-      <Card type="inner" title="Tìm kiếm" className="monition_height">
+      <Card type="inner" title="Tìm kiếm">
         <Form
-          className="ant-advanced-search-form monition_height"
+          className="ant-advanced-search-form "
           onSubmit={this.handleSearch}
         >
           <Row>

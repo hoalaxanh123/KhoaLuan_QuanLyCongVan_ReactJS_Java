@@ -4,6 +4,7 @@ import ListCV from '../components/List'
 import Scanner from '../components/Scanner'
 import MobileApp from '../components/MobileApp'
 import Admin from '../components/AdminPages'
+import Login from '../components/Login'
 
 const json_Routes = [
   {
@@ -26,11 +27,16 @@ const json_Routes = [
     exactYes: true,
     main: ({ history }) => <Admin history={history} />
   },
-  // {
-  //   path: '/tai-khoan',
-  //   exactYes: true,
-  //   main: ({ history }) => <Admin history={history} />
-  // },
+  {
+    path: '/tai-khoan',
+    exactYes: true,
+    main: ({ history }) => <NotFound history={history} />
+  },
+  {
+    path: '/dang-nhap',
+    exactYes: true,
+    main: ({ location }) => <Login location={location} />
+  },
   {
     path: '',
     exactYes: true,
