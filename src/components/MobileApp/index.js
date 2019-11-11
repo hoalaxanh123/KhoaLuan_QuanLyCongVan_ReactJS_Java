@@ -29,14 +29,14 @@ class MobileApp extends Component {
         className="Scanner_Card_Parent"
       >
         <Row>
-          <Col span={12}>
+          <Col span={10}>
             <img
               src={process.env.PUBLIC_URL + '/images/mobileapp.jpg'}
               className="MobileAppLogo"
               alt="DLU"
             />
           </Col>
-          <Col span={12} style={{ marginLeft: '-150px', background: 'white' }}>
+          <Col span={14} style={{ background: 'white' }}>
             <List
               itemLayout="horizontal"
               dataSource={data}
