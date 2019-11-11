@@ -1,16 +1,6 @@
-export const API_ENDPOIN = 'http://5d7c86986b8ef80014b29b21.mockapi.io/1510289/'
+//API_ENDPOIN is a link to API example: localhost:8000/
+export const API_URL = 'http://5d7c86986b8ef80014b29b21.mockapi.io/1510289/'
+
+//task == Công văn
+export const API_CONGVAN_ENDPOIN = 'task'
 //Map Status
-export const STATUS = [
-  {
-    status_code: 0,
-    status_text: 'Ready'
-  },
-  {
-    status_code: 1,
-    status_text: 'In Progress'
-  },
-  {
-    status_code: 2,
-    status_text: 'Completed'
-  }
-]

@@ -62,13 +62,13 @@ class Login extends Component {
                     valuePropName: 'checked',
                     initialValue: true
                   })(<Checkbox>Remember me</Checkbox>)}
-                  <a
-                    className="login-form-forgot"
+                  <span
+                    className="login-form-forgot Link"
                     href=""
                     style={{ float: 'right' }}
                   >
                     Forgot password
-                  </a>
+                  </span>
                 </Form.Item>
                 <Form.Item>
                   <Button
@@ -81,7 +81,7 @@ class Login extends Component {
                   </Button>
                 </Form.Item>
                 <Form.Item style={{ textAlign: 'center' }}>
-                  Or <a href="">register now!</a>
+                  Or <span className="Link">register now!</span>
                 </Form.Item>
               </Form>
             </h2>

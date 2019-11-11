@@ -1,56 +1,51 @@
 import React, { Component } from 'react'
 import { Card } from 'antd'
-import { Table, Icon, Switch, Radio, Form, Divider } from 'antd'
+import { Table, Switch, Radio, Form } from 'antd'
+import { connect } from 'react-redux'
 import FormFind from './../FormFind'
+import * as action from './../../actions/task'
+
 const FormItem = Form.Item
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    width: 150,
-    render: text => <span>{text}</span>
+    title: 'Số hiệu',
+    dataIndex: 'soKyHieu',
+    key: 'soKyHieu',
+    render: text => <span>{text}</span>,
+    width: '10%'
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    width: 70
+    title: 'Trích yếu',
+    dataIndex: 'trichYeu',
+    key: 'trichYeu',
+    width: '50%'
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address'
+    title: 'Ngày ban hành',
+    dataIndex: 'ngayBanHanh',
+    key: 'ngayBanHanh',
+    width: '10%'
   },
   {
-    title: 'Action',
-    key: 'action',
-    width: 360,
-    render: (text, record) => (
-      <span>
-        <span>Edit</span>
-        <Divider type="vertical" />
-        <span>Delete</span>
-        <Divider type="vertical" />
-        <span className="ant-dropdown-link">
-          More actions <Icon type="down" />
-        </span>
-      </span>
-    )
+    title: 'Lĩnh vực',
+    dataIndex: 'linhVuc',
+    key: 'linhVuc',
+    width: '10%'
+  },
+  {
+    title: 'Người ký',
+    dataIndex: 'nguoiKy',
+    key: 'nguoiKy',
+    width: '10%'
+  },
+  {
+    title: 'Cơ quan ban hành',
+    key: 'coQuanBanHanh',
+    dataIndex: 'coQuanBanHanh',
+    width: '10%'
   }
 ]
-
-const data = []
-for (let i = 1; i <= 100; i++) {
-  data.push({
-    key: i,
-    name: 'John Brown',
-    age: `${i}2`,
-    address: `New York No. ${i} Lake Park`,
-    description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`
-  })
-}
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -61,14 +56,14 @@ const pagination = { position: 'bottom' }
 
 class ListCV extends Component {
   state = {
-    bordered: false,
+    bordered: true,
     loading: false,
     pagination,
     size: 'small',
-    expandedRowRender,
+    expandedRowRender: undefined,
     title: undefined,
     showHeader,
-    footer,
+    footer: undefined,
     rowSelection: undefined,
     scroll: undefined,
     hasData: true
@@ -116,9 +111,20 @@ class ListCV extends Component {
       pagination: value === 'none' ? false : { position: value }
     })
   }
-
+  componentDidMount() {
+    this.props.get_all_cong_van()
+  }
+  addKeyToList = listCV => {
+    for (let index in listCV) {
+      listCV[index]['key'] = listCV[index].id
+      let date = new Date(listCV[index]['ngayBanHanh'])
+      listCV[index]['ngayBanHanh'] = date.toLocaleDateString('vi-VN')
+    }
+    return listCV
+  }
   render() {
     const { state } = this
+    let listCV = this.addKeyToList(this.props.listCV)
     return (
       <div>
         <FormFind />
@@ -134,7 +140,7 @@ class ListCV extends Component {
                 onChange={this.handleToggle('bordered')}
               />
             </FormItem>
-            <FormItem label="loading">
+            <FormItem label="Loading">
               <Switch
                 checked={state.loading}
                 onChange={this.handleToggle('loading')}
@@ -146,7 +152,7 @@ class ListCV extends Component {
                 onChange={this.handleTitleChange}
               />
             </FormItem>
-            <FormItem label="Column Header">
+            <FormItem label="Header">
               <Switch
                 checked={!!state.showHeader}
                 onChange={this.handleHeaderChange}
@@ -160,7 +166,7 @@ class ListCV extends Component {
             </FormItem>
             <FormItem label="Expandable">
               <Switch
-                checked={!!state.expandedRowRender}
+                checked={state.expandedRowRender}
                 onChange={this.handleExpandChange}
               />
             </FormItem>
@@ -208,11 +214,28 @@ class ListCV extends Component {
           <Table
             {...this.state}
             columns={columns}
-            dataSource={state.hasData ? data : null}
+            dataSource={state.hasData ? listCV : null}
           />
         </Card>
       </div>
     )
   }
 }
-export default ListCV
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    get_all_cong_van: () => {
+      dispatch(action.fetchGetList())
+    }
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    listCV: state.task.listTask
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListCV)
