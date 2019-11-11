@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card } from 'antd'
-import { Table, Icon, Switch, Radio, Form, Divider } from 'antd'
+import { Table, Switch, Radio, Form } from 'antd'
 
 const FormItem = Form.Item
 

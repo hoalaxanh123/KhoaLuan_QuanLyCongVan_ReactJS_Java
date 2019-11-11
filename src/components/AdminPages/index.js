@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Card, Row, Col, Tabs, Divider, Icon } from 'antd'
 import { StickyContainer, Sticky } from 'react-sticky'
 import './index.css'
-import ListCV from '../List'
 import TableCommon from '../List/Table'
 
 class Admin extends Component {
@@ -45,13 +44,13 @@ class Admin extends Component {
         width: 360,
         render: (text, record) => (
           <span>
-            <a>Edit</a>
+            <span>Edit</span>
             <Divider type="vertical" />
-            <a>Delete</a>
+            <span>Delete</span>
             <Divider type="vertical" />
-            <a className="ant-dropdown-link">
+            <span className="ant-dropdown-link">
               More actions <Icon type="down" />
-            </a>
+            </span>
           </span>
         )
       }

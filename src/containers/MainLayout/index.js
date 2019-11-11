@@ -8,10 +8,9 @@ import { Layout } from 'antd'
 import HeaderComponent from '../../components/Header'
 import LeftMenu from '../../components/LeftMenu'
 import FooterComponent from '../../components/Footer/Footer'
-import ContentConponent from '../../components/Content'
 import Routers from './../../Routers/Routers'
 import { BrowserRouter as Router } from 'react-router-dom'
-
+const { Content } = Layout
 class MainLayout extends Component {
   render() {
     return (
@@ -20,7 +19,15 @@ class MainLayout extends Component {
           <LeftMenu />
           <Layout>
             <HeaderComponent />
-            <ContentConponent />
+            <Content
+              style={{
+                margin: '24px 16px 0',
+                overflow: 'initial',
+                minHeight: '770px'
+              }}
+            >
+              <Routers />
+            </Content>
             <FooterComponent />
           </Layout>
         </Layout>

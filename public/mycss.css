@@ -4,11 +4,16 @@
   animation-name: example;
   animation-duration: 1.5s;
 }
+
+.ant-layout-content{
+  background: red;
+  color:red;
+}
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
   from {
     opacity: 0;
-    width: 0px;
+    width: 80%;
   }
   to {
     opacity: 1;
@@ -19,13 +24,14 @@
 @keyframes example {
   from {
     opacity: 0;
-    width: 0px;
+    width: 80%;
   }
   to {
     opacity: 1;
     width: 100%;
   }
 }
+
 
 .monition_height {
   -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */

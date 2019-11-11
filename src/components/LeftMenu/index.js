@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 const { Sider } = Layout
-const { SubMenu } = Menu
+// const { SubMenu } = Menu
 
 const MyLink = ({ label, link, exactYES, icon }) => {
   return (
@@ -10,18 +10,15 @@ const MyLink = ({ label, link, exactYES, icon }) => {
       path={link}
       exact={exactYES}
       children={({ match }) => {
-        let active = match ? 'li_active' : ''
+        // let active = match ? 'li_active' : ''
         return (
           //className={active}
-          <Menu.Item key={label}>
+          <Link
+            to={{ pathname: link, state: { from: window.location.pathname } }}
+          >
             <Icon type={icon} />
-            <Link
-              to={{ pathname: link, state: { from: window.location.pathname } }}
-              className="menuItem"
-            >
-              <span>{label}</span>
-            </Link>
-          </Menu.Item>
+            <span>{label}</span>
+          </Link>
         )
       }}
     />
@@ -71,14 +68,16 @@ class LeftMenu extends Component {
     if (menus.length > 0) {
       result = menus.map((menu, index) => {
         return (
-          <MyLink
-            key={menu.index}
-            label={menu.label}
-            link={menu.to}
-            exactYES={menu.exactYES}
-            icon={menu.icon}
-            className="menuItem"
-          />
+          <Menu.Item key={menu.index}>
+            <MyLink
+              key={menu.index}
+              label={menu.label}
+              link={menu.to}
+              exactYES={menu.exactYES}
+              icon={menu.icon}
+              className="menuItem"
+            />
+          </Menu.Item>
         )
       })
     }

@@ -29,13 +29,13 @@ const columns = [
     width: 360,
     render: (text, record) => (
       <span>
-        <a>Edit</a>
+        <span>Edit</span>
         <Divider type="vertical" />
-        <a>Delete</a>
+        <span>Delete</span>
         <Divider type="vertical" />
-        <a className="ant-dropdown-link">
+        <span className="ant-dropdown-link">
           More actions <Icon type="down" />
-        </a>
+        </span>
       </span>
     )
   }

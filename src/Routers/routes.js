@@ -1,4 +1,4 @@
-// import NotFound from './../pages/NotFoundPage'
+import NotFound from '../components/NotFound'
 import React from 'react'
 import ListCV from '../components/List'
 import Scanner from '../components/Scanner'
@@ -26,17 +26,16 @@ const json_Routes = [
     exactYes: true,
     main: ({ history }) => <Admin history={history} />
   },
-  {
-    path: '/tai-khoan',
-    exactYes: true,
-    main: ({ history }) => <Admin history={history} />
-  }
-  // ,
   // {
-  //   path: '',
+  //   path: '/tai-khoan',
   //   exactYes: true,
-  //   main: ({ location }) => <NotFound location={location} />
-  // }
+  //   main: ({ history }) => <Admin history={history} />
+  // },
+  {
+    path: '',
+    exactYes: true,
+    main: ({ location }) => <NotFound location={location} />
+  }
 ]
 
 export default json_Routes

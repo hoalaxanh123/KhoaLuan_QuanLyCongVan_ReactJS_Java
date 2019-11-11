@@ -19,6 +19,7 @@ class HeaderComponent extends Component {
             <img
               src={process.env.PUBLIC_URL + '/images/logo.gif'}
               style={{ maxWidth: '50px', float: 'right' }}
+              alt="logo"
             />
             HỆ THỐNG SỐ HOÁ CÔNG VĂN
             <span className="medium"> - KHOA CÔNG NGHỆ THÔNG TIN</span>
