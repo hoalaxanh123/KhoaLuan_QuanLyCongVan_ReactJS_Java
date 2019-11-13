@@ -48,7 +48,15 @@ class FormFind extends Component {
       this.setState({ width: 24 })
     }
   }
-
+  showLoaiCongVan = listLoaiCongVan => {
+    listLoaiCongVan.map(loaiCongVan => {
+      return (
+        <Option value={loaiCongVan.maLoai} title={loaiCongVan.moTa}>
+          {loaiCongVan.tenLoai}
+        </Option>
+      )
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form
     const config = {
@@ -56,6 +64,7 @@ class FormFind extends Component {
         { type: 'object', required: true, message: 'Hãy chọn thời  gian!' }
       ]
     }
+    let { listLoaiCongVan } = this.props
     return (
       <Card type="inner" title="Tìm kiếm">
         <Form
@@ -70,8 +79,7 @@ class FormFind extends Component {
               }}
             >
               <Select value="Tất cả" style={{ width: '30%' }}>
-                <Option value="Anh ninh">RMB</Option>
-                <Option value="Xã hội">Dollar</Option>
+                {this.showLoaiCongVan(listLoaiCongVan)}
               </Select>
               <Form.Item
                 label=""

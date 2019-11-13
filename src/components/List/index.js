@@ -4,6 +4,7 @@ import { Table, Switch, Radio, Form } from 'antd'
 import { connect } from 'react-redux'
 import FormFind from './../FormFind'
 import * as action from './../../actions/task'
+import * as actionLoaiCongVan from './../../actions/loaicongvan'
 
 const FormItem = Form.Item
 
@@ -29,8 +30,8 @@ const columns = [
   },
   {
     title: 'Lĩnh vực',
-    dataIndex: 'linhVuc',
-    key: 'linhVuc',
+    dataIndex: 'maLinhVuc',
+    key: 'maLinhVuc',
     width: '10%'
   },
   {
@@ -113,6 +114,7 @@ class ListCV extends Component {
   }
   componentDidMount() {
     this.props.get_all_cong_van()
+    this.props.get_all_loai_cong_van()
   }
   addKeyToList = listCV => {
     for (let index in listCV) {
@@ -125,9 +127,10 @@ class ListCV extends Component {
   render() {
     const { state } = this
     let listCV = this.addKeyToList(this.props.listCV)
+    let { listLoaiCongVan } = this.props
     return (
       <div>
-        <FormFind />
+        <FormFind listLoaiCongVan={listLoaiCongVan} />
         <Card
           type="inner"
           title="Danh sách công văn"
@@ -226,13 +229,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     get_all_cong_van: () => {
       dispatch(action.fetchGetList())
+    },
+    get_all_loai_cong_van: () => {
+      dispatch(actionLoaiCongVan.fetchGetList())
     }
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    listCV: state.task.listTask
+    listCV: state.task.listTask,
+    listLoaiCongVan: state.loaiCongVan.byId
   }
 }
 export default connect(
