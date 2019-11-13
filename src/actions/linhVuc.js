@@ -1,5 +1,5 @@
 import { trackPromise } from 'react-promise-tracker'
-import * as apiLoaiCongVan from './../apis/loaicongvan'
+import * as apiLinhVuc from './../apis/linhVuc'
 import * as taskConstant from './../constants/task'
 import Message from './../method/Message'
 
@@ -11,7 +11,7 @@ export const fetchGetList = () => {
   return dispatch => {
     dispatch(fetchListTask()) // to reset state 'task' to empty ([])
     trackPromise(
-      apiLoaiCongVan
+      apiLinhVuc
         .getListTask()
         .then(res => {
           dispatch(fetchListTaskSuccess(res.data))
@@ -26,24 +26,24 @@ export const fetchGetList = () => {
 //Reset state task to empty []
 export const fetchListTask = () => {
   return {
-    type: taskConstant.FETCH_LOAICONGVAN
+    type: taskConstant.FETCH_LINHVUC
   }
 }
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  Message('DEBUG: GET LIST LoaiCongVan OK<br/>', 'success')
+  Message('DEBUG: GET LIST LINHVUC OK<br/>', 'success')
   return {
-    type: taskConstant.FETCH_LOAICONGVAN_SUCCESS,
+    type: taskConstant.FETCH_LINHVUC_SUCCESS,
     payload: data
   }
 }
 
 //If error,
 export const fetchListTaskFail = error => {
-  Message('DEBUG: GET LIST LoaiCongVan not OK<br/>' + error, 'error')
+  Message('DEBUG: GET LIST LINHVUC not OK<br/>' + error, 'error')
   return {
-    type: taskConstant.FETCH_LOAICONGVAN_FAIL,
+    type: taskConstant.FETCH_LINHVUC_FAIL,
     payload: error
   }
 }
@@ -52,7 +52,7 @@ export const fetchListTaskFail = error => {
 export const deleteTask_Request = id => {
   return dispatch => {
     trackPromise(
-      apiLoaiCongVan
+      apiLinhVuc
         .deleteTask(id)
         .then(res => {
           dispatch(deleteTask(id))

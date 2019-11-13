@@ -48,15 +48,7 @@ class FormFind extends Component {
       this.setState({ width: 24 })
     }
   }
-  showLoaiCongVan = listLoaiCongVan => {
-    listLoaiCongVan.map(loaiCongVan => {
-      return (
-        <Option value={loaiCongVan.maLoai} title={loaiCongVan.moTa}>
-          {loaiCongVan.tenLoai}
-        </Option>
-      )
-    })
-  }
+
   render() {
     const { getFieldDecorator } = this.props.form
     const config = {
@@ -65,6 +57,15 @@ class FormFind extends Component {
       ]
     }
     let { listLoaiCongVan } = this.props
+    let renderListLoaiCongVan = listLoaiCongVan.map(loaiCongVan => (
+      <Option
+        value={loaiCongVan.maLoai}
+        title={loaiCongVan.moTa}
+        key={loaiCongVan.maLoai}
+      >
+        {loaiCongVan.tenLoai}
+      </Option>
+    ))
     return (
       <Card type="inner" title="Tìm kiếm">
         <Form
@@ -78,8 +79,15 @@ class FormFind extends Component {
                 display: 'inline-flex'
               }}
             >
-              <Select value="Tất cả" style={{ width: '30%' }}>
-                {this.showLoaiCongVan(listLoaiCongVan)}
+              <Select
+                showSearch
+                value="Tất cả"
+                style={{ width: '30%', opacity: 1 }}
+              >
+                <Option value={-1} title={'Tất cả lĩnh vực'} key={-1}>
+                  {'Tất cả lĩnh vực'}
+                </Option>
+                {renderListLoaiCongVan}
               </Select>
               <Form.Item
                 label=""

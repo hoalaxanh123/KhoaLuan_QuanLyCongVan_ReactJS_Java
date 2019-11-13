@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import FormFind from './../FormFind'
 import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
+import * as actionLinhVuc from './../../actions/linhVuc'
 
 const FormItem = Form.Item
 
@@ -30,8 +31,8 @@ const columns = [
   },
   {
     title: 'Lĩnh vực',
-    dataIndex: 'maLinhVuc',
-    key: 'maLinhVuc',
+    dataIndex: 'linhVuc',
+    key: 'linhVuc',
     width: '10%'
   },
   {
@@ -57,7 +58,7 @@ const pagination = { position: 'bottom' }
 
 class ListCV extends Component {
   state = {
-    bordered: true,
+    bordered: false,
     loading: false,
     pagination,
     size: 'small',
@@ -112,22 +113,32 @@ class ListCV extends Component {
       pagination: value === 'none' ? false : { position: value }
     })
   }
-  componentDidMount() {
-    this.props.get_all_cong_van()
+  componentDidMount() {}
+  componentWillMount() {
+    this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
+    this.props.get_all_cong_van()
   }
-  addKeyToList = listCV => {
-    for (let index in listCV) {
-      listCV[index]['key'] = listCV[index].id
-      let date = new Date(listCV[index]['ngayBanHanh'])
-      listCV[index]['ngayBanHanh'] = date.toLocaleDateString('vi-VN')
+  addKeyToList = (listCV, listLinhVuc) => {
+    debugger
+    if (listLinhVuc.length !== 0) {
+      listCV.map((linhvuc, index) => {
+        listCV[index]['key'] = listCV[index].id
+        let date = listCV[index]['ngayBanHanh'].substring(0, 10)
+        listCV[index]['ngayBanHanh'] = date
+        debugger
+        listCV[index]['linhVuc'] = listLinhVuc.find(
+          x => x.maLinhVuc === listCV[index].maLinhVuc
+        ).tenLinhVuc
+      })
     }
     return listCV
   }
   render() {
     const { state } = this
-    let listCV = this.addKeyToList(this.props.listCV)
-    let { listLoaiCongVan } = this.props
+    let { listLoaiCongVan, listLinhVuc } = this.props
+    let listCV = this.addKeyToList(this.props.listCV, listLinhVuc)
+
     return (
       <div>
         <FormFind listLoaiCongVan={listLoaiCongVan} />
@@ -232,6 +243,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     get_all_loai_cong_van: () => {
       dispatch(actionLoaiCongVan.fetchGetList())
+    },
+    get_all_linhvuc: () => {
+      dispatch(actionLinhVuc.fetchGetList())
     }
   }
 }
@@ -239,7 +253,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     listCV: state.task.listTask,
-    listLoaiCongVan: state.loaiCongVan.byId
+    listLoaiCongVan: state.loaiCongVan.byId,
+    listLinhVuc: state.linhVuc.byId
   }
 }
 export default connect(

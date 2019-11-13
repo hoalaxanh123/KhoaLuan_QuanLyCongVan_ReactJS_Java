@@ -17,10 +17,10 @@ class TableCommon extends Component {
     loading: false,
     pagination,
     size: 'small',
-    expandedRowRender,
+    expandedRowRender: undefined,
     title: undefined,
     showHeader,
-    footer,
+    footer: undefined,
     rowSelection: undefined,
     scroll: undefined,
     hasData: true
