@@ -1,6 +1,12 @@
 .login-title{
   font-size: 20px;
 }
+.Active{
+  color: #1890ff;
+}
+.Deactive{
+  color:red;
+}
 .Link{
   color: #1890ff;
   text-decoration: none;
@@ -13,6 +19,9 @@
 }
 .Link:hover{
   cursor: pointer;
+}
+.TableOption{
+  background: transparent;
 }
 div {
   -webkit-animation-name: divAnimation; /* Safari 4.0 - 8.0 */

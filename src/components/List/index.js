@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
-import { Card } from 'antd'
-import { Table, Switch, Radio, Form } from 'antd'
 import { connect } from 'react-redux'
 import FormFind from './../FormFind'
 import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
-
-const FormItem = Form.Item
+import TableCommon from './Table'
 
 const columns = [
   {
@@ -120,13 +117,11 @@ class ListCV extends Component {
     this.props.get_all_cong_van()
   }
   addKeyToList = (listCV, listLinhVuc) => {
-    debugger
     if (listLinhVuc.length !== 0) {
-      listCV.map((linhvuc, index) => {
+      listCV.forEach((linhvuc, index) => {
         listCV[index]['key'] = listCV[index].id
         let date = listCV[index]['ngayBanHanh'].substring(0, 10)
         listCV[index]['ngayBanHanh'] = date
-        debugger
         listCV[index]['linhVuc'] = listLinhVuc.find(
           x => x.maLinhVuc === listCV[index].maLinhVuc
         ).tenLinhVuc
@@ -135,102 +130,17 @@ class ListCV extends Component {
     return listCV
   }
   render() {
-    const { state } = this
     let { listLoaiCongVan, listLinhVuc } = this.props
     let listCV = this.addKeyToList(this.props.listCV, listLinhVuc)
 
     return (
       <div>
         <FormFind listLoaiCongVan={listLoaiCongVan} />
-        <Card
-          type="inner"
+        <TableCommon
           title="Danh sách công văn"
-          style={{ marginTop: '5px' }}
-        >
-          <Form layout="inline">
-            <FormItem label="Bordered">
-              <Switch
-                checked={state.bordered}
-                onChange={this.handleToggle('bordered')}
-              />
-            </FormItem>
-            <FormItem label="Loading">
-              <Switch
-                checked={state.loading}
-                onChange={this.handleToggle('loading')}
-              />
-            </FormItem>
-            <FormItem label="Title">
-              <Switch
-                checked={!!state.title}
-                onChange={this.handleTitleChange}
-              />
-            </FormItem>
-            <FormItem label="Header">
-              <Switch
-                checked={!!state.showHeader}
-                onChange={this.handleHeaderChange}
-              />
-            </FormItem>
-            <FormItem label="Footer">
-              <Switch
-                checked={!!state.footer}
-                onChange={this.handleFooterChange}
-              />
-            </FormItem>
-            <FormItem label="Expandable">
-              <Switch
-                checked={state.expandedRowRender}
-                onChange={this.handleExpandChange}
-              />
-            </FormItem>
-            <FormItem label="Checkbox">
-              <Switch
-                checked={!!state.rowSelection}
-                onChange={this.handleRowSelectionChange}
-              />
-            </FormItem>
-            <FormItem label="Fixed Header">
-              <Switch
-                checked={!!state.scroll}
-                onChange={this.handleScollChange}
-              />
-            </FormItem>
-            <FormItem label="Has Data">
-              <Switch
-                checked={!!state.hasData}
-                onChange={this.handleDataChange}
-              />
-            </FormItem>
-            <FormItem label="Size">
-              <Radio.Group
-                size="default"
-                value={state.size}
-                onChange={this.handleSizeChange}
-              >
-                <Radio.Button value="default">Default</Radio.Button>
-                <Radio.Button value="middle">Middle</Radio.Button>
-                <Radio.Button value="small">Small</Radio.Button>
-              </Radio.Group>
-            </FormItem>
-            <FormItem label="Pagination">
-              <Radio.Group
-                value={state.pagination ? state.pagination.position : 'none'}
-                onChange={this.handlePaginationChange}
-              >
-                <Radio.Button value="top">Top</Radio.Button>
-                <Radio.Button value="bottom">Bottom</Radio.Button>
-                <Radio.Button value="both">Both</Radio.Button>
-                <Radio.Button value="none">None</Radio.Button>
-              </Radio.Group>
-            </FormItem>
-          </Form>
-          <Table
-            {...this.state}
-            columns={columns}
-            dataSource={state.hasData ? listCV : null}
-          />
-        </Card>
+          columns={columns}
+          data={listCV}
+        />
       </div>
     )
   }

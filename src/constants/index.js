@@ -7,4 +7,6 @@ export const API_CONGVAN_ENDPOIN = 'task'
 export const API_LOAICONGVAN_ENDPOIN = 'loaicongvan'
 //Lĩnh  vực
 export const API_LINHVUC_ENDPOIN = 'linhVuc'
+//User
+export const API_NGUOIDUNG_ENDPOIN = 'nguoiDung'
 //Map Status
