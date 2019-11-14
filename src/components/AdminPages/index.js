@@ -170,11 +170,23 @@ const columnsNguoiDung = [
   }
 ]
 class Admin extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedPage: 1
+    }
+  }
+
   componentWillMount() {
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
     this.props.get_all_nguoiDung()
+    this.setState({
+      selectedPage: localStorage.getItem('selectedConfig')
+        ? localStorage.getItem('selectedConfig')
+        : 1
+    })
   }
   addKeyToList = (listCV, listLinhVuc) => {
     if (listLinhVuc.length !== 0) {
@@ -189,6 +201,9 @@ class Admin extends Component {
       })
     }
     return listCV
+  }
+  setSelectedPage = pageIndex => {
+    localStorage.setItem('selectedConfig', pageIndex)
   }
   render() {
     const { TabPane } = Tabs
@@ -214,7 +229,11 @@ class Admin extends Component {
         <Row>
           <Col span={24}>
             <StickyContainer>
-              <Tabs defaultActiveKey="2" renderTabBar={renderTabBar}>
+              <Tabs
+                defaultActiveKey={this.state.selectedPage}
+                renderTabBar={renderTabBar}
+                onTabClick={this.setSelectedPage}
+              >
                 <TabPane tab="(1) Quản lý người dùng" key="1">
                   <TableCommon
                     title="Danh sách người dùng"

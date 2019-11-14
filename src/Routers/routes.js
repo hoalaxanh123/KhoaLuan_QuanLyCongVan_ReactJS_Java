@@ -5,6 +5,7 @@ import Scanner from '../components/Scanner'
 import MobileApp from '../components/MobileApp'
 import Admin from '../components/AdminPages'
 import Login from '../components/Login'
+import TaiKhoan from '../components/TaiKhoan'
 
 const json_Routes = [
   {
@@ -30,7 +31,7 @@ const json_Routes = [
   {
     path: '/tai-khoan',
     exactYes: true,
-    main: ({ history }) => <NotFound history={history} />
+    main: ({ history }) => <TaiKhoan history={history} />
   },
   {
     path: '/dang-nhap',
