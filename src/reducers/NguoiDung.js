@@ -4,7 +4,7 @@ const initialState = { byId: [] }
 
 let deleteNguoiDung = (state, action) => {
   let lst = [...state.byId]
-  let index = lst.findIndex(x => String(x.id) === String(action.id))
+  let index = lst.findIndex(x => String(x.maTaiKhoan) === String(action.id))
   lst.splice(index, 1)
   return lst
 }
@@ -22,12 +22,13 @@ const NguoiDungReducer = (state = initialState, action) => {
       console.log('Error get api :', action.payload)
       return { ...state, byId: [] }
     case typeContants.DELETE_NGUOIDUNG:
+      debugger
       let lst = deleteNguoiDung(state, action)
       Message(
         `Susscess <br/>- Action: delete<br/>- TaskID: ${action.id}`,
         'success'
       )
-      return { ...state, listTask: lst }
+      return { ...state, byId: lst }
     default:
       return state
   }

@@ -19,6 +19,9 @@
   -webkit-text-decoration-skip: objects;
 }
 .Link:hover{
+font-weight: bold;
+}
+.Link:hover{
   cursor: pointer;
 }
 .TableOption{

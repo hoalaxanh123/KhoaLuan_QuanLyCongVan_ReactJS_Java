@@ -12,6 +12,7 @@ import {
   Select
 } from 'antd'
 const { Option } = Select
+const { RangePicker } = DatePicker
 
 // const dateFormat = 'YYYY/MM/DD'
 // const monthFormat = 'YYYY/MM'
@@ -19,7 +20,7 @@ const { Option } = Select
 
 class FormFind extends Component {
   state = {
-    expand: false,
+    expand: true,
     width: 6
   }
 
@@ -48,14 +49,30 @@ class FormFind extends Component {
       this.setState({ width: 24 })
     }
   }
-
-  render() {
-    const { getFieldDecorator } = this.props.form
-    const config = {
-      rules: [
-        { type: 'object', required: true, message: 'Hãy chọn thời  gian!' }
-      ]
+  process = listCV => {
+    let arrayNguoiKy = []
+    let arrayCoQuanBanHanh = []
+    for (let congVan of listCV) {
+      if (arrayNguoiKy.indexOf(congVan.nguoiKy) === -1) {
+        arrayNguoiKy.push(congVan.nguoiKy)
+      }
+      if (arrayCoQuanBanHanh.indexOf(congVan.coQuanBanHanh) === -1) {
+        arrayCoQuanBanHanh.push(congVan.coQuanBanHanh)
+      }
     }
+    return {
+      arrayNguoiKy: arrayNguoiKy,
+      arrayCoQuanBanHanh: arrayCoQuanBanHanh
+    }
+  }
+  handleSearch = e => {
+    e.preventDefault()
+    this.props.handleSearch()
+  }
+  render() {
+    let listCV = this.props.listCV
+    const { getFieldDecorator } = this.props.form
+
     let { listLoaiCongVan } = this.props
     let renderListLoaiCongVan = listLoaiCongVan.map(loaiCongVan => (
       <Option
@@ -66,6 +83,28 @@ class FormFind extends Component {
         {loaiCongVan.tenLoai}
       </Option>
     ))
+    let formItemLayout = {
+      labelCol: { span: 24 },
+      wrapperCol: { span: 12 }
+    }
+    let result = this.process(listCV)
+    let arrayNguoiKy = result.arrayNguoiKy
+    let arrayCoQuanBanHanh = result.arrayCoQuanBanHanh
+
+    let renderArrayNguoiKy = arrayNguoiKy.map((nguoiKy, index) => (
+      <Option value={nguoiKy} key={index}>
+        {nguoiKy}
+      </Option>
+    ))
+
+    let renderArrayCoQuanBanHanh = arrayCoQuanBanHanh.map(
+      (coQuanBanHanh, index) => (
+        <Option value={coQuanBanHanh} key={index}>
+          {coQuanBanHanh}
+        </Option>
+      )
+    )
+
     return (
       <Card type="inner" title="Tìm kiếm">
         <Form
@@ -81,11 +120,11 @@ class FormFind extends Component {
             >
               <Select
                 showSearch
-                value="Tất cả"
+                value={-1}
                 style={{ width: '30%', opacity: 1 }}
               >
                 <Option value={-1} title={'Tất cả lĩnh vực'} key={-1}>
-                  {'Tất cả lĩnh vực'}
+                  Tất cả lĩnh vực
                 </Option>
                 {renderListLoaiCongVan}
               </Select>
@@ -108,40 +147,61 @@ class FormFind extends Component {
             style={{ display: this.state.expand ? 'block' : 'none' }}
             className="monition_width"
           >
-            <Col span={this.state.width}>
-              <Form.Item label="Từ ngày">
-                {getFieldDecorator('date-picker', config)(<DatePicker />)}
-              </Form.Item>
-            </Col>
-            <Col span={this.state.width}>
-              <Form.Item label="Tới ngày">
-                {getFieldDecorator('date-picker', config)(<DatePicker />)}
+            <Col
+              span={
+                this.state.width < 24 ? this.state.width + 1 : this.state.width
+              }
+            >
+              <Form.Item label="Trong khoảng" {...formItemLayout}>
+                <RangePicker
+                  showTime={{ format: 'HH:mm' }}
+                  format="YYYY-MM-DD HH:mm"
+                  placeholder={['Start Time', 'End Time']}
+                />
               </Form.Item>
             </Col>
 
             <Col span={this.state.width}>
               <Form.Item label="Người ký">
-                {getFieldDecorator(`field-${1}`, {
-                  rules: [
-                    {
-                      required: true,
-                      message: 'Vui lòng không để trống!'
-                    }
-                  ]
-                })(<Input placeholder="Nhập thông tin cần tìm kiếm" />)}
+                <Select
+                  showSearch
+                  style={{ width: 250 }}
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  defaultValue={-2}
+                  filterOption={(input, option) =>
+                    option.props.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  <Option value={-2} title={'Tất cả'} key={-2}>
+                    Tất cả
+                  </Option>
+                  {renderArrayNguoiKy}
+                </Select>
               </Form.Item>
             </Col>
 
-            <Col span={this.state.width}>
-              <Form.Item label="Gì đó">
-                {getFieldDecorator(`field-${1}`, {
-                  rules: [
-                    {
-                      required: true,
-                      message: 'Vui lòng không để trống!'
-                    }
-                  ]
-                })(<Input placeholder="Nhập thông tin cần tìm kiếm" />)}
+            <Col span={this.state.width + 1}>
+              <Form.Item label="Ban hành">
+                <Select
+                  showSearch
+                  style={{ width: 250 }}
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  defaultValue={-3}
+                  filterOption={(input, option) =>
+                    option.props.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  <Option value={-3} title={'Tất cả'} key={-3}>
+                    Tất cả
+                  </Option>
+                  {renderArrayCoQuanBanHanh}
+                </Select>
               </Form.Item>
             </Col>
           </Row>

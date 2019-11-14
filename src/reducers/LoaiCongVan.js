@@ -4,7 +4,7 @@ const initialState = { byId: [] }
 
 let deleteLoaiCongVan = (state, action) => {
   let lst = [...state.byId]
-  let index = lst.findIndex(x => String(x.id) === String(action.id))
+  let index = lst.findIndex(x => String(x.maLoai) === String(action.id))
   lst.splice(index, 1)
   return lst
 }
@@ -27,7 +27,7 @@ const loaiCongVanReducer = (state = initialState, action) => {
         `Susscess <br/>- Action: delete<br/>- TaskID: ${action.id}`,
         'success'
       )
-      return { ...state, listTask: lst }
+      return { ...state, byId: lst }
     default:
       return state
   }

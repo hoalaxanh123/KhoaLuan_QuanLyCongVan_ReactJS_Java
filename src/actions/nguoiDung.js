@@ -59,7 +59,7 @@ export const deleteTask_Request = id => {
         })
         .catch(error => {
           Message(
-            `Error when:<br/>Action: delete<br/>Loại công văn ID: ${id}<br/>Error: ${Error}`,
+            `Error when:<br/>Action: delete<br/>Tài khoản ID: ${id}<br/>Error: ${Error}`,
             'error'
           )
         })
@@ -68,7 +68,7 @@ export const deleteTask_Request = id => {
 }
 export const deleteTask = id => {
   return {
-    type: taskConstant.DELETE_TASK,
+    type: taskConstant.DELETE_NGUOIDUNG,
     id: id
   }
 }

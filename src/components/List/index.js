@@ -120,8 +120,12 @@ class ListCV extends Component {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
         listCV[index]['key'] = listCV[index].id
-        let date = listCV[index]['ngayBanHanh'].substring(0, 10)
-        listCV[index]['ngayBanHanh'] = date
+        try {
+          let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
+          listCV[index]['ngayBanHanh'] = date
+        } catch (error) {
+          listCV[index]['ngayBanHanh'] = 'ERROR'
+        }
         listCV[index]['linhVuc'] = listLinhVuc.find(
           x => x.maLinhVuc === listCV[index].maLinhVuc
         ).tenLinhVuc
@@ -129,13 +133,20 @@ class ListCV extends Component {
     }
     return listCV
   }
+  handleSearch = () => {
+    alert('YEAH')
+  }
   render() {
     let { listLoaiCongVan, listLinhVuc } = this.props
     let listCV = this.addKeyToList(this.props.listCV, listLinhVuc)
 
     return (
       <div>
-        <FormFind listLoaiCongVan={listLoaiCongVan} />
+        <FormFind
+          listLoaiCongVan={listLoaiCongVan}
+          listCV={listCV}
+          handleSearch={this.handleSearch}
+        />
         <TableCommon
           title="Danh sách công văn"
           columns={columns}

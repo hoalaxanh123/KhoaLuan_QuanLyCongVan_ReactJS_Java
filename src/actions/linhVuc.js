@@ -68,7 +68,7 @@ export const deleteTask_Request = id => {
 }
 export const deleteTask = id => {
   return {
-    type: taskConstant.DELETE_TASK,
+    type: taskConstant.DELETE_LINHVUC,
     id: id
   }
 }

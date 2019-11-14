@@ -86,11 +86,11 @@ class TableCommon extends Component {
     return (
       <Card type="inner" title={title} style={{ marginTop: '5px' }}>
         <Collapse
-          defaultActiveKey={['0']}
+          defaultActiveKey={['1']}
           expandIconPosition={'right'}
           className="TableOption"
         >
-          <Panel header="Tuỳ chọn hiển thị" key="1" extra={genExtra()}>
+          <Panel header="Tuỳ chọn hiển thị" extra={genExtra()}>
             <div>
               <Form layout="inline">
                 <FormItem label="Bordered">
@@ -180,6 +180,7 @@ class TableCommon extends Component {
           {...this.state}
           columns={columns}
           dataSource={state.hasData ? data : null}
+          rowKey={this.props.rowKey}
         />
       </Card>
     )

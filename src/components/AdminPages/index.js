@@ -33,12 +33,17 @@ class Admin extends Component {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
         listCV[index]['key'] = listCV[index].id
-        debugger
-        let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
-        listCV[index]['ngayBanHanh'] = date
-        listCV[index]['linhVuc'] = listLinhVuc.find(
-          x => x.maLinhVuc === listCV[index].maLinhVuc
-        ).tenLinhVuc
+        try {
+          let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
+          listCV[index]['ngayBanHanh'] = date
+          listCV[index]['linhVuc'] = listLinhVuc.find(
+            x => x.maLinhVuc === listCV[index].maLinhVuc
+          ).tenLinhVuc
+        } catch (error) {
+          listCV[index]['ngayBanHanh'] = 'ERROR'
+          listCV[index]['linhVuc'] = 'Không xác định'
+        }
+
         listCV[index]['index'] = index
       })
     }
@@ -48,9 +53,6 @@ class Admin extends Component {
     localStorage.setItem('selectedConfig', pageIndex)
   }
   onClicked = (Action, Type, selectedObj) => {
-    console.log('Action :', Action)
-    console.log('Type :', Type)
-    console.log('selectedObj :', selectedObj)
     if (Action === 'EDIT') {
       switch (Type) {
         case constant.NGUOIDUNG:
@@ -70,16 +72,16 @@ class Admin extends Component {
       if (sure === true) {
         switch (Type) {
           case constant.NGUOIDUNG:
-            this.props.xoa_nguoi_dung(selectedObj.id)
+            this.props.xoa_nguoi_dung(selectedObj.maTaiKhoan)
             break
           case constant.CONGVAN:
             this.props.xoa_cong_van(selectedObj.id)
             break
           case constant.LOAICONGVAN:
-            this.props.xoa_loai_cong_van(selectedObj.id)
+            this.props.xoa_loai_cong_van(selectedObj.maLoai)
             break
           case constant.LINHVUC:
-            this.props.xoa_linh_vuc(selectedObj.id)
+            this.props.xoa_linh_vuc(selectedObj.maLinhVuc)
             break
           default:
             Message('ERROR: ' + Type, 'error')
@@ -133,15 +135,24 @@ class Admin extends Component {
       },
       {
         title: 'Hành động',
-        key: 'action',
-        width: '10%',
+        key: 'action1',
+        width: '12%',
         render: congVan => (
           <span>
             <span
               className="Link"
+              onClick={() =>
+                this.onClicked('ADDNEW', constant.CONGVAN, congVan)
+              }
+            >
+              Thêm mới
+            </span>
+            <Divider type="vertical" />
+            <span
+              className="Link"
               onClick={() => this.onClicked('EDIT', constant.CONGVAN, congVan)}
             >
-              Edit
+              Sửa
             </span>
             <Divider type="vertical" />
             <span
@@ -150,7 +161,7 @@ class Admin extends Component {
                 this.onClicked('DELETE', constant.CONGVAN, congVan)
               }
             >
-              Delete
+              Xoá
             </span>
           </span>
         )
@@ -162,13 +173,13 @@ class Admin extends Component {
         dataIndex: 'maLoai',
         key: 'maLoai',
         render: text => <span>{text}</span>,
-        width: '10%'
+        width: '8%'
       },
       {
         title: 'Tên loại',
         dataIndex: 'tenLoai',
         key: 'tenLoai',
-        width: '40%'
+        width: '38%'
       },
       {
         title: 'Mô  tả',
@@ -178,15 +189,24 @@ class Admin extends Component {
       },
       {
         title: 'Hành động',
-        key: 'action',
-        width: '10%',
+        key: 'action2',
+        width: '15%',
         render: text => (
           <span>
             <span
               className="Link"
+              onClick={() =>
+                this.onClicked('ADDNEW', constant.LOAICONGVAN, text)
+              }
+            >
+              Thêm mới
+            </span>
+            <Divider type="vertical" />
+            <span
+              className="Link"
               onClick={() => this.onClicked('EDIT', constant.LOAICONGVAN, text)}
             >
-              Edit
+              Sửa
             </span>
             <Divider type="vertical" />
             <span
@@ -195,7 +215,7 @@ class Admin extends Component {
                 this.onClicked('DELETE', constant.LOAICONGVAN, text)
               }
             >
-              Delete
+              Xoá
             </span>
           </span>
         )
@@ -219,26 +239,33 @@ class Admin extends Component {
         title: 'Tên viết tắt',
         dataIndex: 'tenVietTat',
         key: 'tenVietTat',
-        width: '40%'
+        width: '35%'
       },
       {
         title: 'Hành động',
-        key: 'action',
-        width: '10%',
+        key: 'action3',
+        width: '12%',
         render: text => (
           <span>
             <span
               className="Link"
+              onClick={() => this.onClicked('ADDNEW', constant.LINHVUC, text)}
+            >
+              Thêm mới
+            </span>
+            <Divider type="vertical" />
+            <span
+              className="Link"
               onClick={() => this.onClicked('EDIT', constant.LINHVUC, text)}
             >
-              Edit
+              Sửa
             </span>
             <Divider type="vertical" />
             <span
               className="Link"
               onClick={() => this.onClicked('DELETE', constant.LINHVUC, text)}
             >
-              Delete
+              Xoá
             </span>
           </span>
         )
@@ -248,22 +275,26 @@ class Admin extends Component {
       {
         title: 'Tên tài khoản',
         dataIndex: 'tenTaiKhoan',
-        key: 'tenTaiKhoan'
+        key: 'tenTaiKhoan',
+        width: '15%'
       },
       {
         title: 'Tên người dùng',
         dataIndex: 'hoTen',
-        key: 'hoTen'
+        key: 'hoTen',
+        width: '15%'
       },
       {
         title: 'Email',
         dataIndex: 'email',
-        key: 'email'
+        key: 'email',
+        width: '35%'
       },
       {
         title: 'Quyền',
         dataIndex: 'phanQuyen',
-        key: 'phanQuyen'
+        key: 'phanQuyen',
+        width: '10%'
       },
       {
         title: 'Trạng thái',
@@ -273,25 +304,34 @@ class Admin extends Component {
           <span className={trangThai ? 'Active' : 'Deactive'}>
             {trangThai ? 'Đang hoạt động' : 'Ngừng kích hoạt'}
           </span>
-        )
+        ),
+        width: '10%'
       },
       {
         title: 'Hành động',
-        key: 'action',
+        key: 'action4',
+        width: '12%',
         render: text => (
           <span>
             <span
               className="Link"
+              onClick={() => this.onClicked('ADDNEW', constant.NGUOIDUNG, text)}
+            >
+              Thêm mới
+            </span>
+            <Divider type="vertical" />
+            <span
+              className="Link"
               onClick={() => this.onClicked('EDIT', constant.NGUOIDUNG, text)}
             >
-              Edit
+              Sửa
             </span>
             <Divider type="vertical" />
             <span
               className="Link"
               onClick={() => this.onClicked('DELETE', constant.NGUOIDUNG, text)}
             >
-              Delete
+              Xoá
             </span>
           </span>
         )
@@ -326,6 +366,7 @@ class Admin extends Component {
                     title="Danh sách người dùng"
                     data={listNguoiDung}
                     columns={columnsNguoiDung}
+                    rowKey={'maTaiKhoan'}
                   />
                 </TabPane>
                 <TabPane tab="(2) Quản lý công văn" key="2">
@@ -340,6 +381,7 @@ class Admin extends Component {
                     title="Danh sách loại công văn"
                     data={listLoaiCongVan}
                     columns={columnsLoaiCongvan}
+                    rowKey={'maLoai'}
                   />
                 </TabPane>
                 <TabPane tab="(4) Quản lý lĩnh vực" key="4">
@@ -347,6 +389,7 @@ class Admin extends Component {
                     title="Danh sách lĩnh vực"
                     data={listLinhVuc}
                     columns={columnsLinhVuc}
+                    rowKey={'maLinhVuc'}
                   />
                 </TabPane>
               </Tabs>
