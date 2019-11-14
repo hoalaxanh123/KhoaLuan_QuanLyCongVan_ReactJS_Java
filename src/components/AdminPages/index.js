@@ -70,16 +70,16 @@ class Admin extends Component {
       if (sure === true) {
         switch (Type) {
           case constant.NGUOIDUNG:
-            alert('Đã xoá người dùng')
+            this.props.xoa_nguoi_dung(selectedObj.id)
             break
           case constant.CONGVAN:
             this.props.xoa_cong_van(selectedObj.id)
             break
           case constant.LOAICONGVAN:
-            alert('Đã xoá loại công văn')
+            this.props.xoa_loai_cong_van(selectedObj.id)
             break
           case constant.LINHVUC:
-            alert('Đã xoá lĩnh vực')
+            this.props.xoa_linh_vuc(selectedObj.id)
             break
           default:
             Message('ERROR: ' + Type, 'error')
@@ -374,6 +374,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     xoa_cong_van: CongVanID => {
       dispatch(action.deleteTask_Request(CongVanID))
+    },
+    xoa_loai_cong_van: LoaiCongVanID => {
+      dispatch(actionLoaiCongVan.deleteTask_Request(LoaiCongVanID))
+    },
+    xoa_linh_vuc: LinhVucID => {
+      dispatch(actionLinhVuc.deleteTask_Request(LinhVucID))
+    },
+    xoa_nguoi_dung: NguoiDungID => {
+      dispatch(actionNguoiDung.deleteTask_Request(NguoiDungID))
     }
   }
 }
