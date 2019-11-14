@@ -1,0 +1,8 @@
+-Giữ tab OK
+-Tạo page tài khoản
+-login
+-delete
+-edit and add
+-Scanner
+Rút trích thông tin
+Bài toán phân loại
