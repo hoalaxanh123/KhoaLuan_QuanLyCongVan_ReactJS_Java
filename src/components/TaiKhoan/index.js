@@ -1,56 +1,7 @@
 import React, { Component } from 'react'
 // import moment from 'moment'
-import {
-  Card,
-  Form,
-  Row,
-  Col,
-  Input,
-  Button,
-  Icon,
-  Select,
-  Tooltip,
-  Cascader,
-  Checkbox,
-  AutoComplete
-} from 'antd'
+import { Card, Form, Input, Button, Select } from 'antd'
 const { Option } = Select
-const AutoCompleteOption = AutoComplete.Option
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men'
-          }
-        ]
-      }
-    ]
-  }
-]
 
 class TaiKhoan extends Component {
   state = {
@@ -110,65 +61,52 @@ class TaiKhoan extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form
-    const { autoCompleteResult } = this.state
 
     const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 }
-      }
+      labelCol: { span: 8 },
+      wrapperCol: { span: 8 }
     }
     const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0
-        },
-        sm: {
-          span: 16,
-          offset: 8
-        }
-      }
+      labelCol: { span: 8 },
+      wrapperCol: { span: 8, offset: 8 }
     }
     const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86'
+      initialValue: '84'
     })(
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="84">+84</Option>
+        <Option value="-1">Khác</Option>
       </Select>
     )
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ))
     return (
       <Card type="inner" title="Tài khoản">
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form
+          {...formItemLayout}
+          onSubmit={this.handleSubmit}
+          labelAlign="left"
+          labelCol={{ span: 24, offset: 0 }}
+        >
           <Form.Item label="E-mail">
             {getFieldDecorator('email', {
               rules: [
                 {
                   type: 'email',
-                  message: 'The input is not valid E-mail!'
+                  message: 'Vui lòng nhập E-mail hợp lệ!'
                 },
                 {
                   required: true,
-                  message: 'Please input your E-mail!'
+                  message: 'Vui lòng nhập E-mail!'
                 }
               ]
             })(<Input />)}
           </Form.Item>
-          <Form.Item label="Password" hasFeedback>
+          <Form.Item label="Mật khẩu" hasFeedback>
             {getFieldDecorator('password', {
               rules: [
                 {
                   required: true,
-                  message: 'Please input your password!'
+                  message: 'Vui lòng nhập password!'
                 },
                 {
                   validator: this.validateToNextPassword
@@ -176,12 +114,12 @@ class TaiKhoan extends Component {
               ]
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="Confirm Password" hasFeedback>
+          <Form.Item label="Nhập lại mật khẩu" hasFeedback>
             {getFieldDecorator('confirm', {
               rules: [
                 {
                   required: true,
-                  message: 'Please confirm your password!'
+                  message: 'Nhập lại mật khẩu!'
                 },
                 {
                   validator: this.compareToFirstPassword
@@ -189,39 +127,18 @@ class TaiKhoan extends Component {
               ]
             })(<Input.Password onBlur={this.handleConfirmBlur} />)}
           </Form.Item>
-          <Form.Item
-            label={
-              <span>
-                Nickname&nbsp;
-                <Tooltip title="What do you want others to call you?">
-                  <Icon type="question-circle-o" />
-                </Tooltip>
-              </span>
-            }
-          >
+          <Form.Item label={'Tên đăng nhập'}>
             {getFieldDecorator('nickname', {
               rules: [
                 {
                   required: true,
-                  message: 'Please input your nickname!',
+                  message: 'Vui lòng nhập tên đăng nhập!',
                   whitespace: true
                 }
               ]
             })(<Input />)}
           </Form.Item>
-          <Form.Item label="Habitual Residence">
-            {getFieldDecorator('residence', {
-              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-              rules: [
-                {
-                  type: 'array',
-                  required: true,
-                  message: 'Please select your habitual residence!'
-                }
-              ]
-            })(<Cascader options={residences} />)}
-          </Form.Item>
-          <Form.Item label="Phone Number">
+          <Form.Item label="Số điện thoại">
             {getFieldDecorator('phone', {
               rules: [
                 { required: true, message: 'Please input your phone number!' }
@@ -230,51 +147,10 @@ class TaiKhoan extends Component {
               <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
             )}
           </Form.Item>
-          <Form.Item label="Website">
-            {getFieldDecorator('website', {
-              rules: [{ required: true, message: 'Please input website!' }]
-            })(
-              <AutoComplete
-                dataSource={websiteOptions}
-                onChange={this.handleWebsiteChange}
-                placeholder="website"
-              >
-                <Input />
-              </AutoComplete>
-            )}
-          </Form.Item>
-          <Form.Item
-            label="Captcha"
-            extra="We must make sure that your are a human."
-          >
-            <Row gutter={8}>
-              <Col span={12}>
-                {getFieldDecorator('captcha', {
-                  rules: [
-                    {
-                      required: true,
-                      message: 'Please input the captcha you got!'
-                    }
-                  ]
-                })(<Input />)}
-              </Col>
-              <Col span={12}>
-                <Button>Get captcha</Button>
-              </Col>
-            </Row>
-          </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
-            {getFieldDecorator('agreement', {
-              valuePropName: 'checked'
-            })(
-              <Checkbox>
-                I have read the <a href="">agreement</a>
-              </Checkbox>
-            )}
-          </Form.Item>
+
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
-              Register
+              Gửi
             </Button>
           </Form.Item>
         </Form>
