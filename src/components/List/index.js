@@ -71,8 +71,8 @@ class ListCV extends Component {
     linhVuc: -4,
     ngayBatDau: null,
     ngayKetThuc: null,
-    nguoiKy: -2,
-    coQuanBanHanh: -3
+    nguoiKy: '',
+    coQuanBanHanh: ''
   }
 
   handleToggle = prop => enable => {
@@ -124,8 +124,45 @@ class ListCV extends Component {
     this.props.get_all_cong_van()
   }
   filterByState = listCV => {
-    let result = listCV
-    // listCV.fillter
+    let result = []
+    let state = this.state
+    listCV.forEach(x => {
+      let flag = true
+      if (flag === true && state.keyword.length > 0) {
+        x.trichYeu
+          .trim()
+          .toLowerCase()
+          .includes(state.keyword.trim().toLowerCase())
+          ? (flag = true)
+          : (flag = false)
+      }
+      if (flag === true && state.linhVuc > 0) {
+        x.maLinhVuc === state.linhVuc ? (flag = true) : (flag = false)
+      }
+      if (flag === true && state.loaiCongVan > 0) {
+        x.maLoai === state.loaiCongVan ? (flag = true) : (flag = false)
+      }
+      if (flag === true && state.nguoiKy.length > 0) {
+        x.nguoiKy === state.nguoiKy ? (flag = true) : (flag = false)
+      }
+      if (flag === true && state.coQuanBanHanh.length > 0) {
+        x.coQuanBanHanh === state.coQuanBanHanh ? (flag = true) : (flag = false)
+      }
+      if (flag === true && state.ngayBatDau && state.ngayKetThuc) {
+        let dateCurrent = new Date(x.ngayBanHanh.toString().substring(0, 10))
+        let dateStart = new Date(state.ngayBatDau)
+        let dateEnd = new Date(state.ngayKetThuc)
+        dateCurrent.setHours(0, 0, 0, 0)
+        dateStart.setHours(0, 0, 0, 0)
+        dateEnd.setHours(0, 0, 0, 0)
+        if (dateCurrent >= dateStart && dateCurrent <= dateEnd) flag = true
+        else flag = false
+      }
+      if (flag === true) {
+        result.push(x)
+      }
+    })
+    console.log('fil')
     return result
   }
   addKeyToList = (listCV, listLinhVuc) => {
@@ -145,6 +182,23 @@ class ListCV extends Component {
     }
     return listCV
   }
+  process = listCV => {
+    let arrayNguoiKy = []
+    let arrayCoQuanBanHanh = []
+    for (let congVan of listCV) {
+      // eslint-disable-line
+      if (arrayNguoiKy.indexOf(congVan.nguoiKy) === -1) {
+        arrayNguoiKy.push(congVan.nguoiKy)
+      }
+      if (arrayCoQuanBanHanh.indexOf(congVan.coQuanBanHanh) === -1) {
+        arrayCoQuanBanHanh.push(congVan.coQuanBanHanh)
+      }
+    }
+    return {
+      arrayNguoiKy: arrayNguoiKy,
+      arrayCoQuanBanHanh: arrayCoQuanBanHanh
+    }
+  }
   handleSearch = state => {
     console.log('L-state :', state)
     this.setState({
@@ -159,8 +213,12 @@ class ListCV extends Component {
   }
   render() {
     let { listLoaiCongVan, listLinhVuc } = this.props
-    let listCV = this.addKeyToList(this.props.listCV, listLinhVuc)
-    listCV = this.filterByState(listCV)
+    let listCV = this.props.listCV
+    let result = this.process(listCV)
+    let arrayNguoiKy = result.arrayNguoiKy
+    let arrayCoQuanBanHanh = result.arrayCoQuanBanHanh
+    let listCVFilter = this.filterByState(listCV)
+    listCV = this.addKeyToList(listCVFilter, listLinhVuc)
     return (
       <div>
         <FormFind
@@ -168,6 +226,8 @@ class ListCV extends Component {
           listCV={listCV}
           handleSearch={this.handleSearch}
           listLinhVuc={listLinhVuc}
+          arrayNguoiKy={arrayNguoiKy}
+          arrayCoQuanBanHanh={arrayCoQuanBanHanh}
         />
         <TableCommon
           title="Danh sách công văn"

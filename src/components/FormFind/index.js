@@ -21,7 +21,7 @@ const { RangePicker } = DatePicker
 
 class FormFind extends Component {
   state = {
-    expand: true,
+    expand: false,
     width: 6,
     disabled: false,
     keyword: '',
@@ -51,23 +51,7 @@ class FormFind extends Component {
       this.setState({ width: 24 })
     }
   }
-  process = listCV => {
-    let arrayNguoiKy = []
-    let arrayCoQuanBanHanh = []
-    for (let congVan of listCV) {
-      // eslint-disable-line
-      if (arrayNguoiKy.indexOf(congVan.nguoiKy) === -1) {
-        arrayNguoiKy.push(congVan.nguoiKy)
-      }
-      if (arrayCoQuanBanHanh.indexOf(congVan.coQuanBanHanh) === -1) {
-        arrayCoQuanBanHanh.push(congVan.coQuanBanHanh)
-      }
-    }
-    return {
-      arrayNguoiKy: arrayNguoiKy,
-      arrayCoQuanBanHanh: arrayCoQuanBanHanh
-    }
-  }
+
   handleSearch = event => {
     event.preventDefault()
     this.props.handleSearch(this.state)
@@ -109,8 +93,6 @@ class FormFind extends Component {
     }
   }
   render() {
-    let listCV = this.props.listCV
-
     let { listLoaiCongVan } = this.props
     let renderListLoaiCongVan = listLoaiCongVan.map(loaiCongVan => (
       <Option
@@ -125,9 +107,8 @@ class FormFind extends Component {
       labelCol: { span: 24 },
       wrapperCol: { span: 12 }
     }
-    let result = this.process(listCV)
-    let arrayNguoiKy = result.arrayNguoiKy
-    let arrayCoQuanBanHanh = result.arrayCoQuanBanHanh
+
+    let { arrayNguoiKy, arrayCoQuanBanHanh } = this.props
 
     let renderArrayNguoiKy = arrayNguoiKy.map((nguoiKy, index) => (
       <Option value={nguoiKy} key={index}>
@@ -202,6 +183,7 @@ class FormFind extends Component {
                   format="DD-MM-YYYY"
                   placeholder={['Từ ngày', 'Tới ngày']}
                   onChange={this.handleTrongKhoang}
+                  onOk={this.handleTrongKhoang}
                 />
               </Form.Item>
             </Col>

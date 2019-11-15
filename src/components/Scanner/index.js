@@ -1,8 +1,62 @@
 import React, { Component } from 'react'
-import { Card, Row, Col, Input, Form, Icon, Button } from 'antd'
+import {
+  Card,
+  Row,
+  Col,
+  Input,
+  Form,
+  Icon,
+  Button,
+  Upload,
+  message
+} from 'antd'
 const { TextArea } = Input
-
+const props = {
+  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  multiple: true,
+  onChange({ file, fileList }) {
+    if (file.status !== 'uploading') {
+      console.log(file, fileList)
+    }
+  },
+  defaultFileList: []
+}
 class Scanner extends Component {
+  state = {
+    fileList: [
+      {
+        uid: '-1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'http://www.baidu.com/xxx.png'
+      }
+    ]
+  }
+
+  handleChange = info => {
+    let fileList = [...info.fileList]
+
+    // 1. Limit the number of uploaded files
+    // Only to show two recent uploaded files, and old ones will be replaced by the new
+    fileList = fileList.slice(-2)
+
+    // 2. Read from response and show file link
+    fileList = fileList.map(file => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response.url
+      }
+      return file
+    })
+
+    this.setState({ fileList })
+
+    // handleChange= (info) => {
+    //   info.fileList.filter(file => file.type !== "image/jpeg")
+    //   .map((file, idx) => info.fileList.splice(idx, 1));
+    //   ....
+    //   }
+  }
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields()
@@ -19,8 +73,6 @@ class Scanner extends Component {
   render() {
     // Only show error after a field is touched.
     const { getFieldDecorator } = this.props.form
-    let result =
-      'Đây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\nĐây là nơi sau khi scan xong chữ sẽ hiện ở đây\n'
 
     return (
       <Card
@@ -32,23 +84,14 @@ class Scanner extends Component {
           {/* Scanner */}
           <Col span={24}>
             <Card type="inner">
-              <Form layout="" onSubmit={this.handleSubmit}>
-                <Form.Item label="Hình ảnh">
-                  {getFieldDecorator(`field-${1}`, {
-                    rules: [
-                      {
-                        required: true,
-                        message: 'Vui lòng chọn hình ảnh!'
-                      }
-                    ]
-                  })(
-                    <Input
-                      type="text"
-                      readOnly
-                      placeholder="Vui lòng chọn hình ảnh!"
-                    />
-                  )}
-                </Form.Item>{' '}
+              <Form layout="horizontal" onSubmit={this.handleSubmit}>
+                <Form.Item label="Hình ảnh:">
+                  <Upload {...props}>
+                    <Button block>
+                      <Icon type="upload" /> Chọn hình ảnh để tiến hành xử lý
+                    </Button>
+                  </Upload>
+                </Form.Item>
                 <Form.Item>
                   <Button
                     type="primary"
@@ -72,8 +115,6 @@ class Scanner extends Component {
                 rows={32}
                 onChange={this.onChange}
                 placeholder="Controlled autosize"
-                autoSize={{ minRows: 3, maxRows: 5 }}
-                value={result}
               />
             </Card>
           </Col>
