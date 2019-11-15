@@ -21,7 +21,8 @@ const { RangePicker } = DatePicker
 class FormFind extends Component {
   state = {
     expand: true,
-    width: 6
+    width: 6,
+    disabled: false
   }
 
   // To generate mock Form.Item
@@ -67,7 +68,11 @@ class FormFind extends Component {
   }
   handleSearch = e => {
     e.preventDefault()
-    this.props.handleSearch()
+    console.log('e :', e)
+    // this.props.handleSearch()
+  }
+  handleChange = e => {
+    console.log('e :', e)
   }
   render() {
     let listCV = this.props.listCV
@@ -139,7 +144,12 @@ class FormFind extends Component {
                       message: 'Vui lòng không để trống!'
                     }
                   ]
-                })(<Input placeholder="Nhập thông tin cần tìm kiếm" />)}
+                })(
+                  <Input
+                    placeholder="Nhập thông tin cần tìm kiếm"
+                    onChange={this.handleChange}
+                  />
+                )}
               </Form.Item>
             </Col>
           </Row>
@@ -207,7 +217,11 @@ class FormFind extends Component {
           </Row>
           <Row>
             <Col span={24} style={{ textAlign: 'right' }}>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={this.state.disabled}
+              >
                 Tìm kiếm
               </Button>
               <Button
