@@ -11,7 +11,7 @@ import {
   DatePicker,
   Select
 } from 'antd'
-import moment from 'moment'
+// import moment from 'moment'
 const { Option } = Select
 const { RangePicker } = DatePicker
 
@@ -35,13 +35,6 @@ class FormFind extends Component {
 
   // To generate mock Form.Item
 
-  handleSearch = e => {
-    e.preventDefault()
-    this.props.form.validateFields((err, values) => {
-      console.log('Received values of form: ', values)
-    })
-  }
-
   handleReset = () => {
     this.props.form.resetFields()
   }
@@ -62,6 +55,7 @@ class FormFind extends Component {
     let arrayNguoiKy = []
     let arrayCoQuanBanHanh = []
     for (let congVan of listCV) {
+      // eslint-disable-line
       if (arrayNguoiKy.indexOf(congVan.nguoiKy) === -1) {
         arrayNguoiKy.push(congVan.nguoiKy)
       }
@@ -76,10 +70,7 @@ class FormFind extends Component {
   }
   handleSearch = event => {
     event.preventDefault()
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-    console.log('this.state :', this.state)
+    this.props.handleSearch(this.state)
   }
   onChangeLoaiCongVan = event => {
     this.setState({ loaiCongVan: event })
@@ -156,9 +147,9 @@ class FormFind extends Component {
         {linhVuc.tenLinhVuc}
       </Option>
     ))
-    let date = new Date()
-    let dateStart = date.toLocaleDateString('vi-vn')
-    let dateEnd = date.toLocaleDateString('vi-vn')
+    // let date = new Date()
+    // let dateStart = date.toLocaleDateString('vi-vn')
+    // let dateEnd = date.toLocaleDateString('vi-vn')
     return (
       <Card type="inner" title="Tìm kiếm">
         <Form
@@ -208,7 +199,6 @@ class FormFind extends Component {
               <Form.Item label="" {...formItemLayout}>
                 <RangePicker
                   allowClear
-                  defaultValue={[moment({ dateStart }), moment({ dateEnd })]}
                   format="DD-MM-YYYY"
                   placeholder={['Từ ngày', 'Tới ngày']}
                   onChange={this.handleTrongKhoang}
@@ -249,7 +239,7 @@ class FormFind extends Component {
                   placeholder="Chọn cơ quan ban hành"
                   optionFilterProp="children"
                   defaultValue={-3}
-                  onChange={this.handleChangeLinhVuc}
+                  onChange={this.handleChangeBanHanh}
                   filterOption={(input, option) =>
                     option.props.children
                       .toLowerCase()
@@ -273,7 +263,7 @@ class FormFind extends Component {
                   placeholder="Chọn lĩnh vực"
                   optionFilterProp="children"
                   defaultValue={-4}
-                  onChange={this.handleChangeBanHanh}
+                  onChange={this.handleChangeLinhVuc}
                   filterOption={(input, option) =>
                     option.props.children
                       .toLowerCase()

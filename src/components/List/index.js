@@ -65,7 +65,14 @@ class ListCV extends Component {
     footer: undefined,
     rowSelection: undefined,
     scroll: undefined,
-    hasData: true
+    hasData: true,
+    keyword: '',
+    loaiCongVan: -1,
+    linhVuc: -4,
+    ngayBatDau: null,
+    ngayKetThuc: null,
+    nguoiKy: -2,
+    coQuanBanHanh: -3
   }
 
   handleToggle = prop => enable => {
@@ -116,6 +123,11 @@ class ListCV extends Component {
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
   }
+  filterByState = listCV => {
+    let result = listCV
+    // listCV.fillter
+    return result
+  }
   addKeyToList = (listCV, listLinhVuc) => {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
@@ -133,13 +145,22 @@ class ListCV extends Component {
     }
     return listCV
   }
-  handleSearch = () => {
-    alert('YEAH')
+  handleSearch = state => {
+    console.log('L-state :', state)
+    this.setState({
+      keyword: state.keyword,
+      loaiCongVan: state.loaiCongVan,
+      linhVuc: state.linhVuc,
+      ngayBatDau: state.ngayBatDau,
+      ngayKetThuc: state.ngayKetThuc,
+      nguoiKy: state.nguoiKy,
+      coQuanBanHanh: state.coQuanBanHanh
+    })
   }
   render() {
     let { listLoaiCongVan, listLinhVuc } = this.props
     let listCV = this.addKeyToList(this.props.listCV, listLinhVuc)
-
+    listCV = this.filterByState(listCV)
     return (
       <div>
         <FormFind
