@@ -11,10 +11,11 @@ import {
   DatePicker,
   Select
 } from 'antd'
+import moment from 'moment'
 const { Option } = Select
 const { RangePicker } = DatePicker
 
-// const dateFormat = 'YYYY/MM/DD'
+//const dateFormat = 'DD/MM/YYYY'
 // const monthFormat = 'YYYY/MM'
 // const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY']
 
@@ -22,7 +23,14 @@ class FormFind extends Component {
   state = {
     expand: true,
     width: 6,
-    disabled: false
+    disabled: false,
+    keyword: '',
+    loaiCongVan: -1,
+    linhVuc: -4,
+    ngayBatDau: null,
+    ngayKetThuc: null,
+    nguoiKy: -2,
+    coQuanBanHanh: -3
   }
 
   // To generate mock Form.Item
@@ -66,17 +74,51 @@ class FormFind extends Component {
       arrayCoQuanBanHanh: arrayCoQuanBanHanh
     }
   }
-  handleSearch = e => {
-    e.preventDefault()
-    console.log('e :', e)
-    // this.props.handleSearch()
+  handleSearch = event => {
+    event.preventDefault()
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    console.log('this.state :', this.state)
   }
-  handleChange = e => {
-    console.log('e :', e)
+  onChangeLoaiCongVan = event => {
+    this.setState({ loaiCongVan: event })
+  }
+  handleChangeKeyWord = event => {
+    this.setState({
+      keyword: event.target.value
+    })
+  }
+  handleChangeNguoiKy = event => {
+    this.setState({
+      nguoiKy: event
+    })
+  }
+  handleChangeBanHanh = event => {
+    this.setState({
+      coQuanBanHanh: event
+    })
+  }
+  onOKhandle = () => {
+    console.log('this.state :', this.state)
+  }
+  handleTrongKhoang = event => {
+    if (event.length !== 0) {
+      this.setState({
+        ngayBatDau: event[0].format('L'),
+        ngayKetThuc: event[1].format('L')
+      })
+    }
+  }
+  handleChangeLinhVuc = event => {
+    if (event.length !== 0) {
+      this.setState({
+        linhVuc: event
+      })
+    }
   }
   render() {
     let listCV = this.props.listCV
-    const { getFieldDecorator } = this.props.form
 
     let { listLoaiCongVan } = this.props
     let renderListLoaiCongVan = listLoaiCongVan.map(loaiCongVan => (
@@ -109,7 +151,14 @@ class FormFind extends Component {
         </Option>
       )
     )
-
+    let renderArrayLinhVuc = this.props.listLinhVuc.map((linhVuc, index) => (
+      <Option value={linhVuc.maLinhVuc} key={index}>
+        {linhVuc.tenLinhVuc}
+      </Option>
+    ))
+    let date = new Date()
+    let dateStart = date.toLocaleDateString('vi-vn')
+    let dateEnd = date.toLocaleDateString('vi-vn')
     return (
       <Card type="inner" title="Tìm kiếm">
         <Form
@@ -125,11 +174,13 @@ class FormFind extends Component {
             >
               <Select
                 showSearch
-                value={-1}
+                value={this.state.loaiCongVan}
                 style={{ width: '30%', opacity: 1 }}
+                onChange={this.onChangeLoaiCongVan}
+                name="linhVuc"
               >
-                <Option value={-1} title={'Tất cả lĩnh vực'} key={-1}>
-                  Tất cả lĩnh vực
+                <Option value={-1} title={'Tất cả các loại'} key={-1}>
+                  Tất cả các loại
                 </Option>
                 {renderListLoaiCongVan}
               </Select>
@@ -137,19 +188,11 @@ class FormFind extends Component {
                 label=""
                 style={{ width: '80%', marginLeft: '3%', marginTop: '-5px' }}
               >
-                {getFieldDecorator(`field-${1}`, {
-                  rules: [
-                    {
-                      required: true,
-                      message: 'Vui lòng không để trống!'
-                    }
-                  ]
-                })(
-                  <Input
-                    placeholder="Nhập thông tin cần tìm kiếm"
-                    onChange={this.handleChange}
-                  />
-                )}
+                <Input
+                  placeholder="Nhập thông tin cần tìm kiếm"
+                  onChange={this.handleChangeKeyWord}
+                  value={this.state.keyword}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -162,11 +205,13 @@ class FormFind extends Component {
                 this.state.width < 24 ? this.state.width + 1 : this.state.width
               }
             >
-              <Form.Item label="Trong khoảng" {...formItemLayout}>
+              <Form.Item label="" {...formItemLayout}>
                 <RangePicker
-                  showTime={{ format: 'HH:mm' }}
-                  format="YYYY-MM-DD HH:mm"
-                  placeholder={['Start Time', 'End Time']}
+                  allowClear
+                  defaultValue={[moment({ dateStart }), moment({ dateEnd })]}
+                  format="DD-MM-YYYY"
+                  placeholder={['Từ ngày', 'Tới ngày']}
+                  onChange={this.handleTrongKhoang}
                 />
               </Form.Item>
             </Col>
@@ -176,9 +221,11 @@ class FormFind extends Component {
                 <Select
                   showSearch
                   style={{ width: 250 }}
-                  placeholder="Select a person"
+                  placeholder="Chọn người ký"
                   optionFilterProp="children"
                   defaultValue={-2}
+                  value={this.state.nguoiKy}
+                  onChange={this.handleChangeNguoiKy}
                   filterOption={(input, option) =>
                     option.props.children
                       .toLowerCase()
@@ -193,14 +240,16 @@ class FormFind extends Component {
               </Form.Item>
             </Col>
 
-            <Col span={this.state.width + 1}>
+            <Col span={this.state.width}>
               <Form.Item label="Ban hành">
                 <Select
                   showSearch
                   style={{ width: 250 }}
-                  placeholder="Select a person"
+                  value={this.state.coQuanBanHanh}
+                  placeholder="Chọn cơ quan ban hành"
                   optionFilterProp="children"
                   defaultValue={-3}
+                  onChange={this.handleChangeLinhVuc}
                   filterOption={(input, option) =>
                     option.props.children
                       .toLowerCase()
@@ -208,9 +257,33 @@ class FormFind extends Component {
                   }
                 >
                   <Option value={-3} title={'Tất cả'} key={-3}>
-                    Tất cả
+                    Tất cả cơ quan
                   </Option>
                   {renderArrayCoQuanBanHanh}
+                </Select>
+              </Form.Item>
+            </Col>
+
+            <Col span={this.state.width - 1}>
+              <Form.Item label="Lĩnh vực">
+                <Select
+                  showSearch
+                  style={{ width: 250 }}
+                  value={this.state.linhVuc}
+                  placeholder="Chọn lĩnh vực"
+                  optionFilterProp="children"
+                  defaultValue={-4}
+                  onChange={this.handleChangeBanHanh}
+                  filterOption={(input, option) =>
+                    option.props.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  <Option value={-4} title={'Tất cả'} key={-3}>
+                    Tất cả lĩnh vực
+                  </Option>
+                  {renderArrayLinhVuc}
                 </Select>
               </Form.Item>
             </Col>

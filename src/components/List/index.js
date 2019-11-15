@@ -146,6 +146,7 @@ class ListCV extends Component {
           listLoaiCongVan={listLoaiCongVan}
           listCV={listCV}
           handleSearch={this.handleSearch}
+          listLinhVuc={listLinhVuc}
         />
         <TableCommon
           title="Danh sách công văn"
