@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as constant from './../../constants/index'
 import {
   Card,
   Row,
@@ -11,45 +12,35 @@ import {
   message
 } from 'antd'
 const { TextArea } = Input
+
 const props = {
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  action: constant.API_URL_UPFILE,
   multiple: true,
-  onChange({ file, fileList }) {
-    if (file.status !== 'uploading') {
-      console.log(file, fileList)
-    }
-  },
   defaultFileList: []
 }
 class Scanner extends Component {
   state = {
-    fileList: [
-      {
-        uid: '-1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'http://www.baidu.com/xxx.png'
-      }
-    ]
+    fileList: [],
+    contentReading: ''
   }
 
   handleChange = info => {
     let fileList = [...info.fileList]
-
     // 1. Limit the number of uploaded files
     // Only to show two recent uploaded files, and old ones will be replaced by the new
-    fileList = fileList.slice(-2)
+    // fileList = fileList.slice(-2)
 
     // 2. Read from response and show file link
-    fileList = fileList.map(file => {
+    let content = ''
+    fileList.forEach(file => {
       if (file.response) {
         // Component will show file.url as link
-        file.url = file.response.url
+        console.log('file.response :', file.response.content)
+        content = content + '\n' + file.response.content
       }
-      return file
     })
 
-    this.setState({ fileList })
+    this.setState({ fileList, contentReading: content })
 
     // handleChange= (info) => {
     //   info.fileList.filter(file => file.type !== "image/jpeg")
@@ -59,7 +50,7 @@ class Scanner extends Component {
   }
   componentDidMount() {
     // To disabled submit button at the beginning.
-    this.props.form.validateFields()
+    //this.props.form.validateFields()
   }
 
   handleSubmit = e => {
@@ -86,7 +77,11 @@ class Scanner extends Component {
             <Card type="inner">
               <Form layout="horizontal" onSubmit={this.handleSubmit}>
                 <Form.Item label="Hình ảnh:">
-                  <Upload {...props}>
+                  <Upload
+                    {...props}
+                    accept="image/*"
+                    onChange={this.handleChange}
+                  >
                     <Button block>
                       <Icon type="upload" /> Chọn hình ảnh để tiến hành xử lý
                     </Button>
@@ -113,6 +108,7 @@ class Scanner extends Component {
               <label>Kết quả:</label>
               <TextArea
                 rows={32}
+                value={this.state.contentReading}
                 onChange={this.onChange}
                 placeholder="Controlled autosize"
               />

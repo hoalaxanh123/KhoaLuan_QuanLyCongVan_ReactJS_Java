@@ -1,5 +1,7 @@
 //API_ENDPOIN is a link to API example: localhost:8000/
 export const API_URL = 'http://5d7c86986b8ef80014b29b21.mockapi.io/1510289/'
+//API READ FILE
+export const API_URL_UPFILE = 'http://localhost:9999/api/readFile'
 
 //task == Công văn
 export const API_CONGVAN_ENDPOIN = 'task'
