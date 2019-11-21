@@ -7,6 +7,10 @@ export const getListTask = () => {
   return axiosService.get(`${API_URL}${endpoin}`)
 }
 
+export const addTask = task => {
+  return axiosService.post(`${API_URL}${endpoin}`, task)
+}
+
 export const deleteTask = id => {
   return axiosService.delete(`${API_URL}${endpoin}/${id}`)
 }

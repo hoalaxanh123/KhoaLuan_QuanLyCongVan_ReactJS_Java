@@ -113,9 +113,7 @@ class LeftMenu extends Component {
       this.setState({ position: 'fixed', collapsedWidth: '0' })
     }
   }
-  resize() {
-    console.log('Yeah :', 'Yeah')
-  }
+  resize() {}
   render() {
     return (
       <Sider

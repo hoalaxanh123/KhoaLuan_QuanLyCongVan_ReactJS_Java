@@ -3,8 +3,7 @@ import './../../node_modules/noty/lib/noty.css'
 import './../../node_modules/noty/lib/noty.js'
 import './../../node_modules/noty/lib/themes/relax.css' //ok
 
-function Message(params, type) {
-  let time = 1500
+function Message(params, type, time = 1500) {
   if (type === 'error') time = 3000
   new Noty({
     text: params, //This string can contain HTML too. But be careful and don't pass user inputs to this parameter.

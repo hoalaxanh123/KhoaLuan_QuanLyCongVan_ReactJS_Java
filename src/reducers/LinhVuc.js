@@ -15,8 +15,8 @@ const linhVucReducer = (state = initialState, action) => {
       return { ...state, byId: [] }
     case typeContants.FETCH_LINHVUC_SUCCESS:
       if (action.payload.length === 0)
-        Message(`Get data success but nothing to show`, 'error')
-      else Message(`Get data success `, 'success')
+        Message(`Get data success but nothing to show`, 'error', 10000)
+      else Message(`Get list 'lĩnh vực' success `, 'success')
       return { ...state, byId: action.payload }
     case typeContants.FETCH_LINHVUC_FAIL:
       console.log('Error get api :', action.payload)

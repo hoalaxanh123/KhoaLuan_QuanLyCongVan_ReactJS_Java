@@ -32,7 +32,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  Message('DEBUG: GET LIST LoaiCongVan OK<br/>', 'success')
+  console.log('DEBUG: GET LIST LoaiCongVan OK<br/>', 'success')
   return {
     type: taskConstant.FETCH_LOAICONGVAN_SUCCESS,
     payload: data
@@ -41,7 +41,7 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  Message('DEBUG: GET LIST LoaiCongVan not OK<br/>' + error, 'error')
+  console.log('DEBUG: GET LIST LoaiCongVan not OK<br/>' + error, 'error')
   return {
     type: taskConstant.FETCH_LOAICONGVAN_FAIL,
     payload: error

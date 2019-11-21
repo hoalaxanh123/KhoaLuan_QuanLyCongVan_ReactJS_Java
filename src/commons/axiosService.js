@@ -20,6 +20,9 @@ class AxiosService {
   delete(url) {
     return this.intance.delete(url)
   }
+  post(url, task) {
+    return this.intance.post(url, task)
+  }
 }
 export default new AxiosService()
 //

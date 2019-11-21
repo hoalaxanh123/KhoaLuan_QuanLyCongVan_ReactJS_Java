@@ -9,7 +9,6 @@ import Message from './../method/Message'
 //Step 3: if error, dispatch(fetchListTaskFail(res.data)) to return error
 export const fetchGetList = () => {
   return dispatch => {
-    Message('Getting data, please wait !!!', 'warning')
     dispatch(fetchListTask()) // to reset state 'task' to empty ([])
     trackPromise(
       apiTask
@@ -41,7 +40,7 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  Message('GET DATA NOT OK<br/>' + error, 'error')
+  console.log('GET DATA NOT OK<br/>' + error, 'error')
   return {
     type: taskConstant.FETCH_TASK_FAIL,
     payload: error
@@ -70,5 +69,28 @@ export const deleteTask = id => {
   return {
     type: taskConstant.DELETE_TASK,
     id: id
+  }
+}
+
+//Add a task
+export const addTask_Request = task => {
+  return dispatch => {
+    trackPromise(
+      apiTask
+        .addTask(task)
+        .then(res => {
+          Message(
+            `<b>Thêm thành công văn vào cơ sở dữ liệu</b>`,
+            'success',
+            5000
+          )
+        })
+        .catch(error => {
+          Message(
+            `Error when:<br/>Action: add<br/>Add new task<br/>Error: ${Error}`,
+            'error'
+          )
+        })
+    )
   }
 }

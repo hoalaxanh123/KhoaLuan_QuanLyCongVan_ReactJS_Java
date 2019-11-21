@@ -1,5 +1,4 @@
 const styles = themes => {
-  // console.log("themes :", themes);
   return {
     firt: {
       background: themes.background,

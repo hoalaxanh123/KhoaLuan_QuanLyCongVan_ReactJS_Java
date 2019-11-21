@@ -16,7 +16,7 @@ const TaskReducer = (state = initialState, action) => {
     case taskContants.FETCH_TASK_SUCCESS:
       if (action.payload.length === 0)
         Message(`Get data success but nothing to show`, 'error')
-      else Message(`Get data success `, 'success')
+      else Message(`Get list 'công văn' success `, 'success')
       return { ...state, listTask: action.payload }
     case taskContants.FETCH_TASK_FAIL:
       console.log('Error get api :', action.payload)

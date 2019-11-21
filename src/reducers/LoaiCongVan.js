@@ -16,7 +16,7 @@ const loaiCongVanReducer = (state = initialState, action) => {
     case typeContants.FETCH_LOAICONGVAN_SUCCESS:
       if (action.payload.length === 0)
         Message(`Get data success but nothing to show`, 'error')
-      else Message(`Get data success `, 'success')
+      else Message(`Get list 'loại công văn' success `, 'success')
       return { ...state, byId: action.payload }
     case typeContants.FETCH_LOAICONGVAN_FAIL:
       console.log('Error get api :', action.payload)

@@ -32,7 +32,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  Message('DEBUG: GET LIST LINHVUC OK<br/>', 'success')
+  console.log('DEBUG: GET LIST LINHVUC OK<br/>', 'success')
   return {
     type: taskConstant.FETCH_LINHVUC_SUCCESS,
     payload: data
@@ -41,7 +41,7 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  Message('DEBUG: GET LIST LINHVUC not OK<br/>' + error, 'error')
+  console.log('DEBUG: GET LIST LINHVUC not OK<br/>' + error, 'error')
   return {
     type: taskConstant.FETCH_LINHVUC_FAIL,
     payload: error

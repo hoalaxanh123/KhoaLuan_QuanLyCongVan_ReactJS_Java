@@ -32,7 +32,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  Message('DEBUG: GET LIST NGUOIDUNG OK<br/>', 'success')
+  console.log('DEBUG: GET LIST NGUOIDUNG OK<br/>', 'success')
   return {
     type: taskConstant.FETCH_NGUOIDUNG_SUCCESS,
     payload: data
@@ -41,7 +41,7 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  Message('DEBUG: GET LIST NGUOIDUNG not OK<br/>' + error, 'error')
+  console.log('DEBUG: GET LIST NGUOIDUNG not OK<br/>' + error, 'error')
   return {
     type: taskConstant.FETCH_NGUOIDUNG_FAIL,
     payload: error

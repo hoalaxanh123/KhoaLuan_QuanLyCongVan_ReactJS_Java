@@ -12,8 +12,8 @@ class FormCreateCongVan extends Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onCreate()
-      } else alert('Cái địt')
+        this.props.onCreate(values)
+      } else alert('Hãy điền đầy đủ các trường cần thiết')
     })
   }
   render() {
@@ -48,6 +48,7 @@ class FormCreateCongVan extends Component {
           {/* Số ký hiệu */}
           <Form.Item>
             {getFieldDecorator('soKyHieu', {
+              initialValue: 'soKyHieu TEST',
               rules: [
                 {
                   required: true,
@@ -89,6 +90,7 @@ class FormCreateCongVan extends Component {
           {/* Người ký */}
           <Form.Item>
             {getFieldDecorator('nguoiKy', {
+              initialValue: 'nguoiKy TEST',
               rules: [
                 {
                   required: true,
@@ -109,6 +111,7 @@ class FormCreateCongVan extends Component {
           {/* Mức độ */}
           <Form.Item>
             {getFieldDecorator('mucDo', {
+              initialValue: 0,
               rules: [
                 {
                   required: true,
@@ -120,7 +123,7 @@ class FormCreateCongVan extends Component {
                 prefix={
                   <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                type="text"
+                type="number"
                 placeholder="Mức độ"
                 title="Mức độ"
               />
@@ -170,7 +173,8 @@ class FormCreateCongVan extends Component {
           </Form.Item>{' '}
           {/* Trích dẫn */}
           <Form.Item>
-            {getFieldDecorator('trichDan', {
+            {getFieldDecorator('trichYeu', {
+              initialValue: 'trichDan TEST',
               rules: [
                 {
                   required: true,
@@ -191,6 +195,7 @@ class FormCreateCongVan extends Component {
           {/* Nơi nhận */}
           <Form.Item>
             {getFieldDecorator('noiNhan', {
+              initialValue: 'noiNhan TEST',
               rules: [
                 {
                   required: true,
@@ -210,7 +215,7 @@ class FormCreateCongVan extends Component {
           </Form.Item>{' '}
           {/* lĩnh vực */}
           <Form.Item label="">
-            {getFieldDecorator('linhVuc', {
+            {getFieldDecorator('maLinhVuc', {
               initialValue: 1,
               rules: [{ required: true, message: 'Vui lòng chọn lĩnh vực' }]
             })(
@@ -229,9 +234,30 @@ class FormCreateCongVan extends Component {
               </Select>
             )}
           </Form.Item>
+          {/* Tệp tin */}
+          <Form.Item label="">
+            {getFieldDecorator('tapTin', {
+              initialValue: 'tapTin TEST',
+              rules: [
+                {
+                  required: true,
+                  message: 'Không được bỏ trống trường này !'
+                }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="arrow-right"
+                placeholder="Nơi nhận"
+                title="Nơi nhận"
+              />
+            )}
+          </Form.Item>
           {/* loaiCongVan */}
           <Form.Item label="">
-            {getFieldDecorator('loaiCongVan', {
+            {getFieldDecorator('maLoai', {
               initialValue: loaiCV,
               rules: [
                 { required: true, message: 'Vui lòng chọn loại công văn' }

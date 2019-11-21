@@ -162,22 +162,22 @@ class ListCV extends Component {
         result.push(x)
       }
     })
-    console.log('fil')
     return result
   }
   addKeyToList = (listCV, listLinhVuc) => {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
+        listCV[index]['linhVuc'] = 'Unknown'
         listCV[index]['key'] = listCV[index].id
         try {
           let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
           listCV[index]['ngayBanHanh'] = date
+          listCV[index]['linhVuc'] = listLinhVuc.find(
+            x => x.maLinhVuc === listCV[index].maLinhVuc
+          ).tenLinhVuc
         } catch (error) {
           listCV[index]['ngayBanHanh'] = 'ERROR'
         }
-        listCV[index]['linhVuc'] = listLinhVuc.find(
-          x => x.maLinhVuc === listCV[index].maLinhVuc
-        ).tenLinhVuc
       })
     }
     return listCV
@@ -200,7 +200,6 @@ class ListCV extends Component {
     }
   }
   handleSearch = state => {
-    console.log('L-state :', state)
     this.setState({
       keyword: state.keyword,
       loaiCongVan: state.loaiCongVan,

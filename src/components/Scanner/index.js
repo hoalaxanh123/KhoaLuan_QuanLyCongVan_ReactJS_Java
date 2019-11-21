@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import * as constant from './../../constants/index'
 import FormCreateCongVan from './form'
 import { connect } from 'react-redux'
-import { Card, Row, Col, Input, Form, Icon, Button, Upload } from 'antd'
+import { Card, Row, Col, Input, Form, Icon, Button, Upload, Modal } from 'antd'
+import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
 const { TextArea } = Input
@@ -17,17 +18,21 @@ const arrCongVanDen = congVanDen.split(' ')
 const arrCongVanDi = congVanDi.split(' ')
 const arrStopword = stopword.split(' ')
 
-const props = {
-  action: constant.API_URL_UPFILE,
-  multiple: true,
-  defaultFileList: [],
-  listType: 'picture-card'
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = error => reject(error)
+  })
 }
 class Scanner extends Component {
   state = {
     fileList: [],
     contentReading: '',
-    loaiCV: 1
+    loaiCV: 1,
+    previewVisible: false,
+    previewImage: ''
   }
   phanLoai = input => {
     let arrayInput = input.split(' ')
@@ -51,7 +56,6 @@ class Scanner extends Component {
     fileList.forEach(file => {
       if (file.response) {
         // Component will show file.url as link
-        console.log('file.response :', file.response.content)
         content = content + '\n' + file.response.content
       }
     })
@@ -60,16 +64,29 @@ class Scanner extends Component {
       this.setState({ loaiCV })
     }
     this.setState({ fileList, contentReading: content })
-    console.log('info.file.status :', info.file.status)
   }
   UNSAFE_componentWillMount() {
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
   }
-  parentClick = () => {
-    alert('clicked')
+  parentClick = task => {
+    this.props.add_task(task)
   }
+  handleCancel = () => this.setState({ previewVisible: false })
+
+  handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj)
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true
+    })
+  }
+
   render() {
+    const { previewVisible, previewImage, fileList } = this.state
     return (
       <Card
         type="inner"
@@ -83,7 +100,11 @@ class Scanner extends Component {
               <Form layout="horizontal" onSubmit={this.handleSubmit}>
                 <Form.Item label="Hình ảnh:">
                   <Upload
-                    {...props}
+                    action={constant.API_URL_UPFILE}
+                    multiple={true}
+                    defaultFileList={fileList}
+                    listType="picture-card"
+                    onPreview={this.handlePreview}
                     accept="image/*"
                     onChange={this.handleChange}
                   >
@@ -91,6 +112,17 @@ class Scanner extends Component {
                       <Icon type="upload" /> Chọn hình ảnh để tiến hành xử lý
                     </Button>
                   </Upload>
+                  <Modal
+                    visible={previewVisible}
+                    footer={null}
+                    onCancel={this.handleCancel}
+                  >
+                    <img
+                      alt="example"
+                      style={{ width: '100%' }}
+                      src={previewImage}
+                    />
+                  </Modal>
                 </Form.Item>
               </Form>
             </Card>
@@ -131,6 +163,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     get_all_linhvuc: () => {
       dispatch(actionLinhVuc.fetchGetList())
+    },
+    add_task: task => {
+      dispatch(action.addTask_Request(task))
     }
   }
 }
