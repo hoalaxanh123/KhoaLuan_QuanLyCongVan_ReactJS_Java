@@ -74,9 +74,7 @@ class FormFind extends Component {
       coQuanBanHanh: event
     })
   }
-  onOKhandle = () => {
-    console.log('this.state :', this.state)
-  }
+  onOKhandle = () => {}
   handleTrongKhoang = event => {
     if (event.length !== 0) {
       this.setState({

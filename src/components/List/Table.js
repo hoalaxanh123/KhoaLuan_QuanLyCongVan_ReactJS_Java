@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Card } from 'antd'
-import { Table, Switch, Radio, Form, Collapse, Icon } from 'antd'
+import { Card, Table, Switch, Radio, Form, Collapse, Icon } from 'antd'
 const { Panel } = Collapse
 const FormItem = Form.Item
 
@@ -33,7 +32,8 @@ class TableCommon extends Component {
     footer: undefined,
     rowSelection: undefined,
     scroll: undefined,
-    hasData: true
+    hasData: true,
+    displayForm: false
   }
 
   handleToggle = prop => enable => {

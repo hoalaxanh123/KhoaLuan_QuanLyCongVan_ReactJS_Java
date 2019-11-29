@@ -10,11 +10,17 @@ import * as actionLinhVuc from './../../actions/linhVuc'
 import * as actionNguoiDung from './../../actions/nguoiDung'
 import * as constant from './../../constants'
 import Message from '../../method/Message'
+import FormAction from '../List/FormAction'
+import { ADD_LOAICONGVAN, EDIT_LOAICONGVAN } from '../../constants/task'
 class Admin extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedPage: 2
+      selectedPage: 2,
+      displayForm: false,
+      titleForm: '',
+      action: '',
+      selectedObj: undefined
     }
   }
 
@@ -60,6 +66,11 @@ class Admin extends Component {
         case constant.CONGVAN:
           break
         case constant.LOAICONGVAN:
+          this.showForm(
+            'Sửa loại công văn: ' + selectedObj.tenLoai,
+            EDIT_LOAICONGVAN,
+            selectedObj
+          )
           break
         case constant.LINHVUC:
           break
@@ -88,7 +99,33 @@ class Admin extends Component {
             break
         }
       }
+    } else if (Action === 'ADDNEW') {
+      switch (Type) {
+        case constant.NGUOIDUNG:
+          break
+        case constant.CONGVAN:
+          break
+        case constant.LOAICONGVAN:
+          this.showForm('Thêm mới loại công văn', ADD_LOAICONGVAN)
+          break
+        case constant.LINHVUC:
+          break
+        default:
+          Message('ERROR: ' + Type, 'error')
+          break
+      }
     }
+  }
+  showForm = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayForm: true,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
+  onSubmit = param => {
+    console.log('param :', param)
   }
   render() {
     const { TabPane } = Tabs
@@ -347,12 +384,20 @@ class Admin extends Component {
         )}
       </Sticky>
     )
+
     return (
       <Card
         type="inner"
         title="Hệ thống quản trị"
         className="Scanner_Card_Parent"
       >
+        <FormAction
+          displayForm={this.state.displayForm}
+          titleForm={this.state.titleForm}
+          onSubmit={this.onSubmit}
+          action={this.state.action}
+          selectedObj={this.state.selectedObj}
+        />
         <Row>
           <Col span={24}>
             <StickyContainer>
@@ -361,7 +406,10 @@ class Admin extends Component {
                 renderTabBar={renderTabBar}
                 onTabClick={this.setSelectedPage}
               >
-                <TabPane tab="(1) Quản lý người dùng" key="1">
+                <TabPane
+                  tab={` Quản lý người dùng (${listNguoiDung.length})`}
+                  key="1"
+                >
                   <TableCommon
                     title="Danh sách người dùng"
                     data={listNguoiDung}
@@ -369,14 +417,17 @@ class Admin extends Component {
                     rowKey={'maTaiKhoan'}
                   />
                 </TabPane>
-                <TabPane tab="(2) Quản lý công văn" key="2">
+                <TabPane tab={` Quản lý công văn (${listCV.length})`} key="2">
                   <TableCommon
                     title="Danh sách công văn"
                     data={listCV}
                     columns={columnsCongvan}
                   />
                 </TabPane>
-                <TabPane tab="(3) Quản lý loại công văn" key="3">
+                <TabPane
+                  tab={`Quản lý loại công văn (${listLoaiCongVan.length})`}
+                  key="3"
+                >
                   <TableCommon
                     title="Danh sách loại công văn"
                     data={listLoaiCongVan}
@@ -384,7 +435,10 @@ class Admin extends Component {
                     rowKey={'maLoai'}
                   />
                 </TabPane>
-                <TabPane tab="(4) Quản lý lĩnh vực" key="4">
+                <TabPane
+                  tab={`Quản lý lĩnh vực (${listLoaiCongVan.length})`}
+                  key="4"
+                >
                   <TableCommon
                     title="Danh sách lĩnh vực"
                     data={listLinhVuc}

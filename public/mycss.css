@@ -24,17 +24,17 @@ font-weight: bold;
 .TableOption{
   background: transparent;
 }
-div {
+.divs {
   -webkit-animation-name: divAnimation; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
   animation-name: divAnimation;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes divAnimation {
   from {
-    opacity: 0.5;
+    opacity: 0.8;
     margin-left: -10px;
   }
   to {
@@ -44,7 +44,7 @@ div {
 }
 @keyframes divAnimation {
   from {
-    opacity: 0.5;
+    opacity: 0.8;
   }
   to {
     opacity: 1;
