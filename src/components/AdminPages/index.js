@@ -11,13 +11,15 @@ import * as actionNguoiDung from './../../actions/nguoiDung'
 import * as constant from './../../constants'
 import Message from '../../method/Message'
 import FormAction from '../List/FormAction'
-import { ADD_LOAICONGVAN, EDIT_LOAICONGVAN } from '../../constants/task'
+import * as constantAction from '../../constants/task'
+import FormLinhVuc from '../List/FormLinhVuc'
 class Admin extends Component {
   constructor(props) {
     super(props)
     this.state = {
       selectedPage: 2,
       displayForm: false,
+      displayFormLinhVuc: false,
       titleForm: '',
       action: '',
       selectedObj: undefined
@@ -29,6 +31,9 @@ class Admin extends Component {
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
     this.props.get_all_nguoiDung()
+    if (!localStorage.getItem('selectedConfig')) {
+      this.setSelectedPage(1)
+    }
     this.setState({
       selectedPage: localStorage.getItem('selectedConfig')
         ? localStorage.getItem('selectedConfig')
@@ -68,11 +73,16 @@ class Admin extends Component {
         case constant.LOAICONGVAN:
           this.showForm(
             'Sửa loại công văn: ' + selectedObj.tenLoai,
-            EDIT_LOAICONGVAN,
+            constantAction.EDIT_LOAICONGVAN,
             selectedObj
           )
           break
         case constant.LINHVUC:
+          this.showFormLinhVuc(
+            'Sửa lĩnh vực: ' + selectedObj.tenLinhVuc,
+            constantAction.EDIT_LINHVUC,
+            selectedObj
+          )
           break
         default:
           Message('ERROR', 'error')
@@ -106,9 +116,13 @@ class Admin extends Component {
         case constant.CONGVAN:
           break
         case constant.LOAICONGVAN:
-          this.showForm('Thêm mới loại công văn', ADD_LOAICONGVAN)
+          this.showForm(
+            'Thêm mới loại công văn',
+            constantAction.ADD_LOAICONGVAN
+          )
           break
         case constant.LINHVUC:
+          this.showFormLinhVuc('Thêm mới lĩnh vực', constantAction.ADD_LINHVUC)
           break
         default:
           Message('ERROR: ' + Type, 'error')
@@ -124,8 +138,60 @@ class Admin extends Component {
       selectedObj: selectedObj
     })
   }
+  hideForm = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayForm: false,
+      displayFormLinhVuc: false
+    })
+  }
+  showFormLinhVuc = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayFormLinhVuc: true,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
+
   onSubmit = param => {
-    console.log('param :', param)
+    switch (param.action) {
+      case constantAction.ADD_LINHVUC:
+        this.props.add_linh_vuc({
+          maLinhVuc: -1,
+          tenLinhVuc: param.tenLinhVuc,
+          tenVietTat: param.tenVietTat
+        })
+        this.hideForm()
+        break
+      case constantAction.EDIT_LINHVUC:
+        this.props.edit_linh_vuc({
+          maLinhVuc: param.maLinhVuc,
+          tenLinhVuc: param.tenLinhVuc,
+          tenVietTat: param.tenVietTat
+        })
+        this.hideForm()
+        break
+      case constantAction.ADD_LOAICONGVAN:
+        this.props.add_loai_cong_van({
+          maLoai: -1,
+          moTa: param.moTa,
+          tenLoai: param.tenLoai
+        })
+
+        this.hideForm()
+        break
+      case constantAction.EDIT_LOAICONGVAN:
+        this.props.edit_loai_cong_van({
+          maLoai: param.maLoai,
+          moTa: param.moTa,
+          tenLoai: param.tenLoai
+        })
+        this.hideForm()
+        break
+
+      default:
+        break
+    }
   }
   render() {
     const { TabPane } = Tabs
@@ -398,6 +464,13 @@ class Admin extends Component {
           action={this.state.action}
           selectedObj={this.state.selectedObj}
         />
+        <FormLinhVuc
+          displayForm={this.state.displayFormLinhVuc}
+          titleForm={this.state.titleForm}
+          onSubmit={this.onSubmit}
+          action={this.state.action}
+          selectedObj={this.state.selectedObj}
+        />
         <Row>
           <Col span={24}>
             <StickyContainer>
@@ -480,6 +553,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     xoa_nguoi_dung: NguoiDungID => {
       dispatch(actionNguoiDung.deleteTask_Request(NguoiDungID))
+    },
+    add_loai_cong_van: loaiCongVan => {
+      dispatch(actionLoaiCongVan.addTask_Request(loaiCongVan))
+    },
+    edit_loai_cong_van: loaiCongVan => {
+      dispatch(actionLoaiCongVan.editTask_Request(loaiCongVan))
+    },
+    add_linh_vuc: linhVuc => {
+      dispatch(actionLinhVuc.addTask_Request(linhVuc))
+    },
+    edit_linh_vuc: linhVuc => {
+      dispatch(actionLinhVuc.editTask_Request(linhVuc))
     }
   }
 }

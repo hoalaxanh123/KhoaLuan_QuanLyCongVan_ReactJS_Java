@@ -23,6 +23,9 @@ class AxiosService {
   post(url, task) {
     return this.intance.post(url, task)
   }
+  put(url, task) {
+    return this.intance.put(url, task)
+  }
 }
 export default new AxiosService()
 //

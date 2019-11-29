@@ -8,7 +8,18 @@ let deletelinhVuc = (state, action) => {
   lst.splice(index, 1)
   return lst
 }
-
+let addLinhVuc = (state, action) => {
+  let lst = [...state.byId]
+  lst.push(action.linhVuc)
+  return lst
+}
+let editLinhVuc = (state, action) => {
+  debugger
+  let lst = [...state.byId]
+  var index = lst.findIndex(x => x.maLinhVuc === action.linhVuc.maLinhVuc)
+  lst[index] = action.linhVuc
+  return lst
+}
 const linhVucReducer = (state = initialState, action) => {
   switch (action.type) {
     case typeContants.FETCH_LINHVUC:
@@ -28,6 +39,16 @@ const linhVucReducer = (state = initialState, action) => {
         'success'
       )
       return { ...state, byId: lst }
+
+    case typeContants.ADD_LINHVUC:
+      let lst2 = addLinhVuc(state, action)
+      Message(`Susscess <br/>- Action: Add new LinhVuc<br/>- `, 'success')
+      return { ...state, byId: lst2 }
+
+    case typeContants.EDIT_LINHVUC:
+      let lst3 = editLinhVuc(state, action)
+      Message(`Susscess <br/>- Action: Edit LinhVuc<br/>- `, 'success')
+      return { ...state, byId: lst3 }
     default:
       return state
   }

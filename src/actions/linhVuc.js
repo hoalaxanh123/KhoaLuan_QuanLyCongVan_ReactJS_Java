@@ -59,7 +59,7 @@ export const deleteTask_Request = id => {
         })
         .catch(error => {
           Message(
-            `Error when:<br/>Action: delete<br/>Loại công văn ID: ${id}<br/>Error: ${Error}`,
+            `Action: delete<br/>Loại công văn ID: ${id}<br/>${error}`,
             'error'
           )
         })
@@ -70,5 +70,50 @@ export const deleteTask = id => {
   return {
     type: taskConstant.DELETE_LINHVUC,
     id: id
+  }
+}
+
+//add a task
+export const addTask_Request = linhVuc => {
+  return dispatch => {
+    trackPromise(
+      apiLinhVuc
+        .addTask(linhVuc)
+        .then(res => {
+          linhVuc.maLinhVuc = res.data.maLinhVuc
+          dispatch(addTask(linhVuc))
+        })
+        .catch(error => {
+          Message(`Action: add<br/>Lĩnh vực <br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const addTask = linhVuc => {
+  return {
+    type: taskConstant.ADD_LINHVUC,
+    linhVuc: linhVuc
+  }
+}
+
+//edit a task
+export const editTask_Request = linhVuc => {
+  return dispatch => {
+    trackPromise(
+      apiLinhVuc
+        .editTask(linhVuc)
+        .then(res => {
+          dispatch(editTask(linhVuc))
+        })
+        .catch(error => {
+          Message(`Action: edit<br/>Lĩnh vực <br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const editTask = linhVuc => {
+  return {
+    type: taskConstant.EDIT_LINHVUC,
+    linhVuc: linhVuc
   }
 }

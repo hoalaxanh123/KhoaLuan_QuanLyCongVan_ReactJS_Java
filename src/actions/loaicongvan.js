@@ -55,13 +55,11 @@ export const deleteTask_Request = id => {
       apiLoaiCongVan
         .deleteTask(id)
         .then(res => {
+          console.log('res :', res)
           dispatch(deleteTask(id))
         })
         .catch(error => {
-          Message(
-            `Error when:<br/>Action: delete<br/>Loại công văn ID: ${id}<br/>Error: ${Error}`,
-            'error'
-          )
+          Message(`Action: delete<br/>ID: ${id}<br/>${error}`, 'error')
         })
     )
   }
@@ -70,5 +68,50 @@ export const deleteTask = id => {
   return {
     type: taskConstant.DELETE_LOAICONGVAN,
     id: id
+  }
+}
+//add a task
+export const addTask_Request = loaiCongVan => {
+  return dispatch => {
+    trackPromise(
+      apiLoaiCongVan
+        .addTask(loaiCongVan)
+        .then(res => {
+          loaiCongVan.maLoai = res.data.maLoai
+          dispatch(addTask(loaiCongVan))
+        })
+        .catch(error => {
+          Message(`Action: add<br/>Loại công văn <br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const addTask = loaiCongVan => {
+  return {
+    type: taskConstant.ADD_LOAICONGVAN,
+    loaiCongVan: loaiCongVan
+  }
+}
+
+//edit a task
+export const editTask_Request = loaiCongVan => {
+  console.log('loaiCongVan :', loaiCongVan)
+  return dispatch => {
+    trackPromise(
+      apiLoaiCongVan
+        .editTask(loaiCongVan)
+        .then(res => {
+          dispatch(editTask(loaiCongVan))
+        })
+        .catch(error => {
+          Message(`Action: edit<br/>Loại công văn <br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const editTask = loaiCongVan => {
+  return {
+    type: taskConstant.EDIT_LOAICONGVAN,
+    loaiCongVan: loaiCongVan
   }
 }

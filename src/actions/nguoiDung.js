@@ -59,7 +59,7 @@ export const deleteTask_Request = id => {
         })
         .catch(error => {
           Message(
-            `Error when:<br/>Action: delete<br/>Tài khoản ID: ${id}<br/>Error: ${Error}`,
+            `Action: delete<br/>Tài khoản ID: ${id}<br/>Error: ${error}`,
             'error'
           )
         })

@@ -58,7 +58,7 @@ export const deleteTask_Request = id => {
         })
         .catch(error => {
           Message(
-            `Error when:<br/>Action: delete<br/>TaskID: ${id}<br/>Error: ${Error}`,
+            `Action: delete<br/>TaskID: ${id}<br/>Error: ${Error}`,
             'error'
           )
         })
@@ -86,10 +86,7 @@ export const addTask_Request = task => {
           )
         })
         .catch(error => {
-          Message(
-            `Error when:<br/>Action: add<br/>Add new task<br/>Error: ${Error}`,
-            'error'
-          )
+          Message(`Action: add<br/>Add new task<br/>Error: ${Error}`, 'error')
         })
     )
   }

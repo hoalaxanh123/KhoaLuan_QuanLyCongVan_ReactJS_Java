@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { Modal } from 'antd'
 import { Input, Form, Icon, Button } from 'antd'
-import { EDIT_LOAICONGVAN, ADD_LOAICONGVAN } from '../../constants/task'
-class FormAction extends Component {
+import { EDIT_LINHVUC, ADD_LINHVUC } from '../../constants/task'
+class FormLinhVuc extends Component {
   state = {
     visible: false,
     TitleForm: '',
-    action: ADD_LOAICONGVAN,
-    tenLoai: '',
-    moTa: '',
-    maLoai: ''
+    action: ADD_LINHVUC,
+    tenLinhVuc: '',
+    maLinhVuc: '',
+    tenVietTat: ''
   }
 
   showModal = () => {
@@ -26,32 +26,32 @@ class FormAction extends Component {
 
   handleCancelForm = e => {
     this.setState({
-      tenLoai: '',
-      moTa: '',
-      maLoai: '',
+      tenLinhVuc: '',
+      maLinhVuc: '',
+      tenVietTat: '',
       displayForm: false
     })
   }
 
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
-      if (nextProp.action === EDIT_LOAICONGVAN) {
+      if (nextProp.action === EDIT_LINHVUC) {
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
           action: nextProp.action,
-          maLoai: nextProp.selectedObj.maLoai,
-          tenLoai: nextProp.selectedObj.tenLoai,
-          moTa: nextProp.selectedObj.moTa
+          tenLinhVuc: nextProp.selectedObj.tenLinhVuc,
+          maLinhVuc: nextProp.selectedObj.maLinhVuc,
+          tenVietTat: nextProp.selectedObj.tenVietTat
         })
       } else {
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
           action: nextProp.action,
-          maLoai: '',
-          tenLoai: '',
-          moTa: ''
+          tenLinhVuc: '',
+          maLinhVuc: '',
+          tenVietTat: ''
         })
       }
     }
@@ -63,9 +63,9 @@ class FormAction extends Component {
   }
   resetForm = () => {
     this.setState({
-      tenLoai: '',
-      moTa: '',
-      maLoai: ''
+      tenLinhVuc: '',
+      maLinhVuc: '',
+      tenVietTat: ''
     })
   }
   onHandleChange = param => {
@@ -97,33 +97,33 @@ class FormAction extends Component {
           ]}
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
-            {/* TenLoai */}
-            <Form.Item label="Tên loại">
+            {/* Ten LinhVuc */}
+            <Form.Item label="Tên lĩnh vực">
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder="Tên loại"
+                placeholder="Tên lĩnh vực"
                 type="text"
-                title="Tên loại"
-                name="tenLoai"
-                value={this.state.tenLoai}
+                title="Tên lĩnh vực"
+                name="tenLinhVuc"
+                value={this.state.tenLinhVuc}
                 required
                 onChange={this.onHandleChange}
               />
             </Form.Item>
 
             {/* MoTa */}
-            <Form.Item label="Mô tả">
+            <Form.Item label="Tên Viết Tắt">
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
-                placeholder="Mô tả"
+                placeholder="Tên Viết Tắt"
                 type="text"
-                title="Mô tả"
-                name="moTa"
-                value={this.state.moTa}
+                title="Tên Viết Tắt"
+                name="tenVietTat"
+                value={this.state.tenVietTat}
                 required
                 onChange={this.onHandleChange}
               />
@@ -142,4 +142,4 @@ class FormAction extends Component {
   }
 }
 
-export default Form.create()(FormAction)
+export default Form.create()(FormLinhVuc)
