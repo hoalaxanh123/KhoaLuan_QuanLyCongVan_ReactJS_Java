@@ -74,9 +74,9 @@ class Admin extends Component {
             constantAction.EDIT_NGUOIDUNG,
             selectedObj
           )
-          console.log('selectedObj :', selectedObj)
           break
         case constant.CONGVAN:
+          Message('Không thể sửa công văn!', 'error')
           break
         case constant.LOAICONGVAN:
           this.showForm(
@@ -126,6 +126,7 @@ class Admin extends Component {
           )
           break
         case constant.CONGVAN:
+          Message("Vui lòng chọn 'Số hoá công văn' từ menu", 'warning', 3000)
           break
         case constant.LOAICONGVAN:
           this.showForm(
