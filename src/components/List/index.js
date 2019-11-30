@@ -5,49 +5,7 @@ import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
 import TableCommon from './Table'
-
-const columns = [
-  {
-    title: 'Số hiệu',
-    key: 'action1',
-    width: '10%',
-    render: congVan => (
-      <span className="Link" onClick={() => console.log('congVan :', congVan)}>
-        {congVan.soKyHieu}
-      </span>
-    )
-  },
-  {
-    title: 'Trích yếu',
-    dataIndex: 'trichYeu',
-    key: 'trichYeu',
-    width: '50%'
-  },
-  {
-    title: 'Ngày ban hành',
-    dataIndex: 'ngayBanHanh',
-    key: 'ngayBanHanh',
-    width: '10%'
-  },
-  {
-    title: 'Lĩnh vực',
-    dataIndex: 'linhVuc',
-    key: 'linhVuc',
-    width: '10%'
-  },
-  {
-    title: 'Người ký',
-    dataIndex: 'nguoiKy',
-    key: 'nguoiKy',
-    width: '10%'
-  },
-  {
-    title: 'Cơ quan ban hành',
-    key: 'coQuanBanHanh',
-    dataIndex: 'coQuanBanHanh',
-    width: '10%'
-  }
-]
+import FormCongVan from './FormCongVan'
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -75,7 +33,9 @@ class ListCV extends Component {
     ngayBatDau: null,
     ngayKetThuc: null,
     nguoiKy: '',
-    coQuanBanHanh: ''
+    coQuanBanHanh: '',
+    displayFormCongVan: false,
+    titleForm: ''
   }
 
   handleToggle = prop => enable => {
@@ -185,6 +145,14 @@ class ListCV extends Component {
     }
     return listCV
   }
+  showFormCongvan = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayFormCongVan: true,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
   process = listCV => {
     let arrayNguoiKy = []
     let arrayCoQuanBanHanh = []
@@ -213,6 +181,9 @@ class ListCV extends Component {
       coQuanBanHanh: state.coQuanBanHanh
     })
   }
+  onClicked2 = congVan => {
+    this.showFormCongvan('Thông tin công văn', '', congVan)
+  }
   render() {
     let { listLoaiCongVan, listLinhVuc } = this.props
     let listCV = this.props.listCV
@@ -221,8 +192,68 @@ class ListCV extends Component {
     let arrayCoQuanBanHanh = result.arrayCoQuanBanHanh
     let listCVFilter = this.filterByState(listCV)
     listCV = this.addKeyToList(listCVFilter, listLinhVuc)
+    const columns = [
+      {
+        title: 'Số hiệu',
+        key: 'action1',
+        width: '10%',
+        render: congVan => (
+          <span className="Link" onClick={() => this.onClicked2(congVan)}>
+            {congVan.soKyHieu}
+          </span>
+        )
+      },
+      {
+        title: 'Trích yếu',
+        dataIndex: 'trichYeu',
+        key: 'trichYeu',
+        width: '50%'
+      },
+      {
+        title: 'Ngày ban hành',
+        dataIndex: 'ngayBanHanh',
+        key: 'ngayBanHanh',
+        width: '10%'
+      },
+      {
+        title: 'Lĩnh vực',
+        dataIndex: 'linhVuc',
+        key: 'linhVuc',
+        width: '10%'
+      },
+      {
+        title: 'Người ký',
+        dataIndex: 'nguoiKy',
+        key: 'nguoiKy',
+        width: '10%'
+      },
+      {
+        title: 'Cơ quan ban hành',
+        key: 'coQuanBanHanh',
+        dataIndex: 'coQuanBanHanh',
+        width: '10%'
+      }
+    ]
+    let selectedObj = this.state.selectedObj
+    if (listLinhVuc.length > 0 && selectedObj) {
+      let obj = listLinhVuc.find(x => x.maLinhVuc === selectedObj.maLinhVuc)
+      if (obj) {
+        selectedObj.maLinhVuc = obj.tenLinhVuc
+      }
+    }
+    if (listLoaiCongVan.length > 0 && selectedObj) {
+      let obj = listLoaiCongVan.find(x => x.maLoai === selectedObj.maLoai)
+      if (obj) {
+        selectedObj.maLoai = obj.tenLoai
+      }
+    }
     return (
       <div>
+        <FormCongVan
+          displayForm={this.state.displayFormCongVan}
+          titleForm={this.state.titleForm}
+          selectedObj={this.state.selectedObj}
+        />
         <FormFind
           listLoaiCongVan={listLoaiCongVan}
           listCV={listCV}
