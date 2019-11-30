@@ -271,7 +271,6 @@ class FormUser extends Component {
                 title="Địa chỉ"
                 name="diaChi"
                 value={this.state.diaChi}
-                required
                 onChange={this.onHandleChange}
               />
             </Form.Item>
