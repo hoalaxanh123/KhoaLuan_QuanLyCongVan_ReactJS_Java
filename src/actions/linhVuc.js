@@ -58,10 +58,7 @@ export const deleteTask_Request = id => {
           dispatch(deleteTask(id))
         })
         .catch(error => {
-          Message(
-            `Action: delete<br/>Loại công văn ID: ${id}<br/>${error}`,
-            'error'
-          )
+          Message(error, 'error', 3000, 'ERROR', 'Xoá lĩnh vực')
         })
     )
   }
@@ -84,7 +81,7 @@ export const addTask_Request = linhVuc => {
           dispatch(addTask(linhVuc))
         })
         .catch(error => {
-          Message(`Action: add<br/>Lĩnh vực <br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Thêm lĩnh vực')
         })
     )
   }
@@ -106,7 +103,7 @@ export const editTask_Request = linhVuc => {
           dispatch(editTask(linhVuc))
         })
         .catch(error => {
-          Message(`Action: edit<br/>Lĩnh vực <br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Sửa lĩnh vực')
         })
     )
   }

@@ -58,10 +58,7 @@ export const deleteTask_Request = id => {
           dispatch(deleteTask(id))
         })
         .catch(error => {
-          Message(
-            `Action: delete<br/>Tài khoản ID: ${id}<br/>Error: ${error}`,
-            'error'
-          )
+          Message(error, 'error', 3000, 'ERROR', 'Xoá người dùng')
         })
     )
   }
@@ -84,7 +81,7 @@ export const addTask_Request = nguoiDung => {
           dispatch(addTask(nguoiDung))
         })
         .catch(error => {
-          Message(`Action: add<br/>User <br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Thêm người dùng')
         })
     )
   }
@@ -106,7 +103,7 @@ export const editTask_Request = nguoiDung => {
           dispatch(editTask(nguoiDung))
         })
         .catch(error => {
-          Message(`Action: edit<br/>User<br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Sửa thông tin người dùng')
         })
     )
   }

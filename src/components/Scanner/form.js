@@ -3,9 +3,20 @@ import { Card, Input, Form, Icon, Button, Select } from 'antd'
 const { Option } = Select
 
 class FormCreateCongVan extends Component {
+  state = { trichDan: '', fileUploaded: [] }
+
   componentDidMount() {
-    // To disabled submit button at the beginning.
-    //this.props.form.validateFields()
+    this.setState({
+      trichDan: this.props.trichDan,
+      fileUploaded: this.props.fileUploaded
+    })
+  }
+  UNSAFE_componentWillReceiveProps(nextProp) {
+    if (this.props !== nextProp) {
+      this.setState({
+        trichDan: this.props.trichDan
+      })
+    }
   }
 
   handleSubmit = e => {
@@ -42,13 +53,85 @@ class FormCreateCongVan extends Component {
     let yyyy = today.getFullYear()
 
     today = yyyy + '-' + mm + '-' + dd
+    let dateProp = this.props.date
+    let { noiDung } = this.props
+    let arr = noiDung.split('\n')
+    let timDong = {}
+    let count = 1
+    arr.forEach(line => {
+      timDong[count] = line
+      count = count + 1
+    })
+    timDong = JSON.stringify(timDong)
     return (
       <Card type="inner" style={{ marginTop: '5px' }}>
         <Form onSubmit={this.handleSubmit} className="login-form">
+          {/* Noi Dung */}
+          <Form.Item>
+            {getFieldDecorator('noiDung', {
+              initialValue: this.props.noiDung,
+              rules: [
+                {
+                  required: true,
+                  message: 'Không được bỏ trống trường này !'
+                }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Nội dung"
+                type="text"
+                title="Nội dung"
+              />
+            )}
+          </Form.Item>
+          {/* Tim dong */}
+          <Form.Item>
+            {getFieldDecorator('timDong', {
+              initialValue: timDong,
+              rules: [
+                {
+                  required: true,
+                  message: 'Không được bỏ trống trường này !'
+                }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Tìm dòng"
+                type="text"
+                title="Tìm dòng"
+              />
+            )}
+          </Form.Item>
+          {/* id */}
+          <Form.Item>
+            {getFieldDecorator('id', {
+              initialValue: -1,
+              rules: [
+                {
+                  required: true,
+                  message: 'Không được bỏ trống trường này !'
+                }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Số ký hiệu"
+                type="text"
+                title="Số ký hiệu"
+              />
+            )}
+          </Form.Item>
           {/* Số ký hiệu */}
           <Form.Item>
             {getFieldDecorator('soKyHieu', {
-              initialValue: 'soKyHieu TEST',
               rules: [
                 {
                   required: true,
@@ -69,7 +152,7 @@ class FormCreateCongVan extends Component {
           {/* Ngày ban hành */}
           <Form.Item>
             {getFieldDecorator('ngayBanHanh', {
-              initialValue: today,
+              initialValue: dateProp ? dateProp : today,
               rules: [
                 {
                   required: true,
@@ -90,7 +173,6 @@ class FormCreateCongVan extends Component {
           {/* Người ký */}
           <Form.Item>
             {getFieldDecorator('nguoiKy', {
-              initialValue: 'nguoiKy TEST',
               rules: [
                 {
                   required: true,
@@ -153,7 +235,7 @@ class FormCreateCongVan extends Component {
           {/* Ngày có hiệu lực */}
           <Form.Item>
             {getFieldDecorator('ngayCoHieuLuc', {
-              initialValue: today,
+              initialValue: dateProp ? dateProp : today,
               rules: [
                 {
                   required: true,
@@ -174,7 +256,7 @@ class FormCreateCongVan extends Component {
           {/* Trích dẫn */}
           <Form.Item>
             {getFieldDecorator('trichYeu', {
-              initialValue: 'trichDan TEST',
+              initialValue: this.props.trichDan,
               rules: [
                 {
                   required: true,
@@ -182,7 +264,8 @@ class FormCreateCongVan extends Component {
                 }
               ]
             })(
-              <Input
+              <Input.TextArea
+                rows={5}
                 prefix={
                   <Icon type="bold" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
@@ -195,7 +278,6 @@ class FormCreateCongVan extends Component {
           {/* Nơi nhận */}
           <Form.Item>
             {getFieldDecorator('noiNhan', {
-              initialValue: 'noiNhan TEST',
               rules: [
                 {
                   required: true,
@@ -237,7 +319,9 @@ class FormCreateCongVan extends Component {
           {/* Tệp tin */}
           <Form.Item label="">
             {getFieldDecorator('tapTin', {
-              initialValue: 'tapTin TEST',
+              initialValue: this.props.fileUploaded
+                .toString()
+                .replace(/,/g, ', '),
               rules: [
                 {
                   required: true,
@@ -250,8 +334,9 @@ class FormCreateCongVan extends Component {
                   <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                 }
                 type="arrow-right"
-                placeholder="Nơi nhận"
-                title="Nơi nhận"
+                placeholder="Tệp tin"
+                title="Tệp tin"
+                readOnly
               />
             )}
           </Form.Item>

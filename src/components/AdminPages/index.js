@@ -76,7 +76,13 @@ class Admin extends Component {
           )
           break
         case constant.CONGVAN:
-          Message('Không thể sửa công văn!', 'error')
+          Message(
+            'Không thể sửa công văn !',
+            'error',
+            3000,
+            'ERROR',
+            'Sửa công văn'
+          )
           break
         case constant.LOAICONGVAN:
           this.showForm(
@@ -93,7 +99,6 @@ class Admin extends Component {
           )
           break
         default:
-          Message('ERROR', 'error')
           break
       }
     } else if (Action === 'DELETE') {
@@ -113,7 +118,6 @@ class Admin extends Component {
             this.props.xoa_linh_vuc(selectedObj.maLinhVuc)
             break
           default:
-            Message('ERROR: ' + Type, 'error')
             break
         }
       }
@@ -126,7 +130,13 @@ class Admin extends Component {
           )
           break
         case constant.CONGVAN:
-          Message("Vui lòng chọn 'Số hoá công văn' từ menu", 'warning', 3000)
+          Message(
+            "Vui lòng chọn 'Số hoá công văn' từ menu",
+            'warning',
+            3000,
+            'CHÚ Ý',
+            'Thêm công văn'
+          )
           break
         case constant.LOAICONGVAN:
           this.showForm(
@@ -138,7 +148,6 @@ class Admin extends Component {
           this.showFormLinhVuc('Thêm mới lĩnh vực', constantAction.ADD_LINHVUC)
           break
         default:
-          Message('ERROR: ' + Type, 'error')
           break
       }
     }

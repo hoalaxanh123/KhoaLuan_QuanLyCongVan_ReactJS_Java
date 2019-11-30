@@ -59,7 +59,7 @@ export const deleteTask_Request = id => {
           dispatch(deleteTask(id))
         })
         .catch(error => {
-          Message(`Action: delete<br/>ID: ${id}<br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Xoá loại công văn')
         })
     )
   }
@@ -81,7 +81,7 @@ export const addTask_Request = loaiCongVan => {
           dispatch(addTask(loaiCongVan))
         })
         .catch(error => {
-          Message(`Action: add<br/>Loại công văn <br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Thêm loại công văn')
         })
     )
   }
@@ -104,7 +104,7 @@ export const editTask_Request = loaiCongVan => {
           dispatch(editTask(loaiCongVan))
         })
         .catch(error => {
-          Message(`Action: edit<br/>Loại công văn <br/>${error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Sửa loại công văn')
         })
     )
   }

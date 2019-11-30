@@ -26,8 +26,21 @@ const NguoiDungReducer = (state = initialState, action) => {
       return { ...state, byId: [] }
     case typeContants.FETCH_NGUOIDUNG_SUCCESS:
       if (action.payload.length === 0)
-        Message(`Get data success but nothing to show`, 'error')
-      else Message(`Get list 'tài khoản' success `, 'success')
+        Message(
+          `Get data success but nothing to show`,
+          'error',
+          3000,
+          'DONE',
+          'Lấy danh sách người dùng'
+        )
+      else
+        Message(
+          `Get list 'tài khoản' success `,
+          'success',
+          3000,
+          'DONE',
+          'Lấy danh sách người dùng'
+        )
       return { ...state, byId: action.payload }
     case typeContants.FETCH_NGUOIDUNG_FAIL:
       console.log('Error get api :', action.payload)
@@ -35,19 +48,22 @@ const NguoiDungReducer = (state = initialState, action) => {
     case typeContants.DELETE_NGUOIDUNG:
       debugger
       let lst = deleteNguoiDung(state, action)
-      Message(
-        `Susscess <br/>- Action: delete<br/>- TaskID: ${action.id}`,
-        'success'
-      )
+      Message('Xoá thành công', 'success', 3000, 'DONE', 'Xoá người dùng')
       return { ...state, byId: lst }
     case typeContants.ADD_NGUOIDUNG:
       let lst2 = addNguoiDung(state, action)
-      Message(`Susscess <br/>- Action: Add new LoaiCongVan<br/>- `, 'success')
+      Message('Thêm thành công', 'success', 3000, 'DONE', 'Thêm người dùng')
       return { ...state, byId: lst2 }
 
     case typeContants.EDIT_NGUOIDUNG:
       let lst3 = editNguoiDung(state, action)
-      Message(`Susscess <br/>- Action: Edit LoaiCongVan<br/>- `, 'success')
+      Message(
+        'Sửa thành công',
+        'success',
+        3000,
+        'DONE',
+        'Sửa thông tin người dùng'
+      )
       return { ...state, byId: lst3 }
     default:
       return state

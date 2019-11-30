@@ -9,10 +9,13 @@ import TableCommon from './Table'
 const columns = [
   {
     title: 'Số hiệu',
-    dataIndex: 'soKyHieu',
-    key: 'soKyHieu',
-    render: text => <span>{text}</span>,
-    width: '10%'
+    key: 'action1',
+    width: '10%',
+    render: congVan => (
+      <span className="Link" onClick={() => console.log('congVan :', congVan)}>
+        {congVan.soKyHieu}
+      </span>
+    )
   },
   {
     title: 'Trích yếu',

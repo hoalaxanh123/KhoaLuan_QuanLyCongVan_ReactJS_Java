@@ -14,4 +14,15 @@ export const LINHVUC = 'linhVuc'
 //Tài khoản
 export const API_NGUOIDUNG_ENDPOIN = 'taikhoan'
 export const NGUOIDUNG = 'taikhoan'
-//Map Status
+//Show Debug message ?
+export const DEBUG_MESSAGE = true
+//Show message ?
+export const SHOW_MESSAGE = true
+
+export function Copy(input) {
+  var copyText = input
+  copyText.select()
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand('copy')
+  alert('Copied the text: ' + copyText.value)
+}

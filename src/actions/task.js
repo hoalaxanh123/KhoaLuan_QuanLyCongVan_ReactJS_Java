@@ -57,10 +57,7 @@ export const deleteTask_Request = id => {
           dispatch(deleteTask(id))
         })
         .catch(error => {
-          Message(
-            `Action: delete<br/>TaskID: ${id}<br/>Error: ${Error}`,
-            'error'
-          )
+          Message(error, 'error', 3000, 'ERROR', 'Xoá công văn')
         })
     )
   }
@@ -80,13 +77,15 @@ export const addTask_Request = task => {
         .addTask(task)
         .then(res => {
           Message(
-            `<b>Thêm thành công văn vào cơ sở dữ liệu</b>`,
+            'Thêm thành công văn vào cơ sở dữ liệu',
             'success',
-            5000
+            3000,
+            'DONE',
+            'Thêm công văn'
           )
         })
         .catch(error => {
-          Message(`Action: add<br/>Add new task<br/>Error: ${Error}`, 'error')
+          Message(error, 'error', 3000, 'ERROR', 'Thêm công văn')
         })
     )
   }

@@ -94,17 +94,21 @@ class FormUser extends Component {
     e.preventDefault()
     if (this.state.tenTaiKhoan.includes(' ')) {
       Message(
-        'Lỗi<br/>Hành động:Thêm tài khoản<br/>Mô tả: Tên tài không được có dấu cách',
+        'Tên tài không được có dấu cách',
         'error',
-        5
+        3000,
+        'ERROR',
+        'Thêm tài khoản'
       )
       return
     }
     if (this.state.matKhau.length < 6) {
       Message(
-        'Lỗi<br/>Hành động: Thêm tài khoản<br/>Mô tả: Mật khẩu ít nhất 6 ký tự',
+        'Mật khẩu phải có ít nhất 6 ký tự !',
         'error',
-        5
+        3000,
+        'ERROR',
+        'Thêm tài khoản'
       )
       return
     }
@@ -113,9 +117,11 @@ class FormUser extends Component {
       this.CheckExistUserName(this.state.tenTaiKhoan)
     ) {
       Message(
-        '<b>Lỗi</b><br/>Hành động:Thêm tài khoản<br/>Mô tả: Tên tài khoản đã tồn tại',
+        'Tên tài khoản đã tồn tại !',
         'error',
-        5
+        3000,
+        'ERROR',
+        'Thêm tài khoản'
       )
       return
     }

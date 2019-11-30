@@ -26,28 +26,38 @@ const linhVucReducer = (state = initialState, action) => {
       return { ...state, byId: [] }
     case typeContants.FETCH_LINHVUC_SUCCESS:
       if (action.payload.length === 0)
-        Message(`Get data success but nothing to show`, 'error', 10000)
-      else Message(`Get list 'lĩnh vực' success `, 'success')
+        Message(
+          `Get data success but nothing to show`,
+          'error',
+          10000,
+          'WARNING',
+          'Lấy danh sách lĩnh vực'
+        )
+      else
+        Message(
+          `Get list 'lĩnh vực' success `,
+          'success',
+          3000,
+          'DONE',
+          'Lấy danh sách lĩnh vực'
+        )
       return { ...state, byId: action.payload }
     case typeContants.FETCH_LINHVUC_FAIL:
       console.log('Error get api :', action.payload)
       return { ...state, byId: [] }
     case typeContants.DELETE_LINHVUC:
       let lst = deletelinhVuc(state, action)
-      Message(
-        `Susscess <br/>- Action: delete<br/>- TaskID: ${action.id}`,
-        'success'
-      )
+      Message('Xoá thành công', 'success', 3000, 'DONE', 'Xoá lĩnh vực')
       return { ...state, byId: lst }
 
     case typeContants.ADD_LINHVUC:
       let lst2 = addLinhVuc(state, action)
-      Message(`Susscess <br/>- Action: Add new LinhVuc<br/>- `, 'success')
+      Message('Thêm thành công', 'success', 3000, 'DONE', 'Thêm lĩnh vực')
       return { ...state, byId: lst2 }
 
     case typeContants.EDIT_LINHVUC:
       let lst3 = editLinhVuc(state, action)
-      Message(`Susscess <br/>- Action: Edit LinhVuc<br/>- `, 'success')
+      Message('Sửa thành công', 'success', 3000, 'DONE', 'Sửa lĩnh vực')
       return { ...state, byId: lst3 }
     default:
       return state
