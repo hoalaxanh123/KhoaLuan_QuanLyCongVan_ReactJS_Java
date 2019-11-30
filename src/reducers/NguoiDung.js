@@ -8,7 +8,18 @@ let deleteNguoiDung = (state, action) => {
   lst.splice(index, 1)
   return lst
 }
-
+let addNguoiDung = (state, action) => {
+  let lst = [...state.byId]
+  lst.push(action.nguoiDung)
+  return lst
+}
+let editNguoiDung = (state, action) => {
+  debugger
+  let lst = [...state.byId]
+  var index = lst.findIndex(x => x.maTaiKhoan === action.nguoiDung.maTaiKhoan)
+  lst[index] = action.nguoiDung
+  return lst
+}
 const NguoiDungReducer = (state = initialState, action) => {
   switch (action.type) {
     case typeContants.FETCH_NGUOIDUNG:
@@ -29,6 +40,15 @@ const NguoiDungReducer = (state = initialState, action) => {
         'success'
       )
       return { ...state, byId: lst }
+    case typeContants.ADD_NGUOIDUNG:
+      let lst2 = addNguoiDung(state, action)
+      Message(`Susscess <br/>- Action: Add new LoaiCongVan<br/>- `, 'success')
+      return { ...state, byId: lst2 }
+
+    case typeContants.EDIT_NGUOIDUNG:
+      let lst3 = editNguoiDung(state, action)
+      Message(`Susscess <br/>- Action: Edit LoaiCongVan<br/>- `, 'success')
+      return { ...state, byId: lst3 }
     default:
       return state
   }

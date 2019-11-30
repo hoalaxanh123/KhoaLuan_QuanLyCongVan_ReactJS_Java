@@ -72,3 +72,48 @@ export const deleteTask = id => {
     id: id
   }
 }
+
+//add a task
+export const addTask_Request = nguoiDung => {
+  return dispatch => {
+    trackPromise(
+      apiNguoiDung
+        .addTask(nguoiDung)
+        .then(res => {
+          nguoiDung.maTaiKhoan = res.data.maTaiKhoan
+          dispatch(addTask(nguoiDung))
+        })
+        .catch(error => {
+          Message(`Action: add<br/>User <br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const addTask = nguoiDung => {
+  return {
+    type: taskConstant.ADD_NGUOIDUNG,
+    nguoiDung: nguoiDung
+  }
+}
+
+//edit a task
+export const editTask_Request = nguoiDung => {
+  return dispatch => {
+    trackPromise(
+      apiNguoiDung
+        .editTask(nguoiDung)
+        .then(res => {
+          dispatch(editTask(nguoiDung))
+        })
+        .catch(error => {
+          Message(`Action: edit<br/>User<br/>${error}`, 'error')
+        })
+    )
+  }
+}
+export const editTask = nguoiDung => {
+  return {
+    type: taskConstant.EDIT_NGUOIDUNG,
+    nguoiDung: nguoiDung
+  }
+}

@@ -10,3 +10,14 @@ export const getListTask = () => {
 export const deleteTask = id => {
   return axiosService.delete(`${API_URL}${endpoin}/${id}`)
 }
+
+export const addTask = nguoiDung => {
+  return axiosService.post(`${API_URL}${endpoin}`, nguoiDung)
+}
+
+export const editTask = nguoiDung => {
+  return axiosService.put(
+    `${API_URL}${endpoin}/${nguoiDung.maTaiKhoan}`,
+    nguoiDung
+  )
+}

@@ -13,6 +13,7 @@ import Message from '../../method/Message'
 import FormAction from '../List/FormAction'
 import * as constantAction from '../../constants/task'
 import FormLinhVuc from '../List/FormLinhVuc'
+import FormUser from '../List/FormUser'
 class Admin extends Component {
   constructor(props) {
     super(props)
@@ -20,6 +21,7 @@ class Admin extends Component {
       selectedPage: 2,
       displayForm: false,
       displayFormLinhVuc: false,
+      displayFormNguoiDung: false,
       titleForm: '',
       action: '',
       selectedObj: undefined
@@ -67,6 +69,12 @@ class Admin extends Component {
     if (Action === 'EDIT') {
       switch (Type) {
         case constant.NGUOIDUNG:
+          this.showFormNguoiDung(
+            'Sửa tài khoản: ' + selectedObj.tenTaiKhoan,
+            constantAction.EDIT_NGUOIDUNG,
+            selectedObj
+          )
+          console.log('selectedObj :', selectedObj)
           break
         case constant.CONGVAN:
           break
@@ -112,6 +120,10 @@ class Admin extends Component {
     } else if (Action === 'ADDNEW') {
       switch (Type) {
         case constant.NGUOIDUNG:
+          this.showFormNguoiDung(
+            'Thêm mới tài khoản: ',
+            constantAction.ADD_NGUOIDUNG
+          )
           break
         case constant.CONGVAN:
           break
@@ -133,6 +145,8 @@ class Admin extends Component {
   showForm = (title, action = '', selectedObj = null) => {
     this.setState({
       displayForm: true,
+      displayFormLinhVuc: false,
+      displayFormNguoiDung: false,
       titleForm: title,
       action: action,
       selectedObj: selectedObj
@@ -141,12 +155,25 @@ class Admin extends Component {
   hideForm = (title, action = '', selectedObj = null) => {
     this.setState({
       displayForm: false,
-      displayFormLinhVuc: false
+      displayFormLinhVuc: false,
+      displayFormNguoiDung: false
     })
   }
   showFormLinhVuc = (title, action = '', selectedObj = null) => {
     this.setState({
       displayFormLinhVuc: true,
+      displayForm: false,
+      displayFormNguoiDung: false,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
+  showFormNguoiDung = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayFormNguoiDung: true,
+      displayFormLinhVuc: false,
+      displayForm: false,
       titleForm: title,
       action: action,
       selectedObj: selectedObj
@@ -177,7 +204,6 @@ class Admin extends Component {
           moTa: param.moTa,
           tenLoai: param.tenLoai
         })
-
         this.hideForm()
         break
       case constantAction.EDIT_LOAICONGVAN:
@@ -185,6 +211,36 @@ class Admin extends Component {
           maLoai: param.maLoai,
           moTa: param.moTa,
           tenLoai: param.tenLoai
+        })
+        this.hideForm()
+        break
+      case constantAction.ADD_NGUOIDUNG:
+        this.props.add_user({
+          diaChi: param.diaChi,
+          email: param.email,
+          hoTen: param.hoTen,
+          maTaiKhoan: -1,
+          matKhau: param.matKhau,
+          phanQuyen: param.phanQuyen,
+          sdt: param.sdt,
+          tenTaiKhoan: param.tenTaiKhoan,
+          trangThai: param.trangThai
+        })
+
+        this.hideForm()
+        break
+      case constantAction.EDIT_NGUOIDUNG:
+        console.log('param :', param)
+        this.props.edit_user({
+          diaChi: param.diaChi,
+          email: param.email,
+          hoTen: param.hoTen,
+          maTaiKhoan: param.maTaiKhoan,
+          matKhau: param.matKhau,
+          phanQuyen: param.phanQuyen,
+          sdt: param.sdt,
+          tenTaiKhoan: param.tenTaiKhoan,
+          trangThai: param.trangThai
         })
         this.hideForm()
         break
@@ -471,6 +527,14 @@ class Admin extends Component {
           action={this.state.action}
           selectedObj={this.state.selectedObj}
         />
+        <FormUser
+          displayForm={this.state.displayFormNguoiDung}
+          titleForm={this.state.titleForm}
+          onSubmit={this.onSubmit}
+          action={this.state.action}
+          selectedObj={this.state.selectedObj}
+          listNguoiDung={listNguoiDung}
+        />
         <Row>
           <Col span={24}>
             <StickyContainer>
@@ -565,6 +629,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     edit_linh_vuc: linhVuc => {
       dispatch(actionLinhVuc.editTask_Request(linhVuc))
+    },
+    add_user: nguoiDung => {
+      dispatch(actionNguoiDung.addTask_Request(nguoiDung))
+    },
+    edit_user: nguoiDung => {
+      dispatch(actionNguoiDung.editTask_Request(nguoiDung))
     }
   }
 }
