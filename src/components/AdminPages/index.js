@@ -14,6 +14,7 @@ import FormAction from '../List/FormAction'
 import * as constantAction from '../../constants/task'
 import FormLinhVuc from '../List/FormLinhVuc'
 import FormUser from '../List/FormUser'
+import FormCongVan from '../List/FormCongVan'
 class Admin extends Component {
   constructor(props) {
     super(props)
@@ -22,6 +23,7 @@ class Admin extends Component {
       displayForm: false,
       displayFormLinhVuc: false,
       displayFormNguoiDung: false,
+      displayFormCongVan: false,
       titleForm: '',
       action: '',
       selectedObj: undefined
@@ -259,6 +261,20 @@ class Admin extends Component {
         break
     }
   }
+  onClicked2 = congVan => {
+    this.showFormCongvan('Thông tin công văn', '', congVan)
+  }
+  showFormCongvan = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayFormCongVan: true,
+      displayFormNguoiDung: false,
+      displayFormLinhVuc: false,
+      displayForm: false,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
   render() {
     const { TabPane } = Tabs
     let { listLoaiCongVan, listLinhVuc, listNguoiDung } = this.props
@@ -267,16 +283,30 @@ class Admin extends Component {
     const columnsCongvan = [
       {
         title: 'Số hiệu',
-        dataIndex: 'soKyHieu',
         key: 'soKyHieu',
-        render: text => <span>{text}</span>,
-        width: '8%'
+        width: '8%',
+        render: congVan => (
+          <span
+            className="Link"
+            onClick={() => this.onClicked2(congVan)}
+            title={`Xem chi tiết công văn ${congVan.soKyHieu}`}
+          >
+            {congVan.soKyHieu}
+          </span>
+        )
       },
       {
         title: 'Trích yếu',
         dataIndex: 'trichYeu',
         key: 'trichYeu',
-        width: '50%'
+        width: '50%',
+        render: trichYeu => (
+          <span title={trichYeu} titile={trichYeu}>
+            {trichYeu.length > constant.MAX_LENGTH_LINE
+              ? trichYeu.substring(0, 160).concat('...')
+              : trichYeu}
+          </span>
+        )
       },
       {
         title: 'Ngày ban hành',
@@ -545,6 +575,11 @@ class Admin extends Component {
           selectedObj={this.state.selectedObj}
           listNguoiDung={listNguoiDung}
         />
+        <FormCongVan
+          displayForm={this.state.displayFormCongVan}
+          titleForm={this.state.titleForm}
+          selectedObj={this.state.selectedObj}
+        />
         <Row>
           <Col span={24}>
             <StickyContainer>
@@ -562,6 +597,7 @@ class Admin extends Component {
                     data={listNguoiDung}
                     columns={columnsNguoiDung}
                     rowKey={'maTaiKhoan'}
+                    showExpand={false}
                   />
                 </TabPane>
                 <TabPane tab={` Quản lý công văn (${listCV.length})`} key="2">
@@ -569,6 +605,7 @@ class Admin extends Component {
                     title="Danh sách công văn"
                     data={listCV}
                     columns={columnsCongvan}
+                    showExpand={false}
                   />
                 </TabPane>
                 <TabPane
@@ -580,6 +617,7 @@ class Admin extends Component {
                     data={listLoaiCongVan}
                     columns={columnsLoaiCongvan}
                     rowKey={'maLoai'}
+                    showExpand={false}
                   />
                 </TabPane>
                 <TabPane
@@ -591,6 +629,7 @@ class Admin extends Component {
                     data={listLinhVuc}
                     columns={columnsLinhVuc}
                     rowKey={'maLinhVuc'}
+                    showExpand={false}
                   />
                 </TabPane>
               </Tabs>

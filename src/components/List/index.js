@@ -7,6 +7,7 @@ import * as actionLinhVuc from './../../actions/linhVuc'
 import TableCommon from './Table'
 import FormCongVan from './FormCongVan'
 import FormLines from './FormLines'
+import { MAX_LENGTH_LINE, MAX_LENGTH_SHORT_LINE } from '../../constants'
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -251,7 +252,11 @@ class ListCV extends Component {
         key: 'trichYeu',
         width: '50%',
         render: trichYeu => (
-          <span title={trichYeu}>{trichYeu.substring(0, 160)}</span>
+          <span title={trichYeu} titile={trichYeu}>
+            {trichYeu.length > MAX_LENGTH_LINE
+              ? trichYeu.substring(0, 160).concat('...')
+              : trichYeu}
+          </span>
         )
       },
       {
@@ -288,7 +293,14 @@ class ListCV extends Component {
             title="Xem chi tiết"
             onClick={() => this.showFormLine(obj.timDong, obj.lines)}
           >
-            {obj.lines ? obj.lines.toString() : ''}
+            {obj.lines
+              ? obj.lines.toString().length > MAX_LENGTH_SHORT_LINE
+                ? obj.lines
+                    .toString()
+                    .substring(0, MAX_LENGTH_SHORT_LINE)
+                    .concat('...')
+                : obj.lines.toString()
+              : ''}
           </span>
         )
       }
@@ -331,6 +343,7 @@ class ListCV extends Component {
           title="Danh sách công văn"
           columns={columns}
           data={listCV}
+          showExpand={true}
         />
       </div>
     )

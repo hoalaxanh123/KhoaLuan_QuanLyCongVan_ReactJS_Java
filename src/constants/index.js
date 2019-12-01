@@ -20,11 +20,7 @@ export const NGUOIDUNG = 'taikhoan'
 export const DEBUG_MESSAGE = true
 //Show message ?
 export const SHOW_MESSAGE = true
-
-export function Copy(input) {
-  var copyText = input
-  copyText.select()
-  copyText.setSelectionRange(0, 99999)
-  document.execCommand('copy')
-  alert('Copied the text: ' + copyText.value)
-}
+//Max length line
+export const MAX_LENGTH_LINE = 160
+//Max length short line
+export const MAX_LENGTH_SHORT_LINE = 6

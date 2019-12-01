@@ -11,6 +11,29 @@ class FormCreateCongVan extends Component {
       fileUploaded: this.props.fileUploaded
     })
   }
+  reSetForm() {
+    this.setState({
+      trichDan: '',
+      fileUploaded: ''
+    })
+    this.props.form.setFieldsValue({
+      noiDung: '',
+      id: '',
+      timDong: '',
+      soKyHieu: '',
+      ngayBanHanh: this.getToDay(),
+      nguoiKy: '',
+      mucDo: '',
+      coQuanBanHanh: '',
+      ngayCoHieuLuc: this.getToDay(),
+      trichYeu: '',
+      noiNhan: '',
+      maLinhVuc: '',
+      tapTin: '',
+      maLoai: ''
+    })
+    this.props.reRestParent()
+  }
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
       this.setState({
@@ -18,12 +41,25 @@ class FormCreateCongVan extends Component {
       })
     }
   }
+  getToDay = () => {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+    let yyyy = today.getFullYear()
 
+    today = yyyy + '-' + mm + '-' + dd
+    return today
+  }
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onCreate(values)
+        var save = window.confirm(
+          'Hãy chắc chắn bạn đã nhập đúng mọi thông tin cần thiết'
+        )
+        if (save) {
+          this.props.onCreate(values)
+        }
       } else alert('Hãy điền đầy đủ các trường cần thiết')
     })
   }
@@ -47,12 +83,7 @@ class FormCreateCongVan extends Component {
         Loại công văn: {loaiCongVan.tenLoai}
       </Option>
     ))
-    let today = new Date()
-    let dd = String(today.getDate()).padStart(2, '0')
-    let mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-    let yyyy = today.getFullYear()
 
-    today = yyyy + '-' + mm + '-' + dd
     let dateProp = this.props.date
     let { noiDung } = this.props
     let arr = noiDung.trim().split('\n')
@@ -63,11 +94,12 @@ class FormCreateCongVan extends Component {
       count = count + 1
     })
     timDong = JSON.stringify(timDong)
+    let today = this.getToDay()
     return (
       <Card type="inner" style={{ marginTop: '5px' }}>
         <Form onSubmit={this.handleSubmit} className="login-form">
           {/* Noi Dung */}
-          <Form.Item>
+          <Form.Item style={{ display: 'none' }}>
             {getFieldDecorator('noiDung', {
               initialValue: this.props.noiDung,
               rules: [
@@ -88,7 +120,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Tim dong */}
-          <Form.Item>
+          <Form.Item style={{ display: 'none' }}>
             {getFieldDecorator('timDong', {
               initialValue: timDong,
               rules: [
@@ -109,7 +141,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* id */}
-          <Form.Item>
+          <Form.Item style={{ display: 'none' }}>
             {getFieldDecorator('id', {
               initialValue: -1,
               rules: [
@@ -296,7 +328,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>{' '}
           {/* lĩnh vực */}
-          <Form.Item label="">
+          <Form.Item>
             {getFieldDecorator('maLinhVuc', {
               initialValue: 1,
               rules: [{ required: true, message: 'Vui lòng chọn lĩnh vực' }]
@@ -317,7 +349,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Tệp tin */}
-          <Form.Item label="">
+          <Form.Item style={{ display: 'none' }}>
             {getFieldDecorator('tapTin', {
               initialValue: this.props.fileUploaded
                 .toString()
@@ -341,7 +373,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* loaiCongVan */}
-          <Form.Item label="">
+          <Form.Item>
             {getFieldDecorator('maLoai', {
               initialValue: loaiCV,
               rules: [
@@ -364,9 +396,18 @@ class FormCreateCongVan extends Component {
               htmlType="submit"
               className="login-form-button"
               icon="download"
-              block
             >
               Lưu lại
+            </Button>
+
+            <Button
+              type="danger"
+              className="login-form-button"
+              icon="close-circle"
+              onClick={() => this.reSetForm()}
+              style={{ marginLeft: '5px' }}
+            >
+              Xoá trắng
             </Button>
           </Form.Item>
         </Form>

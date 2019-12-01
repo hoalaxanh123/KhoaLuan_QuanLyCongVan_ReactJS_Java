@@ -63,6 +63,18 @@ class Scanner extends Component {
 
     return date
   }
+  reRestParent = () => {
+    this.setState({
+      fileList: [],
+      contentReading: '',
+      loaiCV: 1,
+      previewVisible: false,
+      previewImage: '',
+      trichDan: '',
+      fileUploaded: [],
+      ngayThangNam: null
+    })
+  }
   handleChange = info => {
     let fileList = [...info.fileList]
     let content = ''
@@ -88,9 +100,7 @@ class Scanner extends Component {
     if (ngayThangNam && ngayThangNam.length > 0) {
       date = this.getDate(ngayThangNam)
     }
-
     this.setState({ trichDan, ngayThangNam: date })
-
     if (info.file.status === 'done') {
       let loaiCV = this.phanLoai(inputFilter)
       this.setState({ loaiCV })
@@ -138,7 +148,7 @@ class Scanner extends Component {
                   <Upload
                     action={constant.API_URL_UPFILE}
                     multiple={true}
-                    defaultFileList={fileList}
+                    fileList={fileList}
                     listType="picture-card"
                     onPreview={this.handlePreview}
                     accept="image/*"
@@ -169,7 +179,7 @@ class Scanner extends Component {
             <Card type="inner" style={{ marginTop: '5px', maxWidth: '99%' }}>
               <label>Kết quả:</label>
               <TextArea
-                rows={39}
+                rows={36}
                 value={this.state.contentReading.trim()}
                 onChange={this.onChange}
                 placeholder=""
@@ -189,6 +199,7 @@ class Scanner extends Component {
               fileUploaded={this.state.fileUploaded}
               date={this.state.ngayThangNam}
               noiDung={this.state.contentReading}
+              reRestParent={this.reRestParent}
             />
           </Col>
         </Row>

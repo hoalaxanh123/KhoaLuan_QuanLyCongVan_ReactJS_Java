@@ -78,7 +78,12 @@ class TableCommon extends Component {
       pagination: value === 'none' ? false : { position: value }
     })
   }
-
+  UNSAFE_componentWillMount() {
+    let { showExpand } = this.props
+    this.setState({
+      expandedRowRender: showExpand ? expandedRowRender : undefined
+    })
+  }
   render() {
     const { state } = this
     var { title, data, columns } = this.props

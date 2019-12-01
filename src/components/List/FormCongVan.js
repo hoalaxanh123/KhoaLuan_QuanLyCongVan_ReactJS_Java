@@ -16,7 +16,7 @@ class FormCongVan extends Component {
     noiDung: '',
     noiNhan: '',
     soKyHieu: '',
-    tapTin: '',
+    tapTin: [],
     timDong: ''
   }
 
@@ -45,7 +45,7 @@ class FormCongVan extends Component {
       noiDung: '',
       noiNhan: '',
       soKyHieu: '',
-      tapTin: '',
+      tapTin: [],
       timDong: '',
       displayForm: false
     })
@@ -116,16 +116,26 @@ class FormCongVan extends Component {
   render() {
     let tepTinState = this.state.tapTin
     let tepTin = tepTinState
-    if (tepTinState.split(',').length >= 1) {
-      tepTin = tepTinState.split(',').map((x, index) => {
-        console.log(x)
-        let link = `${API_URL_DOWNFILE}/${x.toString().trim()}`
-        return (
-          <a key={index} href={link} target="_blank" rel="noopener noreferrer">
-            Tải xuống tập tin {index + 1} |
-          </a>
-        )
-      })
+    try {
+      if (tepTinState.split(',').length >= 1) {
+        tepTin = tepTinState.split(',').map((x, index) => {
+          let link = `${API_URL_DOWNFILE}/${x.toString().trim()}`
+          return (
+            <a
+              key={index}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tải xuống tập tin {index + 1} |
+            </a>
+          )
+        })
+      }
+    } catch (error) {}
+
+    if (!this.state.ngayBanHanh) {
+      return <div></div>
     }
     return (
       <div>
@@ -138,11 +148,6 @@ class FormCongVan extends Component {
           onCancel={this.handleCancelForm}
           footer={[]}
         >
-          <div>
-            <object data="http://localhost:9999/api/downloadFile/20191201100426.pdf">
-              alt : <a href="test.pdf">test.pdf</a>
-            </object>
-          </div>
           <table className="tableChiTietCongVan">
             <thead>
               <tr>
@@ -194,10 +199,6 @@ class FormCongVan extends Component {
               <tr>
                 <td>Tập tin:</td>
                 <td>{tepTin}</td>
-              </tr>
-              <tr>
-                <td>Test:</td>
-                <td></td>
               </tr>
             </tbody>
           </table>
