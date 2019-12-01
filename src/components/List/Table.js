@@ -182,6 +182,15 @@ class TableCommon extends Component {
         </Collapse>
 
         <Table
+          locale={{
+            emptyText: (
+              <div>
+                <Icon type="database" style={{ fontSize: '35px' }} />
+                <br />
+                <span>Không có dữ liệu</span>
+              </div>
+            )
+          }}
           {...this.state}
           columns={columns}
           dataSource={state.hasData ? data : null}

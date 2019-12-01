@@ -34,6 +34,7 @@ class MobileApp extends Component {
               src={process.env.PUBLIC_URL + '/images/mobileapp.jpg'}
               className="MobileAppLogo"
               alt="DLU"
+              style={{ maxWidth: '90%' }}
             />
           </Col>
           <Col span={14} style={{ background: 'white' }}>

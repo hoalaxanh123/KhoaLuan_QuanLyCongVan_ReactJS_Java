@@ -140,13 +140,13 @@ class FormCongVan extends Component {
     return (
       <div>
         <Modal
-          width={1200}
-          style={{ width: '1500px' }}
+          width={'65%'}
           title={this.state.TitleForm}
           visible={this.state.displayForm}
           onOk={this.handleOkForm}
           onCancel={this.handleCancelForm}
           footer={[]}
+          centered={true}
         >
           <table className="tableChiTietCongVan">
             <thead>

@@ -299,7 +299,7 @@ class Admin extends Component {
         title: 'Trích yếu',
         dataIndex: 'trichYeu',
         key: 'trichYeu',
-        width: '50%',
+        width: '45%',
         render: trichYeu => (
           <span title={trichYeu} titile={trichYeu}>
             {trichYeu.length > constant.MAX_LENGTH_LINE
@@ -308,12 +308,12 @@ class Admin extends Component {
           </span>
         )
       },
-      {
-        title: 'Ngày ban hành',
-        dataIndex: 'ngayBanHanh',
-        key: 'ngayBanHanh',
-        width: '6%'
-      },
+      // {
+      //   title: 'Ngày ban hành',
+      //   dataIndex: 'ngayBanHanh',
+      //   key: 'ngayBanHanh',
+      //   width: '6%'
+      // },
       {
         title: 'Lĩnh vực',
         dataIndex: 'linhVuc',
@@ -326,16 +326,16 @@ class Admin extends Component {
         key: 'nguoiKy',
         width: '8%'
       },
-      {
-        title: 'Cơ quan ban hành',
-        key: 'coQuanBanHanh',
-        dataIndex: 'coQuanBanHanh',
-        width: '6%'
-      },
+      // {
+      //   title: 'Cơ quan ban hành',
+      //   key: 'coQuanBanHanh',
+      //   dataIndex: 'coQuanBanHanh',
+      //   width: '6%'
+      // },
       {
         title: 'Hành động',
         key: 'action1',
-        width: '12%',
+        width: '15%',
         render: congVan => (
           <span>
             <span
@@ -344,7 +344,7 @@ class Admin extends Component {
                 this.onClicked('ADDNEW', constant.CONGVAN, congVan)
               }
             >
-              Thêm mới
+              Thêm
             </span>
             <Divider type="vertical" />
             <span
@@ -398,7 +398,7 @@ class Admin extends Component {
                 this.onClicked('ADDNEW', constant.LOAICONGVAN, text)
               }
             >
-              Thêm mới
+              Thêm
             </span>
             <Divider type="vertical" />
             <span
@@ -443,14 +443,14 @@ class Admin extends Component {
       {
         title: 'Hành động',
         key: 'action3',
-        width: '12%',
+        width: '15%',
         render: text => (
           <span>
             <span
               className="Link"
               onClick={() => this.onClicked('ADDNEW', constant.LINHVUC, text)}
             >
-              Thêm mới
+              Thêm
             </span>
             <Divider type="vertical" />
             <span
@@ -509,14 +509,14 @@ class Admin extends Component {
       {
         title: 'Hành động',
         key: 'action4',
-        width: '12%',
+        width: '15%',
         render: text => (
           <span>
             <span
               className="Link"
               onClick={() => this.onClicked('ADDNEW', constant.NGUOIDUNG, text)}
             >
-              Thêm mới
+              Thêm
             </span>
             <Divider type="vertical" />
             <span

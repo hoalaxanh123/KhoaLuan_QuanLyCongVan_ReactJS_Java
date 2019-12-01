@@ -98,10 +98,10 @@ class ListCV extends Component {
     listCV.forEach(x => {
       let flag = true
       if (flag === true && state.keyword.length > 0) {
-        x.noiDung
-          .trim()
-          .toLowerCase()
-          .includes(state.keyword.trim().toLowerCase())
+        let noiDung = x.noiDung.trim().toLowerCase()
+        let soKyHieu = x.soKyHieu.trim().toLowerCase()
+        noiDung.includes(state.keyword.trim().toLowerCase()) ||
+        soKyHieu.includes(state.keyword.trim().toLowerCase())
           ? (flag = true)
           : (flag = false)
       }
@@ -208,6 +208,7 @@ class ListCV extends Component {
     }
   }
   handleSearch = state => {
+    console.log('state :', state)
     this.setState({
       keyword: state.keyword,
       loaiCongVan: state.loaiCongVan,
@@ -338,6 +339,7 @@ class ListCV extends Component {
           titleForm={this.state.titleForm}
           lines={this.state.lines}
           cacDongTimDuoc={this.state.cacDongTimDuoc}
+          keyword={this.state.keyword}
         />
         <TableCommon
           title="Danh sách công văn"

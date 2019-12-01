@@ -6,7 +6,8 @@ class FormLines extends Component {
     TitleForm: '',
     line: {},
     selectedObj: {},
-    cacDongTimDuoc: []
+    cacDongTimDuoc: [],
+    keyword: ''
   }
 
   showModal = () => {
@@ -34,7 +35,8 @@ class FormLines extends Component {
         lines: nextProp.lines,
         visible: nextProp.displayForm,
         selectedObj: nextProp.selectedObj,
-        cacDongTimDuoc: nextProp.cacDongTimDuoc
+        cacDongTimDuoc: nextProp.cacDongTimDuoc,
+        keyword: nextProp.keyword
       })
     }
   }
@@ -75,7 +77,7 @@ class FormLines extends Component {
             key={i}
             style={
               part.toLowerCase() === higlight.toLowerCase()
-                ? { textDecoration: 'underline' }
+                ? { backgroundColor: 'yellow' }
                 : {}
             }
           >
@@ -99,14 +101,17 @@ class FormLines extends Component {
     } catch (error) {}
     let trs = result.map((element, index) => {
       if (cacDongTimDuoc.includes(parseInt(element.key))) {
-        element.content = this.getHighlightedText(element.content, 'an')
+        element.content = this.getHighlightedText(
+          element.content,
+          this.state.keyword
+        )
         return (
           <tr key={index}>
-            <td className="found" style={{ background: 'red' }}>
+            <td className="found" style={{ background: 'rgba(0,0,0,0.1)' }}>
               {' '}
               {element.key}{' '}
             </td>
-            <td className="found" style={{ background: 'red' }}>
+            <td className="found" style={{ background: 'rgba(0,0,0,0.1)' }}>
               {' '}
               {element.content}{' '}
             </td>
@@ -123,12 +128,13 @@ class FormLines extends Component {
     return (
       <div id="inputText">
         <Modal
-          width={1200}
+          width={'65%'}
           title={this.state.TitleForm}
           visible={this.state.visible}
           onOk={this.handleOkForm}
           onCancel={this.handleCancelForm}
           footer={[]}
+          centered={true}
         >
           <table className="tableChiTietCongVan">
             <thead>

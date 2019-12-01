@@ -16,7 +16,7 @@
   width: 100%;
 }
 .found{
-  color:yellow
+  font-weight: bold;
 }
 .danger{color:red}
 .Active{
