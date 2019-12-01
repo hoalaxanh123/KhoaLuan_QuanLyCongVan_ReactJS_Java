@@ -26,7 +26,7 @@ class TableCommon extends Component {
     loading: false,
     pagination,
     size: 'small',
-    expandedRowRender: undefined,
+    expandedRowRender,
     title: undefined,
     showHeader,
     footer: undefined,

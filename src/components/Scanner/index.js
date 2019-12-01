@@ -67,6 +67,7 @@ class Scanner extends Component {
     let fileList = [...info.fileList]
     let content = ''
     let fileUploaded = []
+    console.log('fileList :', fileList)
     fileList.forEach(file => {
       if (file.response) {
         // Component will show file.url as link

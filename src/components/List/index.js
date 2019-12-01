@@ -6,6 +6,7 @@ import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
 import TableCommon from './Table'
 import FormCongVan from './FormCongVan'
+import FormLines from './FormLines'
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -35,7 +36,11 @@ class ListCV extends Component {
     nguoiKy: '',
     coQuanBanHanh: '',
     displayFormCongVan: false,
-    titleForm: ''
+    displayFormLine: false,
+    titleForm: '',
+    lines: [],
+    Finding: false,
+    cacDongTinDuoc: []
   }
 
   handleToggle = prop => enable => {
@@ -92,7 +97,7 @@ class ListCV extends Component {
     listCV.forEach(x => {
       let flag = true
       if (flag === true && state.keyword.length > 0) {
-        x.trichYeu
+        x.noiDung
           .trim()
           .toLowerCase()
           .includes(state.keyword.trim().toLowerCase())
@@ -122,6 +127,24 @@ class ListCV extends Component {
         else flag = false
       }
       if (flag === true) {
+        let temp = JSON.parse(x.timDong)
+        let keys = Object.keys(temp)
+        let lines = []
+        if (state.keyword !== '') {
+          for (let index = 1; index <= keys.length; index++) {
+            if (
+              temp[index]
+                .trim()
+                .toLowerCase()
+                .includes(state.keyword.trim().toLowerCase())
+            ) {
+              lines.push(index)
+            }
+          }
+        }
+        if (lines.length > 0) {
+          x['lines'] = lines
+        }
         result.push(x)
       }
     })
@@ -130,16 +153,19 @@ class ListCV extends Component {
   addKeyToList = (listCV, listLinhVuc) => {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
-        listCV[index]['linhVuc'] = 'Unknown'
         listCV[index]['key'] = listCV[index].id
+        listCV[index]['description'] = listCV[index].trichYeu
         try {
           let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
           listCV[index]['ngayBanHanh'] = date
-          listCV[index]['linhVuc'] = listLinhVuc.find(
-            x => x.maLinhVuc === listCV[index].maLinhVuc
-          ).tenLinhVuc
+          if (!isNaN(listCV[index].maLinhVuc)) {
+            listCV[index]['linhVuc'] = listLinhVuc.find(
+              x => x.maLinhVuc === listCV[index].maLinhVuc
+            ).tenLinhVuc
+          }
         } catch (error) {
           listCV[index]['ngayBanHanh'] = 'ERROR'
+          listCV[index]['linhVuc'] = 'Unknown'
         }
       })
     }
@@ -148,9 +174,19 @@ class ListCV extends Component {
   showFormCongvan = (title, action = '', selectedObj = null) => {
     this.setState({
       displayFormCongVan: true,
+      displayFormLine: false,
       titleForm: title,
       action: action,
       selectedObj: selectedObj
+    })
+  }
+  showFormLine = (timDong = null, cacDongTimDuoc = []) => {
+    this.setState({
+      displayFormLine: true,
+      displayFormCongVan: false,
+      titleForm: '',
+      lines: timDong,
+      cacDongTimDuoc: cacDongTimDuoc
     })
   }
   process = listCV => {
@@ -178,7 +214,9 @@ class ListCV extends Component {
       ngayBatDau: state.ngayBatDau,
       ngayKetThuc: state.ngayKetThuc,
       nguoiKy: state.nguoiKy,
-      coQuanBanHanh: state.coQuanBanHanh
+      coQuanBanHanh: state.coQuanBanHanh,
+      displayFormCongVan: false,
+      displayFormLine: false
     })
   }
   onClicked2 = congVan => {
@@ -192,13 +230,17 @@ class ListCV extends Component {
     let arrayCoQuanBanHanh = result.arrayCoQuanBanHanh
     let listCVFilter = this.filterByState(listCV)
     listCV = this.addKeyToList(listCVFilter, listLinhVuc)
-    const columns = [
+    let columns = [
       {
         title: 'Số hiệu',
         key: 'action1',
         width: '10%',
         render: congVan => (
-          <span className="Link" onClick={() => this.onClicked2(congVan)}>
+          <span
+            className="Link"
+            onClick={() => this.onClicked2(congVan)}
+            title={`Xem chi tiết công văn ${congVan.soKyHieu}`}
+          >
             {congVan.soKyHieu}
           </span>
         )
@@ -207,7 +249,10 @@ class ListCV extends Component {
         title: 'Trích yếu',
         dataIndex: 'trichYeu',
         key: 'trichYeu',
-        width: '50%'
+        width: '50%',
+        render: trichYeu => (
+          <span title={trichYeu}>{trichYeu.substring(0, 160)}</span>
+        )
       },
       {
         title: 'Ngày ban hành',
@@ -232,6 +277,20 @@ class ListCV extends Component {
         key: 'coQuanBanHanh',
         dataIndex: 'coQuanBanHanh',
         width: '10%'
+      },
+      {
+        title: '',
+        key: 'lines',
+        width: '10%',
+        render: obj => (
+          <span
+            className="Link"
+            title="Xem chi tiết"
+            onClick={() => this.showFormLine(obj.timDong, obj.lines)}
+          >
+            {obj.lines ? obj.lines.toString() : ''}
+          </span>
+        )
       }
     ]
     let selectedObj = this.state.selectedObj
@@ -261,6 +320,12 @@ class ListCV extends Component {
           listLinhVuc={listLinhVuc}
           arrayNguoiKy={arrayNguoiKy}
           arrayCoQuanBanHanh={arrayCoQuanBanHanh}
+        />
+        <FormLines
+          displayForm={this.state.displayFormLine}
+          titleForm={this.state.titleForm}
+          lines={this.state.lines}
+          cacDongTimDuoc={this.state.cacDongTimDuoc}
         />
         <TableCommon
           title="Danh sách công văn"

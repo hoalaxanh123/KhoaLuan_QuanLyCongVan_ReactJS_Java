@@ -28,19 +28,19 @@ const NguoiDungReducer = (state = initialState, action) => {
       if (action.payload.length === 0)
         Message(
           `Get data success but nothing to show`,
-          'error',
+          'warning',
           3000,
           'DONE',
           'Lấy danh sách người dùng'
         )
-      else
-        Message(
-          `Get list 'tài khoản' success `,
-          'success',
-          3000,
-          'DONE',
-          'Lấy danh sách người dùng'
-        )
+      // else
+      //   Message(
+      //     `Get list 'tài khoản' success `,
+      //     'success',
+      //     3000,
+      //     'DONE',
+      //     'Lấy danh sách người dùng'
+      //   )
       return { ...state, byId: action.payload }
     case typeContants.FETCH_NGUOIDUNG_FAIL:
       console.log('Error get api :', action.payload)

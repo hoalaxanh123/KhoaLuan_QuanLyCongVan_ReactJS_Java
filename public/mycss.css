@@ -1,6 +1,23 @@
 .login-title{
   font-size: 20px;
 }
+.highlight {
+  font-size: 180px;
+}
+.tableChiTietCongVan, .tableChiTietCongVan th, .tableChiTietCongVan td{
+  padding: 1em;
+  background: rgba(255, 246, 246, 0.5);
+  border-bottom: 2px solid white;
+}
+.tableChiTietCongVan{
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  width: 100%;
+}
+.found{
+  color:yellow
+}
 .danger{color:red}
 .Active{
   color: #1890ff;
@@ -20,7 +37,7 @@
   -webkit-text-decoration-skip: objects;
 }
 .Link:hover{
-font-weight: bold;
+  text-decoration: underline overline;
 }
 .TableOption{
   background: transparent;

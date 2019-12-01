@@ -30,19 +30,19 @@ const loaiCongVanReducer = (state = initialState, action) => {
       if (action.payload.length === 0)
         Message(
           `Get data success but nothing to show`,
-          'error',
+          'warning',
           3000,
           'WARNING',
           'Lấy danh sách công văn'
         )
-      else
-        Message(
-          `Get list 'loại công văn' success `,
-          'success',
-          3000,
-          'DONE',
-          'Lấy danh sách công văn'
-        )
+      // else
+      //   Message(
+      //     `Get list 'loại công văn' success `,
+      //     'success',
+      //     3000,
+      //     'DONE',
+      //     'Lấy danh sách công văn'
+      //   )
       return { ...state, byId: action.payload }
 
     case typeContants.FETCH_LOAICONGVAN_FAIL:

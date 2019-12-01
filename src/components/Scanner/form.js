@@ -55,7 +55,7 @@ class FormCreateCongVan extends Component {
     today = yyyy + '-' + mm + '-' + dd
     let dateProp = this.props.date
     let { noiDung } = this.props
-    let arr = noiDung.split('\n')
+    let arr = noiDung.trim().split('\n')
     let timDong = {}
     let count = 1
     arr.forEach(line => {
