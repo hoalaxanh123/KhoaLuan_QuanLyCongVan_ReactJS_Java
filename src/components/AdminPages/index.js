@@ -285,6 +285,8 @@ class Admin extends Component {
         title: 'Số hiệu',
         key: 'soKyHieu',
         width: '8%',
+        sorter: (a, b) => a.soKyHieu.localeCompare(b.soKyHieu),
+        sortDirections: ['descend', 'ascend'],
         render: congVan => (
           <span
             className="Link"
@@ -299,6 +301,8 @@ class Admin extends Component {
         title: 'Trích yếu',
         dataIndex: 'trichYeu',
         key: 'trichYeu',
+        sorter: (a, b) => a.trichYeu.localeCompare(b.soKyHieu),
+        sortDirections: ['descend', 'ascend'],
         width: '45%',
         render: trichYeu => (
           <span title={trichYeu} titile={trichYeu}>
@@ -318,12 +322,16 @@ class Admin extends Component {
         title: 'Lĩnh vực',
         dataIndex: 'linhVuc',
         key: 'linhVuc',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) => a.linhVuc.localeCompare(b.linhVuc),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Người ký',
         dataIndex: 'nguoiKy',
         key: 'nguoiKy',
+        sorter: (a, b) => a.nguoiKy.localeCompare(b.nguoiKy),
+        sortDirections: ['descend', 'ascend'],
         width: '8%'
       },
       // {
@@ -372,19 +380,27 @@ class Admin extends Component {
         dataIndex: 'maLoai',
         key: 'maLoai',
         render: text => <span>{text}</span>,
-        width: '8%'
+        width: '8%',
+        sorter: (a, b) =>
+          a.maLoai.toString().localeCompare(b.maLoai.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Tên loại',
         dataIndex: 'tenLoai',
         key: 'tenLoai',
-        width: '38%'
+        width: '38%',
+        sorter: (a, b) =>
+          a.tenLoai.toString().localeCompare(b.tenLoai.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Mô  tả',
         dataIndex: 'moTa',
         key: 'moTa',
-        width: '40%'
+        width: '40%',
+        sorter: (a, b) => a.moTa.toString().localeCompare(b.moTa.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Hành động',
@@ -426,19 +442,31 @@ class Admin extends Component {
         dataIndex: 'maLinhVuc',
         key: 'maLinhVuc',
         render: text => <span>{text}</span>,
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) =>
+          a.maLinhVuc.toString().localeCompare(b.maLinhVuc.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Tên lĩnh vực',
         dataIndex: 'tenLinhVuc',
         key: 'tenLinhVuc',
-        width: '40%'
+        width: '40%',
+        sorter: (a, b) =>
+          a.tenLinhVuc.toString().localeCompare(b.tenLinhVuc.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Tên viết tắt',
         dataIndex: 'tenVietTat',
         key: 'tenVietTat',
-        width: '35%'
+        width: '35%',
+        sorter: (a, b) => {
+          a.tenVietTat = a.tenVietTat !== null ? a.tenVietTat : ' '
+          b.tenVietTat = b.tenVietTat !== null ? b.tenVietTat : ' '
+          a.tenVietTat.toString().localeCompare(b.tenVietTat.toString())
+        },
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Hành động',
@@ -475,25 +503,35 @@ class Admin extends Component {
         title: 'Tên tài khoản',
         dataIndex: 'tenTaiKhoan',
         key: 'tenTaiKhoan',
-        width: '15%'
+        width: '15%',
+        sorter: (a, b) =>
+          a.tenTaiKhoan.toString().localeCompare(b.tenTaiKhoan.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Tên người dùng',
         dataIndex: 'hoTen',
         key: 'hoTen',
-        width: '15%'
+        width: '15%',
+        sorter: (a, b) => a.hoTen.toString().localeCompare(b.hoTen.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Email',
         dataIndex: 'email',
         key: 'email',
-        width: '35%'
+        width: '35%',
+        sorter: (a, b) => a.email.toString().localeCompare(b.email.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Quyền',
         dataIndex: 'phanQuyen',
         key: 'phanQuyen',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) =>
+          a.phanQuyen.toString().localeCompare(b.phanQuyen.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Trạng thái',
@@ -504,7 +542,10 @@ class Admin extends Component {
             {trangThai ? 'Đang hoạt động' : 'Ngừng kích hoạt'}
           </span>
         ),
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) =>
+          a.trangThai.toString().localeCompare(b.trangThai.toString()),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Hành động',

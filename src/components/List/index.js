@@ -242,6 +242,8 @@ class ListCV extends Component {
         title: 'Số hiệu',
         key: 'action1',
         width: '10%',
+        sorter: (a, b) => a.soKyHieu.localeCompare(b.soKyHieu),
+        sortDirections: ['descend', 'ascend'],
         render: congVan => (
           <span
             className="Link"
@@ -256,6 +258,8 @@ class ListCV extends Component {
         title: 'Trích yếu',
         dataIndex: 'trichYeu',
         key: 'trichYeu',
+        sorter: (a, b) => a.trichYeu.localeCompare(b.trichYeu),
+        sortDirections: ['descend', 'ascend'],
         width: '50%',
         render: trichYeu => (
           <span title={trichYeu} titile={trichYeu}>
@@ -269,25 +273,33 @@ class ListCV extends Component {
         title: 'Ngày ban hành',
         dataIndex: 'ngayBanHanh',
         key: 'ngayBanHanh',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) => a.ngayBanHanh.localeCompare(b.ngayBanHanh),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Lĩnh vực',
         dataIndex: 'linhVuc',
         key: 'linhVuc',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) => a.linhVuc.localeCompare(b.linhVuc),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Người ký',
         dataIndex: 'nguoiKy',
         key: 'nguoiKy',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) => a.nguoiKy.localeCompare(b.nguoiKy),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: 'Cơ quan ban hành',
         key: 'coQuanBanHanh',
         dataIndex: 'coQuanBanHanh',
-        width: '10%'
+        width: '10%',
+        sorter: (a, b) => a.coQuanBanHanh.localeCompare(b.coQuanBanHanh),
+        sortDirections: ['descend', 'ascend']
       },
       {
         title: '',
