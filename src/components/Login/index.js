@@ -1,71 +1,34 @@
 import React, { Component } from 'react'
-import { trackPromise } from 'react-promise-tracker'
+// import { trackPromise } from 'react-promise-tracker'
 import { Card, Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd'
 import './index.css'
-import axiosService from '../../commons/axiosService'
-import { API_LOGIN, API_AFTER_LOGIN } from '../../constants'
-import Message from '../../method/Message'
+// import axiosService from '../../commons/axiosService'
+// import { API_LOGIN, API_AFTER_LOGIN } from '../../constants'
+import { API_AFTER_LOGIN } from '../../constants'
+import CommonMethods from '../../constants/methods'
 
 class Login extends Component {
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // console.log('values :', values)
-        // console.log('typeof(values) :', typeof(values));
-        // trackPromise(
-        //   axiosService
-        //     .post(API_LOGIN, values)
-        //     .then(res => {
-        //       console.log('res :', res)
-        //     })
-        //     .catch(error => {})
-        // )
-        if (values.username === 'Hieu' && values.password === '123456') {
-          let userLoged = {
-            token:
-              'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJIaWV1IiwiZXhwIjoxNTc2MTM0Mzc1fQ._zMBEuuz8ASD-rUJu-_AtXjaDG3BF3-ErpTbkA2k29tQVRkjCpkcTalNoym2YRuXxB22Rh58hQHQalD0sdWz3A',
-            maTaiKhoan: 1,
-            tenTaiKhoan: 'Hieu',
-            hoTen: 'Nghiêm Xuân Hiếu',
-            email: 'nghiemxuanhieu97@gmail.com',
-            diaChi: 'Tô Ngọc Vân, Đà Lạt',
-            phanQuyen: 'Admin',
-            trangThai: 'false',
-            sdt: '0367896040'
-          }
-          localStorage.setItem('userName', JSON.stringify(userLoged))
-          Message(
-            'Đăng nhập thành công, vui lòng chờ',
-            'success',
-            3000,
-            'Đăng nhập',
-            'Login'
-          )
-          setTimeout(() => {
-            window.location.replace('http://localhost:1414')
-          }, 1000)
-        } else {
-          Message(
-            'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',
-            'error',
-            3000,
-            'Đăng nhập lỗi',
-            'Login'
-          )
-        }
+        CommonMethods.Login(values.username, values.password)
       }
     })
   }
-  UNSAFE_componentWillMount() {
-    let logged = localStorage.getItem('userName')
-    if (logged) window.location.replace(API_AFTER_LOGIN)
-  }
+  UNSAFE_componentWillMount() {}
   render() {
     const { getFieldDecorator } = this.props.form
+    let titile =
+      window.location.pathname !== '/dang-nhap'
+        ? 'Vui lòng đăng nhập để sử dụng hệ thống'
+        : ''
     return (
       <Row>
         <Col span={7} className="LoginForm">
+          <center>
+            <h2 style={{ color: 'red' }}>{titile}</h2>
+          </center>
           <Card>
             <center>
               <h1 className="login-title">Đăng nhập hệ thống</h1>

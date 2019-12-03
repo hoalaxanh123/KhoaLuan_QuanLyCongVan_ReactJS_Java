@@ -7,27 +7,16 @@ class Routers extends Component {
   show_Route = Routes => {
     let result = []
     if (Routes) {
-      if (localStorage.getItem('userName')) {
-        result = Routes.map((route, index) => {
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exactYes}
-              component={route.main}
-            />
-          )
-        })
-      } else {
-        result.push(
+      result = Routes.map((route, index) => {
+        return (
           <Route
-            key={-1}
-            path={'/dang-nhap'}
-            exact={true}
-            component={({ location }) => <Login location={location} />}
+            key={index}
+            path={route.path}
+            exact={route.exactYes}
+            component={route.main}
           />
         )
-      }
+      })
     }
     return result
   }

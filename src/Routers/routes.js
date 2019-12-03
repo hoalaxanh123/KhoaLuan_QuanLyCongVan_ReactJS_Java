@@ -7,17 +7,20 @@ import Admin from '../components/AdminPages'
 import Login from '../components/Login'
 import TaiKhoan from '../components/TaiKhoan'
 import Logout from '../components/Logout'
+import CommonMethods from '../constants/methods'
 
 const json_Routes = [
   {
     path: '/',
     exactYes: true,
-    main: ({ location }) => <ListCV location={location} />
+    main: ({ location }) =>
+      CommonMethods.CheckLoged() ? <ListCV location={location} /> : <Login />
   },
   {
     path: '/so-hoa-cong-van',
     exactYes: true,
-    main: ({ history }) => <Scanner history={history} />
+    main: ({ history }) =>
+      CommonMethods.CheckLoged() ? <Scanner history={history} /> : <Login />
   },
   {
     path: '/mobile-application',
@@ -27,12 +30,14 @@ const json_Routes = [
   {
     path: '/quan-tri',
     exactYes: true,
-    main: ({ history }) => <Admin history={history} />
+    main: ({ history }) =>
+      CommonMethods.CheckLoged() ? <Admin history={history} /> : <Login />
   },
   {
     path: '/tai-khoan',
     exactYes: true,
-    main: ({ history }) => <TaiKhoan history={history} />
+    main: ({ history }) =>
+      CommonMethods.CheckLoged() ? <TaiKhoan history={history} /> : <Login />
   },
   {
     path: '/dang-nhap',
@@ -42,7 +47,7 @@ const json_Routes = [
   {
     path: '/dang-xuat',
     exactYes: true,
-    main: ({ history }) => <Logout />
+    main: ({ history }) => (CommonMethods.CheckLoged() ? <Logout /> : <Login />)
   },
   {
     path: '',

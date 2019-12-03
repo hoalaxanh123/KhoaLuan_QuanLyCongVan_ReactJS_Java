@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
+import CommonMethods from '../../constants/methods'
 const { Sider } = Layout
 // const { SubMenu } = Menu
 
@@ -53,16 +54,18 @@ let menus = [
     to: '/quan-tri',
     exactYES: false,
     icon: 'appstore'
+  },
+  {
+    index: 5,
+    label: 'Tài khoản',
+    to: '/tai-khoan',
+    exactYES: false,
+    icon: 'user'
   }
-  // ,
-  // {
-  //   index: 5,
-  //   label: 'Tài khoản',
-  //   to: '/tai-khoan',
-  //   exactYES: false,
-  //   icon: 'user'
-  // }
 ]
+function handleClick(e) {
+  localStorage.setItem('menuKey', e.key)
+}
 class LeftMenu extends Component {
   showMenu = menus => {
     let result = []
@@ -81,10 +84,10 @@ class LeftMenu extends Component {
           </Menu.Item>
         )
       })
-      let logged = localStorage.getItem('userName')
+      let logged = CommonMethods.CheckLoged()
       if (logged) {
         result.push(
-          <Menu.Item key={100}>
+          <Menu.Item key={6}>
             <MyLink
               key={100}
               label={'Đăng xuất'}
@@ -97,7 +100,7 @@ class LeftMenu extends Component {
         )
       } else {
         result.push(
-          <Menu.Item key={100}>
+          <Menu.Item key={6}>
             <MyLink
               key={100}
               label={'Đăng nhập'}
@@ -110,20 +113,7 @@ class LeftMenu extends Component {
         )
       }
     }
-    let loged = localStorage.getItem('loged')
-    if (loged) {
-      let index = result.findIndex(item => item.key === '6')
-      result.splice(index, 1)
-      result.push(
-        <MyLink
-          key={-1}
-          label={'Đăng xuất'}
-          link={'/logout'}
-          exactYES={true}
-          className="menuItem"
-        />
-      )
-    }
+
     return result
   }
   state = {
@@ -142,8 +132,14 @@ class LeftMenu extends Component {
       this.setState({ position: 'fixed', collapsedWidth: '0' })
     }
   }
+  UNSAFE_componentWillMount() {
+    let menuKey = localStorage.getItem('menuKey')
+    if (!menuKey) localStorage.setItem('menuKey', 1)
+  }
   resize() {}
   render() {
+    let menuKey = localStorage.getItem('menuKey')
+    if (!menuKey) localStorage.setItem('menuKey', 1)
     return (
       <Sider
         className="LeftMenu"
@@ -160,7 +156,12 @@ class LeftMenu extends Component {
             <b>PST</b> DLU
           </p>
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={[menuKey ? menuKey : 1]}
+          mode="inline"
+          onClick={handleClick}
+        >
           {this.showMenu(menus)}
         </Menu>
       </Sider>

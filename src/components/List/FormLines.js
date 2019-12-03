@@ -96,6 +96,7 @@ class FormLines extends Component {
     try {
       lines = JSON.parse(this.props.lines)
       for (let key in lines) {
+        // eslint-disable-line
         result.push({ key: key, content: lines[key] })
       }
     } catch (error) {}
