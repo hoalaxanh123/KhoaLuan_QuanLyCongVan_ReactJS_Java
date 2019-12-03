@@ -6,6 +6,7 @@ import MobileApp from '../components/MobileApp'
 import Admin from '../components/AdminPages'
 import Login from '../components/Login'
 import TaiKhoan from '../components/TaiKhoan'
+import Logout from '../components/Logout'
 
 const json_Routes = [
   {
@@ -37,6 +38,11 @@ const json_Routes = [
     path: '/dang-nhap',
     exactYes: true,
     main: ({ location }) => <Login location={location} />
+  },
+  {
+    path: '/dang-xuat',
+    exactYes: true,
+    main: ({ history }) => <Logout />
   },
   {
     path: '',

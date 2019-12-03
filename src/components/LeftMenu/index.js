@@ -52,15 +52,16 @@ let menus = [
     label: 'Trang quản trị',
     to: '/quan-tri',
     exactYES: false,
-    icon: 'user'
-  },
-  {
-    index: 5,
-    label: 'Tài khoản',
-    to: '/tai-khoan',
-    exactYES: false,
-    icon: 'user'
+    icon: 'appstore'
   }
+  // ,
+  // {
+  //   index: 5,
+  //   label: 'Tài khoản',
+  //   to: '/tai-khoan',
+  //   exactYES: false,
+  //   icon: 'user'
+  // }
 ]
 class LeftMenu extends Component {
   showMenu = menus => {
@@ -80,6 +81,34 @@ class LeftMenu extends Component {
           </Menu.Item>
         )
       })
+      let logged = localStorage.getItem('userName')
+      if (logged) {
+        result.push(
+          <Menu.Item key={100}>
+            <MyLink
+              key={100}
+              label={'Đăng xuất'}
+              link={'/dang-xuat'}
+              exactYES={true}
+              icon={'logout'}
+              className="menuItem"
+            />
+          </Menu.Item>
+        )
+      } else {
+        result.push(
+          <Menu.Item key={100}>
+            <MyLink
+              key={100}
+              label={'Đăng nhập'}
+              link={'/dang-nhap'}
+              exactYES={true}
+              icon={'login'}
+              className="menuItem"
+            />
+          </Menu.Item>
+        )
+      }
     }
     let loged = localStorage.getItem('loged')
     if (loged) {

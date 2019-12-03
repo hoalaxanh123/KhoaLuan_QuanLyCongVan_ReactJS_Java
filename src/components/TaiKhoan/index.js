@@ -80,81 +80,83 @@ class TaiKhoan extends Component {
     )
 
     return (
-      <Card type="inner" title="Tài khoản">
-        <Form
-          {...formItemLayout}
-          onSubmit={this.handleSubmit}
-          labelAlign="left"
-          labelCol={{ span: 24, offset: 0 }}
-        >
-          <Form.Item label="E-mail">
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email',
-                  message: 'Vui lòng nhập E-mail hợp lệ!'
-                },
-                {
-                  required: true,
-                  message: 'Vui lòng nhập E-mail!'
-                }
-              ]
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Mật khẩu" hasFeedback>
-            {getFieldDecorator('password', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Vui lòng nhập password!'
-                },
-                {
-                  validator: this.validateToNextPassword
-                }
-              ]
-            })(<Input.Password />)}
-          </Form.Item>
-          <Form.Item label="Nhập lại mật khẩu" hasFeedback>
-            {getFieldDecorator('confirm', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Nhập lại mật khẩu!'
-                },
-                {
-                  validator: this.compareToFirstPassword
-                }
-              ]
-            })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-          </Form.Item>
-          <Form.Item label={'Tên đăng nhập'}>
-            {getFieldDecorator('nickname', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Vui lòng nhập tên đăng nhập!',
-                  whitespace: true
-                }
-              ]
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Số điện thoại">
-            {getFieldDecorator('phone', {
-              rules: [
-                { required: true, message: 'Please input your phone number!' }
-              ]
-            })(
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-            )}
-          </Form.Item>
+      <div>
+        <Card type="inner" title="Tài khoản">
+          <Form
+            {...formItemLayout}
+            onSubmit={this.handleSubmit}
+            labelAlign="left"
+            labelCol={{ span: 24, offset: 0 }}
+          >
+            <Form.Item label="E-mail">
+              {getFieldDecorator('email', {
+                rules: [
+                  {
+                    type: 'email',
+                    message: 'Vui lòng nhập E-mail hợp lệ!'
+                  },
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập E-mail!'
+                  }
+                ]
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item label="Mật khẩu" hasFeedback>
+              {getFieldDecorator('password', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập password!'
+                  },
+                  {
+                    validator: this.validateToNextPassword
+                  }
+                ]
+              })(<Input.Password />)}
+            </Form.Item>
+            <Form.Item label="Nhập lại mật khẩu" hasFeedback>
+              {getFieldDecorator('confirm', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Nhập lại mật khẩu!'
+                  },
+                  {
+                    validator: this.compareToFirstPassword
+                  }
+                ]
+              })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+            </Form.Item>
+            <Form.Item label={'Tên đăng nhập'}>
+              {getFieldDecorator('nickname', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Vui lòng nhập tên đăng nhập!',
+                    whitespace: true
+                  }
+                ]
+              })(<Input />)}
+            </Form.Item>
+            <Form.Item label="Số điện thoại">
+              {getFieldDecorator('phone', {
+                rules: [
+                  { required: true, message: 'Please input your phone number!' }
+                ]
+              })(
+                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              )}
+            </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              Gửi
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+            <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" htmlType="submit">
+                Gửi
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </div>
     )
   }
 }

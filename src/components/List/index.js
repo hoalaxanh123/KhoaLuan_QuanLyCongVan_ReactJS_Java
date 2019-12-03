@@ -100,8 +100,13 @@ class ListCV extends Component {
       if (flag === true && state.keyword.length > 0) {
         let noiDung = x.noiDung.trim().toLowerCase()
         let soKyHieu = x.soKyHieu.trim().toLowerCase()
+        let mucDo = x.mucDo
+          .toString()
+          .trim()
+          .toLowerCase()
         noiDung.includes(state.keyword.trim().toLowerCase()) ||
-        soKyHieu.includes(state.keyword.trim().toLowerCase())
+        soKyHieu.includes(state.keyword.trim().toLowerCase()) ||
+        mucDo.includes(state.keyword.trim().toLowerCase())
           ? (flag = true)
           : (flag = false)
       }

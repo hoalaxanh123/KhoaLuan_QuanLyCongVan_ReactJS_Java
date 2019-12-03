@@ -4,6 +4,7 @@ export const API_URL = 'http://localhost:9999/api/'
 export const API_URL_UPFILE = 'http://localhost:9999/api/readFile'
 //API DOWNLOAD FILE
 export const API_URL_DOWNFILE = 'http://localhost:9999/api/downloadFile'
+
 //task == Công văn
 export const API_CONGVAN_ENDPOIN = 'congvan'
 export const CONGVAN = 'congvan'
@@ -24,3 +25,9 @@ export const SHOW_MESSAGE = true
 export const MAX_LENGTH_LINE = 160
 //Max length short line
 export const MAX_LENGTH_SHORT_LINE = 6
+//API Login
+export const API_LOGIN = 'http://localhost:9999/login'
+//API PAGE
+export const API_PAGE_LOGIN = 'http://localhost:1414/dang-nhap'
+//URL After Login
+export const API_AFTER_LOGIN = 'http://localhost:1414'

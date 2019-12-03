@@ -171,13 +171,12 @@ class FormFind extends Component {
             className="monition_width"
           >
             <Col
-              span={
-                this.state.width < 24 ? this.state.width + 1 : this.state.width
-              }
+              span={this.state.width < 24 ? this.state.width : this.state.width}
             >
               <Form.Item label="" {...formItemLayout}>
                 <RangePicker
                   allowClear
+                  style={{ maxWidth: '200px' }}
                   format="DD-MM-YYYY"
                   placeholder={['Từ ngày', 'Tới ngày']}
                   onChange={this.handleTrongKhoang}
@@ -190,7 +189,7 @@ class FormFind extends Component {
               <Form.Item label="Người ký">
                 <Select
                   showSearch
-                  style={{ width: 250 }}
+                  style={{ maxWidth: 180 }}
                   placeholder="Chọn người ký"
                   optionFilterProp="children"
                   defaultValue={-2}
@@ -211,10 +210,10 @@ class FormFind extends Component {
             </Col>
 
             <Col span={this.state.width}>
-              <Form.Item label="Ban hành">
+              <Form.Item label="B.hành">
                 <Select
                   showSearch
-                  style={{ width: 250 }}
+                  style={{ maxWidth: 180 }}
                   value={this.state.coQuanBanHanh}
                   placeholder="Chọn cơ quan ban hành"
                   optionFilterProp="children"
@@ -234,11 +233,11 @@ class FormFind extends Component {
               </Form.Item>
             </Col>
 
-            <Col span={this.state.width - 1}>
+            <Col span={this.state.width}>
               <Form.Item label="Lĩnh vực">
                 <Select
                   showSearch
-                  style={{ width: 250 }}
+                  style={{ width: 200 }}
                   value={this.state.linhVuc}
                   placeholder="Chọn lĩnh vực"
                   optionFilterProp="children"

@@ -621,7 +621,7 @@ class Admin extends Component {
                   />
                 </TabPane>
                 <TabPane
-                  tab={`Quản lý lĩnh vực (${listLoaiCongVan.length})`}
+                  tab={`Quản lý lĩnh vực (${listLinhVuc.length})`}
                   key="4"
                 >
                   <TableCommon

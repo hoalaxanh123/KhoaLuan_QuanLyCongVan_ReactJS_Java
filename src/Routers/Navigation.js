@@ -4,6 +4,7 @@ import ListCV from '../components/List'
 import Scanner from '../components/Scanner'
 import MobileApp from '../components/MobileApp'
 import Admin from '../components/AdminPages'
+import Logout from '../components/Logout'
 
 const Navigation = [
   {
@@ -30,13 +31,17 @@ const Navigation = [
     path: '/tai-khoan',
     exactYes: true,
     main: ({ history }) => <Admin history={history} />
+  },
+  {
+    path: '/dang-xuat',
+    exactYes: true,
+    main: ({ history }) => <Logout />
+  },
+  {
+    path: '',
+    exactYes: true,
+    main: ({ location }) => <NotFound location={location} />
   }
-  // ,
-  // {
-  //   path: '',
-  //   exactYes: true,
-  //   main: ({ location }) => <NotFound location={location} />
-  // }
 ]
 
 export default Navigation
