@@ -23,7 +23,7 @@ class MainLayout extends Component {
               style={{
                 margin: '24px 16px 0',
                 overflow: 'initial',
-                minHeight: '770px'
+                minHeight: '900px'
               }}
             >
               <Routers />

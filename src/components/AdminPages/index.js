@@ -15,7 +15,6 @@ import * as constantAction from '../../constants/task'
 import FormLinhVuc from '../List/FormLinhVuc'
 import FormUser from '../List/FormUser'
 import FormCongVan from '../List/FormCongVan'
-import FormEditCongVan from '../List/FormEditCongVan'
 class Admin extends Component {
   constructor(props) {
     super(props)
@@ -635,11 +634,7 @@ class Admin extends Component {
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
         />
-        <FormEditCongVan
-          displayForm={this.state.displayFormEditCongVan}
-          titleForm={this.state.titleForm}
-          selectedObj={this.state.selectedObj}
-        />
+
         <Row>
           <Col span={24}>
             <StickyContainer>

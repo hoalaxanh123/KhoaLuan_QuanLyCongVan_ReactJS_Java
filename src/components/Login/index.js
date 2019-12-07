@@ -8,7 +8,7 @@ class Login extends Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        CommonMethods.Login(values.username, values.password)
+        CommonMethods.Login(values.username, values.password, values.rememberMe)
       }
     })
   }
