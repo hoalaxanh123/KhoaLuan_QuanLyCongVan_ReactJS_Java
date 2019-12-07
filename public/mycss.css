@@ -4,6 +4,7 @@
 .highlight {
   font-size: 180px;
 }
+
 .tableChiTietCongVan, .tableChiTietCongVan th, .tableChiTietCongVan td{
   padding: 1em;
   background: rgba(255, 246, 246, 0.5);
@@ -171,10 +172,6 @@
   padding-top: 5%;
 }
 
-.ant-form-item-label{
-  min-width: 50px;
-  max-width: 80px;
-}
 .ant-form-item-label label{
   vertical-align: middle;
 }

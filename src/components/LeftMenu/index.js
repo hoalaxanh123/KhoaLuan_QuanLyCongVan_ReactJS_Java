@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 import CommonMethods from '../../constants/methods'
+import json_Routes from '../../Routers/routes'
 const { Sider } = Layout
 // const { SubMenu } = Menu
 
@@ -132,14 +133,20 @@ class LeftMenu extends Component {
       this.setState({ position: 'fixed', collapsedWidth: '0' })
     }
   }
-  UNSAFE_componentWillMount() {
-    let menuKey = localStorage.getItem('menuKey')
-    if (!menuKey) localStorage.setItem('menuKey', 1)
-  }
+  UNSAFE_componentWillMount() {}
   resize() {}
   render() {
-    let menuKey = localStorage.getItem('menuKey')
-    if (!menuKey) localStorage.setItem('menuKey', 1)
+    let defaultMenuKey = 1
+    try {
+      let pathName = window.location.pathname
+      let list = json_Routes
+      let key = list.find(x => x.path === pathName).key
+      console.log('pathName :', pathName)
+      console.log('key :', key)
+      console.log('json_Routes :', list)
+      debugger
+      defaultMenuKey = key ? key : 1
+    } catch (error) {}
     return (
       <Sider
         className="LeftMenu"
@@ -158,7 +165,7 @@ class LeftMenu extends Component {
         </div>
         <Menu
           theme="dark"
-          defaultSelectedKeys={[menuKey ? menuKey : 1]}
+          defaultSelectedKeys={[defaultMenuKey.toString()]}
           mode="inline"
           onClick={handleClick}
         >

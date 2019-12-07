@@ -198,8 +198,8 @@ class ListCV extends Component {
   process = listCV => {
     let arrayNguoiKy = []
     let arrayCoQuanBanHanh = []
+    /* eslint-disable */
     for (let congVan of listCV) {
-      // eslint-disable-line
       if (arrayNguoiKy.indexOf(congVan.nguoiKy) === -1) {
         arrayNguoiKy.push(congVan.nguoiKy)
       }
@@ -207,6 +207,7 @@ class ListCV extends Component {
         arrayCoQuanBanHanh.push(congVan.coQuanBanHanh)
       }
     }
+    /* eslint-enable */
     return {
       arrayNguoiKy: arrayNguoiKy,
       arrayCoQuanBanHanh: arrayCoQuanBanHanh

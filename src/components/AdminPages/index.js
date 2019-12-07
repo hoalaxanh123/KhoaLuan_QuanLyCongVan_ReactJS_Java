@@ -15,6 +15,7 @@ import * as constantAction from '../../constants/task'
 import FormLinhVuc from '../List/FormLinhVuc'
 import FormUser from '../List/FormUser'
 import FormCongVan from '../List/FormCongVan'
+import FormEditCongVan from '../List/FormEditCongVan'
 class Admin extends Component {
   constructor(props) {
     super(props)
@@ -78,12 +79,10 @@ class Admin extends Component {
           )
           break
         case constant.CONGVAN:
-          Message(
-            'Không thể sửa công văn !',
-            'error',
-            3000,
-            'ERROR',
-            'Sửa công văn'
+          this.showFormEditCongVan(
+            'Sửa công văn: ' + selectedObj.soKyHieu,
+            constantAction.EDIT_TASK,
+            selectedObj
           )
           break
         case constant.LOAICONGVAN:
@@ -159,6 +158,7 @@ class Admin extends Component {
       displayForm: true,
       displayFormLinhVuc: false,
       displayFormNguoiDung: false,
+      displayFormEditCongVan: false,
       titleForm: title,
       action: action,
       selectedObj: selectedObj
@@ -176,6 +176,7 @@ class Admin extends Component {
       displayFormLinhVuc: true,
       displayForm: false,
       displayFormNguoiDung: false,
+      displayFormEditCongVan: false,
       titleForm: title,
       action: action,
       selectedObj: selectedObj
@@ -184,6 +185,18 @@ class Admin extends Component {
   showFormNguoiDung = (title, action = '', selectedObj = null) => {
     this.setState({
       displayFormNguoiDung: true,
+      displayFormLinhVuc: false,
+      displayForm: false,
+      displayFormEditCongVan: false,
+      titleForm: title,
+      action: action,
+      selectedObj: selectedObj
+    })
+  }
+  showFormEditCongVan = (title, action = '', selectedObj = null) => {
+    this.setState({
+      displayFormEditCongVan: true,
+      displayFormNguoiDung: false,
       displayFormLinhVuc: false,
       displayForm: false,
       titleForm: title,
@@ -269,6 +282,7 @@ class Admin extends Component {
       displayFormCongVan: true,
       displayFormNguoiDung: false,
       displayFormLinhVuc: false,
+      displayFormEditCongVan: false,
       displayForm: false,
       titleForm: title,
       action: action,
@@ -618,6 +632,11 @@ class Admin extends Component {
         />
         <FormCongVan
           displayForm={this.state.displayFormCongVan}
+          titleForm={this.state.titleForm}
+          selectedObj={this.state.selectedObj}
+        />
+        <FormEditCongVan
+          displayForm={this.state.displayFormEditCongVan}
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
         />

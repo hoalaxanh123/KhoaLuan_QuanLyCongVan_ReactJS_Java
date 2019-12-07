@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-// import { trackPromise } from 'react-promise-tracker'
 import { Card, Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd'
 import './index.css'
-// import axiosService from '../../commons/axiosService'
-// import { API_LOGIN, API_AFTER_LOGIN } from '../../constants'
-import { API_AFTER_LOGIN } from '../../constants'
 import CommonMethods from '../../constants/methods'
 
 class Login extends Component {

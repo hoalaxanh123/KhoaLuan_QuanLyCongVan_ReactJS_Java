@@ -95,10 +95,11 @@ class FormLines extends Component {
     let result = []
     try {
       lines = JSON.parse(this.props.lines)
+      /* eslint-disable */
       for (let key in lines) {
-        // eslint-disable-line
         result.push({ key: key, content: lines[key] })
       }
+      /* eslint-enable */
     } catch (error) {}
     let trs = result.map((element, index) => {
       if (cacDongTimDuoc.includes(parseInt(element.key))) {

@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
 import json_Routes from './routes'
-import Login from '../components/Login'
 
 class Routers extends Component {
   show_Route = Routes => {
@@ -10,7 +9,7 @@ class Routers extends Component {
       result = Routes.map((route, index) => {
         return (
           <Route
-            key={index}
+            key={route.key}
             path={route.path}
             exact={route.exactYes}
             component={route.main}

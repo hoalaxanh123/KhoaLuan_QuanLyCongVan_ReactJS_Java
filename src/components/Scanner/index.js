@@ -84,7 +84,19 @@ class Scanner extends Component {
       if (file.response) {
         // Component will show file.url as link
         try {
-          content = content.trim() + '\n' + file.response.content.trim()
+          content =
+            content.trim() +
+            '\n' +
+            file.response.content
+              .trim()
+              .split('CỌNG HÒA')
+              .join('CỘNG HÒA')
+              .split('cọng hòa')
+              .join('cộng hòa')
+              .split('thành phò')
+              .join('thành phố')
+              .split('THÀNH PHỐ')
+              .join('THÀNH PHỐ')
           fileUploaded.push(file.response.fileName.concat('.pdf'))
         } catch (error) {}
       }
