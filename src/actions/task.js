@@ -2,6 +2,7 @@ import { trackPromise } from 'react-promise-tracker'
 import * as apiTask from './../apis/task'
 import * as taskConstant from './../constants/task'
 import Message from './../method/Message'
+import { message } from 'antd'
 
 //Step 0: fetchGetList to call API
 //Step 1: dispatch(fetchListTask()) to reset state 'task' to empty ([])
@@ -40,7 +41,9 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  console.log('GET DATA NOT OK<br/>' + error, 'error')
+  console.error('Lấy danh sách công văn bị lỗi\n', error)
+  message.error('Lấy danh sách công văn bị lỗi ' + error, 10)
+
   return {
     type: taskConstant.FETCH_TASK_FAIL,
     payload: error

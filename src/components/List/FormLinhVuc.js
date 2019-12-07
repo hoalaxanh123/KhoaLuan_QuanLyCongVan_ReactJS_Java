@@ -98,7 +98,7 @@ class FormLinhVuc extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             {/* Ten LinhVuc */}
-            <Form.Item label="Tên lĩnh vực">
+            <Form.Item label="Tên lĩnh vực" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -114,7 +114,7 @@ class FormLinhVuc extends Component {
             </Form.Item>
 
             {/* MoTa */}
-            <Form.Item label="Tên Viết Tắt">
+            <Form.Item label="Tên Viết Tắt" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />

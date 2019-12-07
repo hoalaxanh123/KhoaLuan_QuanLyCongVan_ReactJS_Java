@@ -98,7 +98,7 @@ class FormAction extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             {/* TenLoai */}
-            <Form.Item label="Tên loại">
+            <Form.Item label="Tên loại" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -114,7 +114,7 @@ class FormAction extends Component {
             </Form.Item>
 
             {/* MoTa */}
-            <Form.Item label="Mô tả">
+            <Form.Item label="Mô tả" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />

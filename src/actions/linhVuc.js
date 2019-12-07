@@ -2,6 +2,7 @@ import { trackPromise } from 'react-promise-tracker'
 import * as apiLinhVuc from './../apis/linhVuc'
 import * as taskConstant from './../constants/task'
 import Message from './../method/Message'
+import { message } from 'antd'
 
 //Step 0: fetchGetList to call API
 //Step 1: dispatch(fetchListTask()) to reset state 'task' to empty ([])
@@ -32,7 +33,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  console.log('DEBUG: GET LIST LINHVUC OK<br/>', 'success')
+  console.log('DEBUG: GET LIST LINHVUC OK', 'success')
   return {
     type: taskConstant.FETCH_LINHVUC_SUCCESS,
     payload: data
@@ -41,11 +42,8 @@ export const fetchListTaskSuccess = data => {
 
 //If error,
 export const fetchListTaskFail = error => {
-  console.log('DEBUG: GET LIST LINHVUC not OK<br/>' + error, 'error')
-  return {
-    type: taskConstant.FETCH_LINHVUC_FAIL,
-    payload: error
-  }
+  console.error('Lấy danh sách loại công văn bị lỗi\n', error)
+  message.error('Lấy danh sách loại công văn bị lỗi ' + error, 10)
 }
 
 //Delete a task

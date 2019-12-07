@@ -162,7 +162,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Số ký hiệu */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('soKyHieu', {
               rules: [
                 {
@@ -182,7 +182,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Ngày ban hành */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('ngayBanHanh', {
               initialValue: dateProp ? dateProp : today,
               rules: [
@@ -203,7 +203,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Người ký */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('nguoiKy', {
               rules: [
                 {
@@ -223,7 +223,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>
           {/* Mức độ */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('mucDo', {
               initialValue: 0,
               rules: [
@@ -244,7 +244,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>{' '}
           {/* Cơ quan ban hành */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('coQuanBanHanh', {
               initialValue: 'Trường Đại học Đà Lạt',
               rules: [
@@ -265,7 +265,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>{' '}
           {/* Ngày có hiệu lực */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('ngayCoHieuLuc', {
               initialValue: dateProp ? dateProp : today,
               rules: [
@@ -286,7 +286,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>{' '}
           {/* Trích dẫn */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('trichYeu', {
               initialValue: this.props.trichDan,
               rules: [
@@ -308,7 +308,7 @@ class FormCreateCongVan extends Component {
             )}
           </Form.Item>{' '}
           {/* Nơi nhận */}
-          <Form.Item>
+          <Form.Item hasFeedback>
             {getFieldDecorator('noiNhan', {
               rules: [
                 {

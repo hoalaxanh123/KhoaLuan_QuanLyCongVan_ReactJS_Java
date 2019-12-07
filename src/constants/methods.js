@@ -80,7 +80,7 @@ export default class CommonMethods {
               remember ? 365 : 1
             )
             Message(
-              'Đăng nhập thành công, vui lòng chờ',
+              'Đăng nhập thành công, vui lòng chờ trong giây lát',
               'success',
               3000,
               'Đăng nhập',
@@ -88,7 +88,7 @@ export default class CommonMethods {
             )
             setTimeout(() => {
               window.location.replace(API_AFTER_LOGIN)
-            }, 1000)
+            }, 3000)
           } else {
             Message(
               'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',

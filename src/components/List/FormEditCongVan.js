@@ -194,7 +194,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>
             {/* Số ký hiệu */}
-            <Form.Item label="Số ký hiệu">
+            <Form.Item label="Số ký hiệu" hasFeedback>
               {getFieldDecorator('soKyHieu', {
                 rules: [
                   {
@@ -214,11 +214,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>
             {/* Ngày ban hành */}
-            <Form.Item
-              label="Ngày ban hành"
-              labelAlign="left"
-              labelWidth={2000}
-            >
+            <Form.Item label="Ngày ban hành" labelAlign="left" lhasFeedback>
               {getFieldDecorator('ngayBanHanh', {
                 rules: [
                   {
@@ -241,7 +237,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>
             {/* Người ký */}
-            <Form.Item label="Người ký">
+            <Form.Item label="Người ký" hasFeedback>
               {getFieldDecorator('nguoiKy', {
                 rules: [
                   {
@@ -261,7 +257,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>
             {/* Mức độ */}
-            <Form.Item label="Mức độ">
+            <Form.Item label="Mức độ" hasFeedback>
               {getFieldDecorator('mucDo', {
                 initialValue: 0,
                 rules: [
@@ -282,7 +278,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>{' '}
             {/* Cơ quan ban hành */}
-            <Form.Item label="Cơ quan b.hành">
+            <Form.Item label="Cơ quan b.hành" hasFeedback>
               {getFieldDecorator('coQuanBanHanh', {
                 initialValue: 'Trường Đại học Đà Lạt',
                 rules: [
@@ -303,7 +299,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>{' '}
             {/* Ngày có hiệu lực */}
-            <Form.Item label="Ngày có hiệu lực">
+            <Form.Item label="Ngày có hiệu lực" hasFeedback>
               {getFieldDecorator('ngayCoHieuLuc', {
                 rules: [
                   {
@@ -326,7 +322,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>{' '}
             {/* Trích dẫn */}
-            <Form.Item label="Trích dẫn">
+            <Form.Item label="Trích dẫn" hasFeedback>
               {getFieldDecorator('trichYeu', {
                 initialValue: this.props.trichDan,
                 rules: [
@@ -348,7 +344,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>{' '}
             {/* Nơi nhận */}
-            <Form.Item label="Nơi nhận">
+            <Form.Item label="Nơi nhận" hasFeedback>
               {getFieldDecorator('noiNhan', {
                 rules: [
                   {
@@ -368,7 +364,7 @@ class FormEditCongVan extends Component {
               )}
             </Form.Item>{' '}
             {/* lĩnh vực */}
-            <Form.Item label="Lĩnh vực">
+            <Form.Item label="Lĩnh vực" hasFeedback>
               {getFieldDecorator('maLinhVuc', {
                 initialValue: 1,
                 rules: [{ required: true, message: 'Vui lòng chọn lĩnh vực' }]

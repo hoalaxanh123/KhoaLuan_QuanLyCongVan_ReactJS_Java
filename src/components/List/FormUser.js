@@ -184,7 +184,7 @@ class FormUser extends Component {
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
             {/* TenTaiKhoan */}
-            <Form.Item label="Tên tài khoản">
+            <Form.Item label="Tên tài khoản" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -202,7 +202,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Mat khau */}
-            <Form.Item label="Mật khẩu">
+            <Form.Item label="Mật khẩu" hasFeedback>
               <Input.Password
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -217,7 +217,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Email */}
-            <Form.Item label="Email">
+            <Form.Item label="Email" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -234,7 +234,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Ho ten */}
-            <Form.Item label="Họ tên">
+            <Form.Item label="Họ tên" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -251,7 +251,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Số điện thoại */}
-            <Form.Item label="SDT">
+            <Form.Item label="SDT" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -267,7 +267,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Dia Chi */}
-            <Form.Item label="Địa chỉ">
+            <Form.Item label="Địa chỉ" hasFeedback>
               <Input
                 prefix={
                   <Icon type="form" style={{ color: 'rgba(0,0,0,.25)' }} />
@@ -282,7 +282,7 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* Phân quyền */}
-            <Form.Item label="Phân quyền">
+            <Form.Item label="Phân quyền" hasFeedback>
               <Select
                 showSearch
                 placeholder="Vui lòng chọn quyền"
@@ -296,16 +296,16 @@ class FormUser extends Component {
             </Form.Item>
 
             {/* TrangThai */}
-            <Form.Item label="Trạng thái">
+            <Form.Item label="Trạng thái" hasFeedback>
               <Select
                 showSearch
                 placeholder="Vui lòng chọn trạng thái"
                 onChange={this.onHandleTrangThai}
-                defaultValue={this.state.trangThai}
+                defaultValue={this.state.trangThai.toString()}
                 name="trangThai"
               >
-                <Option value={true}>Kích hoạt</Option>
-                <Option value={false}>Huỷ kích hoạt</Option>
+                <Option value={'true'}>Kích hoạt</Option>
+                <Option value={'false'}>Huỷ kích hoạt</Option>
               </Select>
             </Form.Item>
 

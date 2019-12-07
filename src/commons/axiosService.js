@@ -45,6 +45,7 @@ class AxiosService {
     })
   }
   login(url, task) {
+    console.log('task :', task)
     return this.intance.get(url)
     // return this.intance.post(url,task, {
     //   headers: { Authorization: 'bearer ' + this.getToken() }
