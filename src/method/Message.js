@@ -7,8 +7,8 @@ import { DEBUG_MESSAGE, SHOW_MESSAGE } from '../constants'
 function Message(mess, type, time = 1500, title = '', action = '') {
   if (SHOW_MESSAGE) {
     if (type === 'error' || type === 'warning') time = 3000
-    let message = `<b>${title.toUpperCase()}</b><br/>Hành động: ${action}`
-    message = message += DEBUG_MESSAGE ? `<br/>Mô tả: ${mess}` : ''
+    let message = `<b>${title.toUpperCase()}</b><br/>-Hành động: ${action}`
+    message = message += DEBUG_MESSAGE ? `<br/>-Mô tả: ${mess}` : ''
     new Noty({
       text: message, //This string can contain HTML too. But be careful and don't pass user inputs to this parameter.
       type: type, //alert, success, error, warning, info

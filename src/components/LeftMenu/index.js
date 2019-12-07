@@ -141,10 +141,6 @@ class LeftMenu extends Component {
       let pathName = window.location.pathname
       let list = json_Routes
       let key = list.find(x => x.path === pathName).key
-      console.log('pathName :', pathName)
-      console.log('key :', key)
-      console.log('json_Routes :', list)
-      debugger
       defaultMenuKey = key ? key : 1
     } catch (error) {}
     return (

@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Info
+Project: Khoá luận CTK39- Quản lý công văn 
+
+
+Author: Vuong Nguyen
+
+
+Phone: +8437.552.8766
 
 ## Available Scripts
 
@@ -14,7 +21,7 @@ You will also see any lint errors in the console.
 
 ### `npm run fix`
 
-Fix all syntac error by Eslint
+Fix all syntax errors and the code is reformatted by Eslint
 
 ### `npm test`
 
