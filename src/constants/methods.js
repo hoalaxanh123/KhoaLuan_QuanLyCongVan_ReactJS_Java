@@ -4,7 +4,8 @@ import {
   API_URL,
   API_NGUOIDUNG_ENDPOIN,
   USER_INFO,
-  API_PAGE_LOGIN
+  API_PAGE_LOGIN,
+  API_LOGIN
 } from '.'
 import Message from '../method/Message'
 import { trackPromise } from 'react-promise-tracker'
@@ -54,7 +55,7 @@ export default class CommonMethods {
   static Login(username, password, remember = true) {
     trackPromise(
       axiosService
-        .login(API_URL + API_NGUOIDUNG_ENDPOIN, {
+        .login(API_LOGIN, {
           username: username,
           password: password,
           remember: remember
@@ -62,21 +63,22 @@ export default class CommonMethods {
         .then(res => {
           console.log('res :', res)
           if (res.status === 200) {
-            let userLoged = {
-              token:
-                'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJIaWV1IiwiZXhwIjoxNTc2MTM0Mzc1fQ._zMBEuuz8ASD-rUJu-_AtXjaDG3BF3-ErpTbkA2k29tQVRkjCpkcTalNoym2YRuXxB22Rh58hQHQalD0sdWz3A',
-              maTaiKhoan: 1,
-              tenTaiKhoan: 'Hieu',
-              hoTen: 'Nghiêm Xuân Hiếu',
-              email: 'nghiemxuanhieu97@gmail.com',
-              diaChi: 'Tô Ngọc Vân, Đà Lạt',
-              phanQuyen: 'Admin',
-              trangThai: 'false',
-              sdt: '0367896040'
-            }
+            // debugger
+            // let userLoged = {
+            //   token:
+            //     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJIaWV1IiwiZXhwIjoxNTc2MTM0Mzc1fQ._zMBEuuz8ASD-rUJu-_AtXjaDG3BF3-ErpTbkA2k29tQVRkjCpkcTalNoym2YRuXxB22Rh58hQHQalD0sdWz3A',
+            //   maTaiKhoan: 1,
+            //   tenTaiKhoan: 'Hieu',
+            //   hoTen: 'Nghiêm Xuân Hiếu',
+            //   email: 'nghiemxuanhieu97@gmail.com',
+            //   diaChi: 'Tô Ngọc Vân, Đà Lạt',
+            //   phanQuyen: 'Admin',
+            //   trangThai: 'false',
+            //   sdt: '0367896040'
+            // }
             this.setCookie(
               USER_INFO,
-              JSON.stringify(userLoged),
+              JSON.stringify(res.data),
               remember ? 365 : 1
             )
             Message(
@@ -88,7 +90,7 @@ export default class CommonMethods {
             )
             setTimeout(() => {
               window.location.replace(API_AFTER_LOGIN)
-            }, 3000)
+            }, 1000)
           } else {
             Message(
               'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',
