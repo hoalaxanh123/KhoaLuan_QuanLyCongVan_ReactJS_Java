@@ -1,4 +1,8 @@
-/REDUX_GUI_QuanLyCongVan/
+/REDUX_GUI_QuanLyCongVan/*
 /build/*
 /.idea/*
 /.gradle/*
+/REDUX_GUI_QuanLyCongVan/
+/build/
+/.idea/
+/.gradle/
