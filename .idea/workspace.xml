@@ -2,75 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f85ad5df-bcad-4e4d-927a-2d1ae597296e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileContent/fileContent.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/khoaluan.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/CongVanServiceApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/configs/FileStorageConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/configs/ResourceServerClientConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/configs/Swagger2Config.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/configs/WebSecurityConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/controllers/CongVanController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/controllers/FileController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/controllers/LinhVucController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/controllers/LoaiCongVanController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/controllers/TaiKhoanController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/exceptions/ErrorDetails.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/exceptions/FileStorageException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/exceptions/GlobalExceptionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/exceptions/MyFileNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/exceptions/ResourceNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/filters/MyCORSFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/jwt/JWTAuthenticationFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/jwt/JWTLoginFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/models/CongVan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/models/LinhVuc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/models/LoaiCongVan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/models/TaiKhoan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/repositories/CongVanRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/repositories/LinhVucRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/repositories/LoaiCongVanRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/repositories/TaiKhoanRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/scanner/CongVanContent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/scanner/MergePDF.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/scanner/ReadPDF.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/scanner/Scanner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/scanner/UploadFileResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/CongVanProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/CongVanService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/FileStorageService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/LinhVucProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/LinhVucService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/LoaiCongVanProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/LoaiCongVanService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/TaiKhoanProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/TaiKhoanService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/congvanservice/services/TokenAuthenticationService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/vie.traineddata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hinh-cong-van/sample.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hinh-cong-van/sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/congvanservice/configs/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/congvanservice/configs/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/congvanservice/filters/MyCORSFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/congvanservice/filters/MyCORSFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/congvanservice/jwt/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/congvanservice/jwt/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/REDUX_GUI_QuanLyCongVan/src/commons/axiosService.js" beforeDir="false" afterPath="$PROJECT_DIR$/REDUX_GUI_QuanLyCongVan/src/commons/axiosService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,26 +172,26 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fixing acrony" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="386" key="GridCell.Tab.0.bottom" timestamp="1575771350653">
+    <state width="1877" height="386" key="GridCell.Tab.0.bottom" timestamp="1575772649917">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1340" height="243" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1575387856794" />
-    <state width="1877" height="386" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575771350653" />
-    <state width="1877" height="386" key="GridCell.Tab.0.center" timestamp="1575771350653">
+    <state width="1877" height="386" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575772649917" />
+    <state width="1877" height="386" key="GridCell.Tab.0.center" timestamp="1575772649916">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1340" height="243" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1575387856794" />
-    <state width="1877" height="386" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575771350653" />
-    <state width="1877" height="386" key="GridCell.Tab.0.left" timestamp="1575771350653">
+    <state width="1877" height="386" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575772649916" />
+    <state width="1877" height="386" key="GridCell.Tab.0.left" timestamp="1575772649916">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1340" height="243" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1575387856794" />
-    <state width="1877" height="386" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575771350653" />
-    <state width="1877" height="386" key="GridCell.Tab.0.right" timestamp="1575771350653">
+    <state width="1877" height="386" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575772649916" />
+    <state width="1877" height="386" key="GridCell.Tab.0.right" timestamp="1575772649917">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1340" height="243" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1575387856794" />
-    <state width="1877" height="386" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575771350653" />
+    <state width="1877" height="386" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575772649917" />
     <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1575770411508">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
