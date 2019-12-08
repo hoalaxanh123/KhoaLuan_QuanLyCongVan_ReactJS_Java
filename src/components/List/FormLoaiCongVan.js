@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal } from 'antd'
 import { Input, Form, Icon, Button } from 'antd'
 import { EDIT_LOAICONGVAN, ADD_LOAICONGVAN } from '../../constants/task'
-class FormAction extends Component {
+class FormLoaiCongVan extends Component {
   state = {
     visible: false,
     TitleForm: '',
@@ -142,4 +142,4 @@ class FormAction extends Component {
   }
 }
 
-export default Form.create()(FormAction)
+export default Form.create()(FormLoaiCongVan)

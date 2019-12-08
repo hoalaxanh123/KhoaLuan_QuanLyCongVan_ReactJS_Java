@@ -12,7 +12,9 @@ class Login extends Component {
       }
     })
   }
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() {
+    document.title = 'DLU | Đăng nhập'
+  }
   render() {
     const { getFieldDecorator } = this.props.form
     let titile =

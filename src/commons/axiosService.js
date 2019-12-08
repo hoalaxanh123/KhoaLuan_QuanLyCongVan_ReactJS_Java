@@ -6,7 +6,7 @@ class AxiosService {
   getToken() {
     try {
       let user = JSON.parse(CommonMethods.getCookie(USER_INFO))
-      console.log('user.token :', user.token)
+      console.log('------user.token :', user.token)
       return user.token
     } catch (error) {
       return ''
@@ -14,20 +14,6 @@ class AxiosService {
   }
   constructor(props) {
     const intance = axios.create()
-    // intance.interceptors.request.use(
-    //   (config) => {
-    //     let token = 'sssssssssssssssssssssssssssssssssssssssssssssssssssssss';
-
-    //     if (token) {
-    //       config.headers['key'] = `Bearer ${ token }`;
-    //     }
-    //     return config;
-    //   },
-
-    //   (error) => {
-    //     return Promise.reject(error);
-    //   }
-    // );
     intance.interceptors.response.use(this.handleSuccess, this.handleError)
     this.intance = intance
   }

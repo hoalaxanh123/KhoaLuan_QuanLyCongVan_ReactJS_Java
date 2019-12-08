@@ -12,16 +12,17 @@ class TaiKhoan extends Component {
     email: '',
     hoTen: '',
     maTaiKhoan: '',
-    matKhau: '',
+    password: '',
     phanQuyen: 'Member',
     sdt: '',
-    tenTaiKhoan: '',
+    username: '',
     trangThai: false,
-    matKhauMoi: '',
-    xacNhanMatKhauMoi: ''
+    passwordMoi: '',
+    xacNhanpasswordMoi: ''
   }
 
   UNSAFE_componentWillMount() {
+    document.title = 'DLU | Tài khoản'
     let user = JSON.parse(CommonMethods.getCookie(USER_INFO))
     console.log('user :', user)
     this.setState({
@@ -29,13 +30,13 @@ class TaiKhoan extends Component {
       email: user.email,
       hoTen: user.hoTen,
       maTaiKhoan: user.maTaiKhoan,
-      matKhau: user.matKhau,
+      password: user.password,
       phanQuyen: user.phanQuyen,
       sdt: user.sdt,
-      tenTaiKhoan: user.tenTaiKhoan,
+      username: user.username,
       trangThai: user.trangThai,
-      matKhauMoi: '',
-      xacNhanMatKhauMoi: ''
+      passwordMoi: '',
+      xacNhanpasswordMoi: ''
     })
   }
 
@@ -43,7 +44,7 @@ class TaiKhoan extends Component {
     e.preventDefault()
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        if (values.matKhauMoi !== values.xacNhanMatKhauMoi) {
+        if (values.passwordMoi !== values.xacNhanpasswordMoi) {
           message.error('Mật khẩu mới và xác nhận mật khẩu mới không khớp !', 3)
         } else {
           console.log('Received values of form: ', values)
@@ -105,7 +106,7 @@ class TaiKhoan extends Component {
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props
 
-    if (value && value !== form.getFieldValue('matKhauMoi')) {
+    if (value && value !== form.getFieldValue('passwordMoi')) {
       callback('Mật khẩu mới và mật khẩu nhập lại không khớp')
     } else {
       callback()
@@ -115,7 +116,7 @@ class TaiKhoan extends Component {
   validateToNextPassword = (rule, value, callback) => {
     const { form } = this.props
     if (value && this.state.confirmDirty) {
-      form.validateFields(['xacNhanMatKhauMoi'], { force: true })
+      form.validateFields(['xacNhanpasswordMoi'], { force: true })
     }
     callback()
   }
@@ -163,10 +164,10 @@ class TaiKhoan extends Component {
               )}
             </Form.Item>
 
-            {/* TenTaiKhoan */}
+            {/* username */}
             <Form.Item label="Tên tài khoản" hasFeedback>
-              {getFieldDecorator('tenTaiKhoan', {
-                initialValue: this.state.tenTaiKhoan,
+              {getFieldDecorator('username', {
+                initialValue: this.state.username,
                 rules: [
                   {
                     required: true,
@@ -181,7 +182,7 @@ class TaiKhoan extends Component {
                   placeholder="Tên tài khoản"
                   type="text"
                   title="Tên tài khoản"
-                  name="tenTaiKhoan"
+                  name="username"
                   disabled={true}
                   readOnly={true}
                 />
@@ -190,8 +191,8 @@ class TaiKhoan extends Component {
 
             {/* Mat khau */}
             <Form.Item label="Mật khẩu" hasFeedback>
-              {getFieldDecorator('matKhau', {
-                initialValue: this.state.matKhau,
+              {getFieldDecorator('password', {
+                initialValue: this.state.password,
                 rules: [
                   {
                     required: true,
@@ -215,8 +216,8 @@ class TaiKhoan extends Component {
 
             {/* Mat khau moi  */}
             <Form.Item label="Mật khẩu mới" hasFeedback>
-              {getFieldDecorator('matKhauMoi', {
-                initialValue: this.state.matKhauMoi,
+              {getFieldDecorator('passwordMoi', {
+                initialValue: this.state.passwordMoi,
                 rules: [
                   {
                     validator: this.validateToNextPassword
@@ -236,8 +237,8 @@ class TaiKhoan extends Component {
 
             {/*Xac nhan Mat khau moi*/}
             <Form.Item label="Xác nhận mật khẩu mới" hasFeedback>
-              {getFieldDecorator('xacNhanMatKhauMoi', {
-                initialValue: this.state.xacNhanMatKhauMoi,
+              {getFieldDecorator('xacNhanpasswordMoi', {
+                initialValue: this.state.xacNhanpasswordMoi,
                 rules: [
                   {
                     validator: this.compareToFirstPassword

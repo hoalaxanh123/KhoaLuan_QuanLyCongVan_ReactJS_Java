@@ -3,6 +3,9 @@ import { Card, Row, Col, List, Avatar } from 'antd'
 import './index.css'
 
 class MobileApp extends Component {
+  UNSAFE_componentWillMount() {
+    document.title = 'DLU | Ứng dụng mobile'
+  }
   render() {
     const data = [
       {

@@ -1,12 +1,4 @@
-import {
-  API_AFTER_LOGIN,
-  // API_LOGIN,
-  API_URL,
-  API_NGUOIDUNG_ENDPOIN,
-  USER_INFO,
-  API_PAGE_LOGIN,
-  API_LOGIN
-} from '.'
+import { API_AFTER_LOGIN, USER_INFO, API_PAGE_LOGIN, API_LOGIN } from '.'
 import Message from '../method/Message'
 import { trackPromise } from 'react-promise-tracker'
 import axiosService from '../commons/axiosService'
@@ -63,19 +55,6 @@ export default class CommonMethods {
         .then(res => {
           console.log('res :', res)
           if (res.status === 200) {
-            // debugger
-            // let userLoged = {
-            //   token:
-            //     'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJIaWV1IiwiZXhwIjoxNTc2MTM0Mzc1fQ._zMBEuuz8ASD-rUJu-_AtXjaDG3BF3-ErpTbkA2k29tQVRkjCpkcTalNoym2YRuXxB22Rh58hQHQalD0sdWz3A',
-            //   maTaiKhoan: 1,
-            //   tenTaiKhoan: 'Hieu',
-            //   hoTen: 'Nghiêm Xuân Hiếu',
-            //   email: 'nghiemxuanhieu97@gmail.com',
-            //   diaChi: 'Tô Ngọc Vân, Đà Lạt',
-            //   phanQuyen: 'Admin',
-            //   trangThai: 'false',
-            //   sdt: '0367896040'
-            // }
             this.setCookie(
               USER_INFO,
               JSON.stringify(res.data),

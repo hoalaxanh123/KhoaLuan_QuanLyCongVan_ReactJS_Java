@@ -65,7 +65,7 @@ class FormLines extends Component {
     this.resetForm()
   }
 
-  componentDidMount() {}
+  UNSAFE_componentDidMount() {}
   getHighlightedText(text, higlight) {
     // Split on higlight term and include term into parts, ignore case
     let parts = text.split(new RegExp(`(${higlight})`, 'gi'))

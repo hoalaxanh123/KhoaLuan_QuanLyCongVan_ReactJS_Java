@@ -15,10 +15,10 @@ class FormUser extends Component {
     email: '',
     hoTen: '',
     maTaiKhoan: '',
-    matKhau: '',
+    password: '',
     phanQuyen: 'Member',
     sdt: '',
-    tenTaiKhoan: '',
+    username: '',
     trangThai: false
   }
 
@@ -40,10 +40,10 @@ class FormUser extends Component {
       email: '',
       hoTen: '',
       maTaiKhoan: '',
-      matKhau: '',
+      password: '',
       phanQuyen: 'Member',
       sdt: '',
-      tenTaiKhoan: '',
+      username: '',
       trangThai: true,
       displayForm: false
     })
@@ -52,6 +52,7 @@ class FormUser extends Component {
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
       if (nextProp.action === EDIT_NGUOIDUNG) {
+        console.log('nextProp :', nextProp)
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
@@ -60,10 +61,10 @@ class FormUser extends Component {
           email: nextProp.selectedObj.email,
           hoTen: nextProp.selectedObj.hoTen,
           maTaiKhoan: nextProp.selectedObj.maTaiKhoan,
-          matKhau: nextProp.selectedObj.matKhau,
+          password: nextProp.selectedObj.password,
           phanQuyen: nextProp.selectedObj.phanQuyen,
           sdt: nextProp.selectedObj.sdt,
-          tenTaiKhoan: nextProp.selectedObj.tenTaiKhoan,
+          username: nextProp.selectedObj.username,
           trangThai: nextProp.selectedObj.trangThai
         })
       } else {
@@ -75,9 +76,9 @@ class FormUser extends Component {
           email: '',
           hoTen: '',
           maTaiKhoan: '',
-          matKhau: '',
+          password: '',
           sdt: '',
-          tenTaiKhoan: '',
+          username: '',
           phanQuyen: 'Member',
           trangThai: true
         })
@@ -87,12 +88,12 @@ class FormUser extends Component {
 
   CheckExistUserName(userName) {
     let lst = this.props.listNguoiDung
-    return lst.find(x => x.tenTaiKhoan === userName) ? true : false
+    return lst.find(x => x.username === userName) ? true : false
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    if (this.state.tenTaiKhoan.includes(' ')) {
+    if (this.state.username.includes(' ')) {
       Message(
         'Tên tài không được có dấu cách',
         'error',
@@ -102,7 +103,7 @@ class FormUser extends Component {
       )
       return
     }
-    if (this.state.matKhau.length < 6) {
+    if (this.state.password.length < 6) {
       Message(
         'Mật khẩu phải có ít nhất 6 ký tự !',
         'error',
@@ -114,7 +115,7 @@ class FormUser extends Component {
     }
     if (
       this.state.action === ADD_NGUOIDUNG &&
-      this.CheckExistUserName(this.state.tenTaiKhoan)
+      this.CheckExistUserName(this.state.username)
     ) {
       Message(
         'Tên tài khoản đã tồn tại !',
@@ -125,6 +126,9 @@ class FormUser extends Component {
       )
       return
     }
+    this.setState({
+      trangThai: this.state.trangThai === 'true'
+    })
     this.props.onSubmit(this.state)
   }
   resetForm = () => {
@@ -133,10 +137,10 @@ class FormUser extends Component {
       email: '',
       hoTen: '',
       maTaiKhoan: '',
-      matKhau: '',
+      password: '',
       phanQuyen: '',
       sdt: '',
-      tenTaiKhoan: '',
+      username: '',
       trangThai: false
     })
   }
@@ -183,7 +187,7 @@ class FormUser extends Component {
           ]}
         >
           <Form onSubmit={this.handleSubmit} className="login-form">
-            {/* TenTaiKhoan */}
+            {/* username */}
             <Form.Item label="Tên tài khoản" hasFeedback>
               <Input
                 prefix={
@@ -192,8 +196,8 @@ class FormUser extends Component {
                 placeholder="Tên tài khoản"
                 type="text"
                 title="Tên tài khoản"
-                name="tenTaiKhoan"
-                value={this.state.tenTaiKhoan}
+                name="username"
+                value={this.state.username}
                 required
                 onChange={this.onHandleChange}
                 disabled={isEditing}
@@ -209,8 +213,8 @@ class FormUser extends Component {
                 }
                 placeholder="Mật khẩu"
                 title="Mật khẩu"
-                name="matKhau"
-                value={isEditing ? `Can't see that` : this.state.matKhau}
+                name="password"
+                value={isEditing ? `Can't see that` : this.state.password}
                 required
                 onChange={this.onHandleChange}
               />
@@ -288,6 +292,7 @@ class FormUser extends Component {
                 placeholder="Vui lòng chọn quyền"
                 onChange={this.onHandlePhanQuyen}
                 defaultValue={this.state.phanQuyen}
+                value={this.state.phanQuyen}
                 name="phanQuyen"
               >
                 <Option value="Admin">Quản trị viên</Option>
@@ -302,6 +307,7 @@ class FormUser extends Component {
                 placeholder="Vui lòng chọn trạng thái"
                 onChange={this.onHandleTrangThai}
                 defaultValue={this.state.trangThai.toString()}
+                value={this.state.trangThai.toString()}
                 name="trangThai"
               >
                 <Option value={'true'}>Kích hoạt</Option>

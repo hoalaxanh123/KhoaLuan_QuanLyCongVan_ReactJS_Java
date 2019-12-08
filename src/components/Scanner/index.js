@@ -12,6 +12,7 @@ import {
   congVanDi,
   stopword
 } from '../../constants/common'
+import CommonMethods from '../../constants/methods'
 const { TextArea } = Input
 
 //1.5: Cắt chuỗi thành mảng bằng dấu cách
@@ -120,6 +121,7 @@ class Scanner extends Component {
     this.setState({ fileList, contentReading: content, fileUploaded })
   }
   UNSAFE_componentWillMount() {
+    document.title = 'DLU | Số hóa công văn'
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
   }
@@ -139,7 +141,15 @@ class Scanner extends Component {
       previewVisible: true
     })
   }
-
+  getToken = () => {
+    try {
+      let user = JSON.parse(CommonMethods.getCookie(constant.USER_INFO))
+      console.log('------user.token :', user.token)
+      return user.token
+    } catch (error) {
+      return ''
+    }
+  }
   render() {
     const { previewVisible, previewImage, fileList } = this.state
     return (
@@ -165,6 +175,7 @@ class Scanner extends Component {
                     onPreview={this.handlePreview}
                     accept="image/*"
                     onChange={this.handleChange}
+                    method="post"
                   >
                     <Button block>
                       <Icon type="upload" /> Chọn hình ảnh để tiến hành xử lý

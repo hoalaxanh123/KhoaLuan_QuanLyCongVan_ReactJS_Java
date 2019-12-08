@@ -86,8 +86,9 @@ class ListCV extends Component {
       pagination: value === 'none' ? false : { position: value }
     })
   }
-  componentDidMount() {}
-  componentWillMount() {
+  UNSAFE_componentDidMount() {}
+
+  UNSAFE_componentWillMount() {
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()

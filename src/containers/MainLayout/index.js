@@ -12,6 +12,9 @@ import Routers from './../../Routers/Routers'
 import { BrowserRouter as Router } from 'react-router-dom'
 const { Content } = Layout
 class MainLayout extends Component {
+  UNSAFE_componentWillMount() {
+    document.title = 'DLU | Số hóa công văn'
+  }
   render() {
     return (
       <Router>

@@ -36,6 +36,7 @@ class FormEditCongVan extends Component {
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
       if (nextProp.action === EDIT_LOAICONGVAN) {
+        console.log('nextProp :', nextProp)
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,

@@ -8,6 +8,8 @@ import Login from '../components/Login'
 import TaiKhoan from '../components/TaiKhoan'
 import Logout from '../components/Logout'
 import CommonMethods from '../constants/methods'
+import { USER_INFO } from '../constants'
+import NotAllow from '../components/NotAllow'
 
 const json_Routes = [
   {
@@ -35,7 +37,15 @@ const json_Routes = [
     path: '/quan-tri',
     exactYes: true,
     main: ({ history }) =>
-      CommonMethods.CheckLoged() ? <Admin history={history} /> : <Login />
+      CommonMethods.CheckLoged() ? (
+        JSON.parse(CommonMethods.getCookie(USER_INFO)).phanQuyen === 'Admin' ? (
+          <Admin history={history} />
+        ) : (
+          <NotAllow />
+        )
+      ) : (
+        <Login />
+      )
   },
   {
     key: 5,

@@ -10,11 +10,12 @@ import * as actionLinhVuc from './../../actions/linhVuc'
 import * as actionNguoiDung from './../../actions/nguoiDung'
 import * as constant from './../../constants'
 import Message from '../../method/Message'
-import FormAction from '../List/FormLinhVuc'
 import * as constantAction from '../../constants/task'
 import FormLinhVuc from '../List/FormLinhVuc'
 import FormUser from '../List/FormUser'
 import FormCongVan from '../List/FormCongVan'
+import FormLoaiCongVan from '../List/FormLoaiCongVan'
+import FormEditCongVan from '../List/FormEditCongVan'
 class Admin extends Component {
   constructor(props) {
     super(props)
@@ -31,6 +32,7 @@ class Admin extends Component {
   }
 
   componentWillMount() {
+    document.title = 'DLU | Trang quản trị'
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
@@ -72,7 +74,7 @@ class Admin extends Component {
       switch (Type) {
         case constant.NGUOIDUNG:
           this.showFormNguoiDung(
-            'Sửa tài khoản: ' + selectedObj.tenTaiKhoan,
+            'Sửa tài khoản: ' + selectedObj.username,
             constantAction.EDIT_NGUOIDUNG,
             selectedObj
           )
@@ -244,10 +246,10 @@ class Admin extends Component {
           email: param.email,
           hoTen: param.hoTen,
           maTaiKhoan: -1,
-          matKhau: param.matKhau,
+          password: param.password,
           phanQuyen: param.phanQuyen,
           sdt: param.sdt,
-          tenTaiKhoan: param.tenTaiKhoan,
+          username: param.username,
           trangThai: param.trangThai
         })
 
@@ -260,10 +262,10 @@ class Admin extends Component {
           email: param.email,
           hoTen: param.hoTen,
           maTaiKhoan: param.maTaiKhoan,
-          matKhau: param.matKhau,
+          password: param.password,
           phanQuyen: param.phanQuyen,
           sdt: param.sdt,
-          tenTaiKhoan: param.tenTaiKhoan,
+          username: param.username,
           trangThai: param.trangThai
         })
         this.hideForm()
@@ -514,11 +516,11 @@ class Admin extends Component {
     const columnsNguoiDung = [
       {
         title: 'Tên tài khoản',
-        dataIndex: 'tenTaiKhoan',
-        key: 'tenTaiKhoan',
+        dataIndex: 'username',
+        key: 'username',
         width: '15%',
         sorter: (a, b) =>
-          a.tenTaiKhoan.toString().localeCompare(b.tenTaiKhoan.toString()),
+          a.username.toString().localeCompare(b.username.toString()),
         sortDirections: ['descend', 'ascend']
       },
       {
@@ -607,7 +609,7 @@ class Admin extends Component {
         title="Hệ thống quản trị"
         className="Scanner_Card_Parent"
       >
-        <FormAction
+        <FormLoaiCongVan
           displayForm={this.state.displayForm}
           titleForm={this.state.titleForm}
           onSubmit={this.onSubmit}
@@ -633,6 +635,15 @@ class Admin extends Component {
           displayForm={this.state.displayFormCongVan}
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
+        />
+        <FormEditCongVan
+          displayForm={this.state.displayFormEditCongVan}
+          titleForm={this.state.titleForm}
+          onSubmit={this.onSubmit}
+          action={this.state.action}
+          selectedObj={this.state.selectedObj}
+          listLoaiCongVan={this.props.listLoaiCongVan}
+          listLinhVuc={this.props.listLinhVuc}
         />
 
         <Row>
