@@ -30,14 +30,17 @@ class FormCreateCongVan extends Component {
       noiNhan: '',
       maLinhVuc: '',
       tapTin: '',
-      maLoai: ''
+      maLoai: '',
+      arrayKeys: []
     })
     this.props.reRestParent()
   }
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
+      console.log('nextProp.arrKeys :', nextProp.arrKeys)
       this.setState({
-        trichDan: this.props.trichDan
+        trichDan: this.props.trichDan,
+        arrayKeys: this.props.arrayKeys
       })
     }
   }
@@ -59,6 +62,7 @@ class FormCreateCongVan extends Component {
         )
         if (save) {
           this.props.onCreate(values)
+          console.log('values :', values)
         }
       } else alert('Hãy điền đầy đủ các trường cần thiết')
     })
@@ -98,6 +102,27 @@ class FormCreateCongVan extends Component {
     return (
       <Card type="inner" style={{ marginTop: '5px' }}>
         <Form onSubmit={this.handleSubmit} className="login-form">
+          {/* Arrkeys */}
+          <Form.Item style={{ display: 'none' }}>
+            {getFieldDecorator('keyword', {
+              initialValue: this.props.arrKeys,
+              rules: [
+                {
+                  required: true,
+                  message: 'Không được bỏ trống trường này !'
+                }
+              ]
+            })(
+              <Input
+                prefix={
+                  <Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                placeholder="Nội dung"
+                type="text"
+                title="Nội dung"
+              />
+            )}
+          </Form.Item>
           {/* Noi Dung */}
           <Form.Item style={{ display: 'none' }}>
             {getFieldDecorator('noiDung', {
@@ -183,7 +208,7 @@ class FormCreateCongVan extends Component {
           </Form.Item>
           {/* Ngày ban hành */}
           <Form.Item hasFeedback>
-            {getFieldDecorator('ngayBanHanh', {
+            {getFieldDecorator('NgayBanHanh', {
               initialValue: dateProp ? dateProp : today,
               rules: [
                 {

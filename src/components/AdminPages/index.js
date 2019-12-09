@@ -31,7 +31,7 @@ class Admin extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.title = 'DLU | Trang quản trị'
     this.props.get_all_linhvuc()
     this.props.get_all_loai_cong_van()

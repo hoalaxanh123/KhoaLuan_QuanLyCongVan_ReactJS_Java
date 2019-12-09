@@ -26,6 +26,7 @@ export const fetchGetList = () => {
 
 //Reset state task to empty []
 export const fetchListTask = () => {
+  console.log('DEBUG: GET LIST CONGVAN OK')
   return {
     type: taskConstant.FETCH_TASK
   }

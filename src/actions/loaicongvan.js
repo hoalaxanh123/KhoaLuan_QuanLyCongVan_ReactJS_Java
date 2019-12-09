@@ -33,7 +33,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  console.log('DEBUG: GET LIST LoaiCongVan OK<br/>', 'success')
+  console.log('DEBUG: GET LIST LOAICONGVAN OK')
   return {
     type: taskConstant.FETCH_LOAICONGVAN_SUCCESS,
     payload: data

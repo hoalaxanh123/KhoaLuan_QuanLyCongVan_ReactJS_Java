@@ -16,10 +16,22 @@ import CommonMethods from '../../constants/methods'
 const { TextArea } = Input
 
 //1.5: Cắt chuỗi thành mảng bằng dấu cách
-const arrCongvanDaoTao = congVanDaoTao.toLowerCase().split(' ')
-const arrCongVanDen = congVanDen.toLowerCase().split(' ')
-const arrCongVanDi = congVanDi.toLowerCase().split(' ')
-const arrStopword = stopword.toLowerCase().split(' ')
+const arrCongvanDaoTao = congVanDaoTao
+  .toLowerCase()
+  .split(' ')
+  .map(item => item.trim())
+const arrCongVanDen = congVanDen
+  .toLowerCase()
+  .split(' ')
+  .map(item => item.trim())
+const arrCongVanDi = congVanDi
+  .toLowerCase()
+  .split(' ')
+  .map(item => item.trim())
+const arrStopword = stopword
+  .toLowerCase()
+  .split(' ')
+  .map(item => item.trim())
 const regexGetDate = /(\d{1,2}) tháng (\d{1,2}) năm (\d{4})/
 
 function getBase64(file) {
@@ -39,7 +51,8 @@ class Scanner extends Component {
     previewImage: '',
     trichDan: '',
     fileUploaded: [],
-    ngayThangNam: null
+    ngayThangNam: null,
+    arrayKeys: []
   }
   phanLoai = inputFilter => {
     let result = 1
@@ -73,14 +86,14 @@ class Scanner extends Component {
       previewImage: '',
       trichDan: '',
       fileUploaded: [],
-      ngayThangNam: null
+      ngayThangNam: null,
+      arrayKeys: []
     })
   }
   handleChange = info => {
     let fileList = [...info.fileList]
     let content = ''
     let fileUploaded = []
-    console.log('fileList :', fileList)
     fileList.forEach(file => {
       if (file.response) {
         // Component will show file.url as link
@@ -106,7 +119,10 @@ class Scanner extends Component {
       .trim()
       .toLowerCase()
       .split(' ')
+      .map(item => item.trim())
     let inputFilter = arrayInput.filter(x => arrStopword.indexOf(x) === -1)
+    let setKeys = new Set(inputFilter)
+    let arrKeys = Array.from(setKeys)
     let trichDan = inputFilter.toString().replace(/,/g, ' ')
     let ngayThangNam = trichDan.match(regexGetDate)
     let date = null
@@ -118,7 +134,7 @@ class Scanner extends Component {
       let loaiCV = this.phanLoai(inputFilter)
       this.setState({ loaiCV })
     }
-    this.setState({ fileList, contentReading: content, fileUploaded })
+    this.setState({ fileList, contentReading: content, fileUploaded, arrKeys })
   }
   UNSAFE_componentWillMount() {
     document.title = 'DLU | Số hóa công văn'
@@ -126,7 +142,6 @@ class Scanner extends Component {
     this.props.get_all_loai_cong_van()
   }
   parentClick = task => {
-    console.log('task :', JSON.stringify(task))
     this.props.add_task(task)
   }
   handleCancel = () => this.setState({ previewVisible: false })
@@ -144,7 +159,6 @@ class Scanner extends Component {
   getToken = () => {
     try {
       let user = JSON.parse(CommonMethods.getCookie(constant.USER_INFO))
-      console.log('------user.token :', user.token)
       return user.token
     } catch (error) {
       return ''
@@ -223,6 +237,7 @@ class Scanner extends Component {
               date={this.state.ngayThangNam}
               noiDung={this.state.contentReading}
               reRestParent={this.reRestParent}
+              arrKeys={this.state.arrKeys}
             />
           </Col>
         </Row>

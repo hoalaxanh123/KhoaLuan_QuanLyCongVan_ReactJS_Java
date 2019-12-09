@@ -1,17 +1,35 @@
 import React, { Component } from 'react'
 import { Input, Form, Icon, Button, Select, Modal } from 'antd'
-import { EDIT_LOAICONGVAN, ADD_LOAICONGVAN } from '../../constants/task'
+import { ADD_LOAICONGVAN, EDIT_TASK } from '../../constants/task'
 const { Option } = Select
 class FormEditCongVan extends Component {
   state = {
     visible: false,
     TitleForm: '',
     action: ADD_LOAICONGVAN,
-    tenLoai: '',
-    moTa: '',
+    noiDung: '',
+    ID: '',
+    soKyHieu: '',
+    ngayBanHanh: '',
+    nguoiKy: '',
+    mucDo: '',
+    coQuanBanHanh: '',
+    ngayCoHieuLuc: '',
+    trichYeu: '',
+    noiNhan: '',
+    maLinhVuc: '',
+    tapTin: '',
     maLoai: ''
   }
+  getToDay = () => {
+    let today = new Date()
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+    let yyyy = today.getFullYear()
 
+    today = yyyy + '-' + mm + '-' + dd
+    return today
+  }
   showModal = () => {
     this.setState({
       displayForm: true
@@ -35,24 +53,46 @@ class FormEditCongVan extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
-      if (nextProp.action === EDIT_LOAICONGVAN) {
+      if (nextProp.action === EDIT_TASK) {
         console.log('nextProp :', nextProp)
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
           action: nextProp.action,
-          maLoai: nextProp.selectedObj.maLoai,
-          tenLoai: nextProp.selectedObj.tenLoai,
-          moTa: nextProp.selectedObj.moTa
+          noiDung: nextProp.selectedObj.noiDung,
+          id: nextProp.selectedObj.id,
+          timDong: nextProp.selectedObj.timDong,
+          soKyHieu: nextProp.selectedObj.soKyHieu,
+          ngayBanHanh: nextProp.selectedObj.ngayBanHanh,
+          nguoiKy: nextProp.selectedObj.nguoiKy,
+          mucDo: nextProp.selectedObj.mucDo,
+          coQuanBanHanh: nextProp.selectedObj.coQuanBanHanh,
+          ngayCoHieuLuc: nextProp.selectedObj.ngayCoHieuLuc,
+          trichYeu: nextProp.selectedObj.trichYeu,
+          noiNhan: nextProp.selectedObj.noiNhan,
+          maLinhVuc: nextProp.selectedObj.maLinhVuc,
+          tapTin: nextProp.selectedObj.tapTin,
+          maLoai: nextProp.selectedObj.maLoai
         })
       } else {
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
           action: nextProp.action,
-          maLoai: '',
-          tenLoai: '',
-          moTa: ''
+          noiDung: '',
+          id: '',
+          timDong: '',
+          soKyHieu: '',
+          ngayBanHanh: this.getToDay(),
+          nguoiKy: '',
+          mucDo: '',
+          coQuanBanHanh: '',
+          ngayCoHieuLuc: this.getToDay(),
+          trichYeu: '',
+          noiNhan: '',
+          maLinhVuc: '',
+          tapTin: '',
+          maLoai: ''
         })
       }
     }
@@ -60,15 +100,9 @@ class FormEditCongVan extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    this.state.onSubmit(this.state)
   }
-  resetForm = () => {
-    this.setState({
-      tenLoai: '',
-      moTa: '',
-      maLoai: ''
-    })
-  }
+
   onHandleChange = param => {
     var target = param.target
     var name = target.name
@@ -80,14 +114,10 @@ class FormEditCongVan extends Component {
     })
   }
 
-  UNSAFE_componentWillMount() {
-    this.resetForm()
-  }
   render() {
     const { getFieldDecorator } = this.props.form
     let renderArrayLinhVuc = ''
     let renderListLoaiCongVan = ''
-    let { loaiCV } = this.props
 
     try {
       renderArrayLinhVuc = this.props.listLinhVuc.map((linhVuc, index) => (
@@ -111,7 +141,6 @@ class FormEditCongVan extends Component {
     const formItemLayout = {
       labelCol: { span: 24 }
     }
-
     return (
       <div>
         <Modal
@@ -126,7 +155,6 @@ class FormEditCongVan extends Component {
             </Button>
           ]}
         >
-          <h1>Sua Cong Van</h1>
           <Form
             onSubmit={this.handleSubmit}
             className="login-form"
@@ -135,7 +163,7 @@ class FormEditCongVan extends Component {
             {/* Noi Dung */}
             <Form.Item style={{ display: 'none' }}>
               {getFieldDecorator('noiDung', {
-                initialValue: this.props.noiDung,
+                initialValue: this.state.noiDung,
                 rules: [
                   {
                     required: true,
@@ -197,6 +225,7 @@ class FormEditCongVan extends Component {
             {/* Số ký hiệu */}
             <Form.Item label="Số ký hiệu" hasFeedback>
               {getFieldDecorator('soKyHieu', {
+                initialValue: this.state.soKyHieu,
                 rules: [
                   {
                     required: true,
@@ -217,6 +246,7 @@ class FormEditCongVan extends Component {
             {/* Ngày ban hành */}
             <Form.Item label="Ngày ban hành" labelAlign="left" lhasFeedback>
               {getFieldDecorator('ngayBanHanh', {
+                initialValue: this.state.ngayBanHanh,
                 rules: [
                   {
                     required: true,
@@ -240,6 +270,7 @@ class FormEditCongVan extends Component {
             {/* Người ký */}
             <Form.Item label="Người ký" hasFeedback>
               {getFieldDecorator('nguoiKy', {
+                initialValue: this.state.nguoiKy,
                 rules: [
                   {
                     required: true,
@@ -260,7 +291,7 @@ class FormEditCongVan extends Component {
             {/* Mức độ */}
             <Form.Item label="Mức độ" hasFeedback>
               {getFieldDecorator('mucDo', {
-                initialValue: 0,
+                initialValue: this.state.mucDo,
                 rules: [
                   {
                     required: true,
@@ -281,7 +312,7 @@ class FormEditCongVan extends Component {
             {/* Cơ quan ban hành */}
             <Form.Item label="Cơ quan b.hành" hasFeedback>
               {getFieldDecorator('coQuanBanHanh', {
-                initialValue: 'Trường Đại học Đà Lạt',
+                initialValue: this.state.coQuanBanHanh,
                 rules: [
                   {
                     required: true,
@@ -302,6 +333,7 @@ class FormEditCongVan extends Component {
             {/* Ngày có hiệu lực */}
             <Form.Item label="Ngày có hiệu lực" hasFeedback>
               {getFieldDecorator('ngayCoHieuLuc', {
+                initialValue: this.state.ngayCoHieuLuc,
                 rules: [
                   {
                     required: true,
@@ -325,7 +357,7 @@ class FormEditCongVan extends Component {
             {/* Trích dẫn */}
             <Form.Item label="Trích dẫn" hasFeedback>
               {getFieldDecorator('trichYeu', {
-                initialValue: this.props.trichDan,
+                initialValue: this.state.trichYeu,
                 rules: [
                   {
                     required: true,
@@ -347,6 +379,7 @@ class FormEditCongVan extends Component {
             {/* Nơi nhận */}
             <Form.Item label="Nơi nhận" hasFeedback>
               {getFieldDecorator('noiNhan', {
+                initialValue: this.state.noiNhan,
                 rules: [
                   {
                     required: true,
@@ -367,7 +400,7 @@ class FormEditCongVan extends Component {
             {/* lĩnh vực */}
             <Form.Item label="Lĩnh vực" hasFeedback>
               {getFieldDecorator('maLinhVuc', {
-                initialValue: 1,
+                initialValue: this.state.maLinhVuc,
                 rules: [{ required: true, message: 'Vui lòng chọn lĩnh vực' }]
               })(
                 <Select
@@ -388,6 +421,7 @@ class FormEditCongVan extends Component {
             {/* Tệp tin */}
             <Form.Item style={{ display: 'none' }}>
               {getFieldDecorator('tapTin', {
+                initialValue: this.state.tapTin,
                 rules: [
                   {
                     required: true,
@@ -409,7 +443,7 @@ class FormEditCongVan extends Component {
             {/* loaiCongVan */}
             <Form.Item>
               {getFieldDecorator('maLoai', {
-                initialValue: loaiCV,
+                initialValue: this.state.maLoai,
                 rules: [
                   { required: true, message: 'Vui lòng chọn loại công văn' }
                 ]

@@ -6,7 +6,6 @@ class AxiosService {
   getToken() {
     try {
       let user = JSON.parse(CommonMethods.getCookie(USER_INFO))
-      console.log('------user.token :', user.token)
       return user.token
     } catch (error) {
       return ''

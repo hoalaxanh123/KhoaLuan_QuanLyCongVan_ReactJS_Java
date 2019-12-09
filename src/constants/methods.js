@@ -53,24 +53,38 @@ export default class CommonMethods {
           remember: remember
         })
         .then(res => {
-          console.log('res :', res)
-          if (res.status === 200) {
-            this.setCookie(
-              USER_INFO,
-              JSON.stringify(res.data),
-              remember ? 365 : 1
-            )
-            Message(
-              'Đăng nhập thành công, vui lòng chờ trong giây lát',
-              'success',
-              3000,
-              'Đăng nhập',
-              'Login'
-            )
-            setTimeout(() => {
-              window.location.replace(API_AFTER_LOGIN)
-            }, 1000)
-          } else {
+          switch (res.status) {
+            case 200:
+              this.setCookie(
+                USER_INFO,
+                JSON.stringify(res.data),
+                remember ? 365 : 1
+              )
+              Message(
+                'Đăng nhập thành công, vui lòng chờ trong giây lát',
+                'success',
+                3000,
+                'Đăng nhập',
+                'Login'
+              )
+              setTimeout(() => {
+                window.location.replace(API_AFTER_LOGIN)
+              }, 1000)
+              break
+
+            default:
+              Message(
+                'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',
+                'error',
+                3000,
+                'Đăng nhập lỗi',
+                'Login'
+              )
+              break
+          }
+        })
+        .catch(function(error) {
+          if (error.response.status === 404) {
             Message(
               'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',
               'error',
@@ -78,10 +92,7 @@ export default class CommonMethods {
               'Đăng nhập lỗi',
               'Login'
             )
-          }
-        })
-        .catch(function(error) {
-          if (error.response) {
+          } else if (error.response) {
             Message(
               `Đã sảy ra vấn đề khi kết nối tới server, vui lòng kiểm tra lại<br/>
               -Chi tiết: ${error.response.status}-${error.response.data}
