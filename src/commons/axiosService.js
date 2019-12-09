@@ -29,6 +29,15 @@ class AxiosService {
       headers: { Authorization: `Bearer ${this.getToken()}` }
     })
   }
+  getHasParam(url, task) {
+    console.log('task :', task)
+    return this.intance.get(url, task, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+  }
   delete(url) {
     return this.intance.delete(url, {
       headers: { Authorization: 'Bearer ' + this.getToken() }

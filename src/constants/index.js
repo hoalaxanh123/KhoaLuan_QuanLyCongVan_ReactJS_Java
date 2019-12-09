@@ -4,6 +4,8 @@ export const API_URL = 'http://localhost:9999/api/'
 export const API_URL_UPFILE = 'http://localhost:9999/api/readFile'
 //API DOWNLOAD FILE
 export const API_URL_DOWNFILE = 'http://localhost:9999/api/downloadFile'
+//API SEARCH
+export const API_URL_SEARCH = 'http://localhost:9999/api/congvan/search'
 
 //task == Công văn
 export const API_CONGVAN_ENDPOIN = 'congvan'
