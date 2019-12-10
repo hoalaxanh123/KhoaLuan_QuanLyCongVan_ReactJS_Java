@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FormFind from './../FormFind'
+import * as actionCongVanSearch from './../../actions/congVanSearch'
 import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
@@ -13,7 +14,6 @@ import {
   API_URL_SEARCH
 } from '../../constants'
 import AxiosService from '../../commons/axiosService'
-import Axios from 'axios'
 import { message } from 'antd'
 
 const expandedRowRender = record => <p>{record.description}</p>
@@ -133,24 +133,28 @@ class ListCV extends Component {
   filterByState = listCV => {
     let result = []
     let state = this.state
-
-    if (this.state.keyword.trim().length > 0) {
+    let tuKhoaTimKiem = this.state.keyword.trim()
+    if (tuKhoaTimKiem.length > 0) {
       console.log('Bắt đầu tìm')
-      let arrResult = this.sendAPIToGetListCongVanByKeyWord(this.state.keyword)
-      console.log('arrResult :', arrResult)
-      // if(!arrResult){
-      //   return
-      // }
-      // let arrResult2 = []
-      // for (let item of arrResult) {
-      //   arrResult2.concat(item)
-      // }
+      let arrResult = this.props.listCVSearch
+      if (!arrResult) {
+        return
+      }
+      let arrResult2 = []
+      arrResult.forEach(x => {
+        arrResult2 = arrResult2.concat(x)
+      })
 
-      // let set = new Set(arrResult2)
-      // let finalResult = Array.from(set)
+      let set = new Set(arrResult2)
+      let finalResult = Array.from(set)
 
-      // console.log('finalResult :', finalResult)
-      // listCV = [...finalResult]
+      console.log('finalResult :', finalResult)
+      let finalArr = []
+      finalResult.forEach(key => {
+        finalArr.push(this.props.listCV.find(x => x.id === key))
+      })
+      console.log('finalArr :', finalArr)
+      listCV = [...finalArr]
     }
 
     listCV.forEach(x => {
@@ -275,7 +279,9 @@ class ListCV extends Component {
     }
   }
   handleSearch = state => {
-    console.log('state :', state)
+    if (state.keyword.trim().length > 0) {
+      this.props.search_cong_van({ tuKhoa: state.keyword.trim() })
+    }
     this.setState({
       keyword: state.keyword,
       loaiCongVan: state.loaiCongVan,
@@ -436,6 +442,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     get_all_cong_van: () => {
       dispatch(action.fetchGetList())
     },
+    search_cong_van: keyword => {
+      dispatch(actionCongVanSearch.fetchGetList(keyword))
+    },
     get_all_loai_cong_van: () => {
       dispatch(actionLoaiCongVan.fetchGetList())
     },
@@ -448,6 +457,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     listCV: state.task.listTask,
+    listCVSearch: state.congVanSearch.listTask,
     listLoaiCongVan: state.loaiCongVan.byId,
     listLinhVuc: state.linhVuc.byId
   }

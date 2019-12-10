@@ -48,17 +48,16 @@ class AxiosService {
       headers: { Authorization: 'Bearer ' + this.getToken() }
     })
   }
+  postWitoutAuthen(url, task) {
+    return this.intance.post(url, task)
+  }
   put(url, task) {
     return this.intance.put(url, task, {
       headers: { Authorization: 'Bearer ' + this.getToken() }
     })
   }
   login(url, task) {
-    console.log('task :', task)
     return this.intance.post(url, task)
-    // return this.intance.post(url,task, {
-    //   headers: { Authorization: 'Bearer ' + this.getToken() }
-    // })
   }
 }
 export default new AxiosService()
