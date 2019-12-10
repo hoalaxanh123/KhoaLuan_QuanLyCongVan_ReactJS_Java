@@ -153,7 +153,9 @@ class ListCV extends Component {
       finalResult.forEach(key => {
         finalArr.push(this.props.listCV.find(x => x.id === key))
       })
-      finalArr.push(this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem))
+      let temp = this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem)
+      if (temp)
+        finalArr.push(this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem))
       console.log('finalArr :', finalArr)
 
       listCV = [...finalArr]
