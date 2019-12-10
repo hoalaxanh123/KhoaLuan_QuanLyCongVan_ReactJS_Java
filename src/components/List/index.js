@@ -198,7 +198,7 @@ class ListCV extends Component {
         let temp = JSON.parse(x.timDong)
         let keys = Object.keys(temp)
         let lines = []
-        if (state.keyword !== '') {
+        if (state.keyword.length > 0) {
           for (let index = 1; index <= keys.length; index++) {
             if (
               temp[index]
@@ -209,10 +209,13 @@ class ListCV extends Component {
               lines.push(index)
             }
           }
+          if (lines.length) {
+            x['lines'] = lines
+          }
+        } else {
+          x['lines'] = []
         }
-        if (lines.length > 0) {
-          x['lines'] = lines
-        }
+
         result.push(x)
       }
     })
