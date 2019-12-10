@@ -55,19 +55,25 @@ class FormEditCongVan extends Component {
     if (this.props !== nextProp) {
       if (nextProp.action === EDIT_TASK) {
         console.log('nextProp :', nextProp)
+        let ngayCoHieuLuc = nextProp.selectedObj.ngayCoHieuLuc
+          .toString()
+          .substring(0, 10)
+        let ngayBanHanh = nextProp.selectedObj.ngayBanHanh
+          .toString()
+          .substring(0, 10)
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
           action: nextProp.action,
           noiDung: nextProp.selectedObj.noiDung,
-          id: nextProp.selectedObj.id,
+          ID: nextProp.selectedObj.id,
           timDong: nextProp.selectedObj.timDong,
           soKyHieu: nextProp.selectedObj.soKyHieu,
-          ngayBanHanh: nextProp.selectedObj.ngayBanHanh,
+          ngayBanHanh: ngayBanHanh,
           nguoiKy: nextProp.selectedObj.nguoiKy,
           mucDo: nextProp.selectedObj.mucDo,
           coQuanBanHanh: nextProp.selectedObj.coQuanBanHanh,
-          ngayCoHieuLuc: nextProp.selectedObj.ngayCoHieuLuc,
+          ngayCoHieuLuc: ngayCoHieuLuc,
           trichYeu: nextProp.selectedObj.trichYeu,
           noiNhan: nextProp.selectedObj.noiNhan,
           maLinhVuc: nextProp.selectedObj.maLinhVuc,
@@ -100,7 +106,17 @@ class FormEditCongVan extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.state.onSubmit(this.state)
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        var save = window.confirm(
+          'Hãy chắc chắn bạn đã nhập đúng mọi thông tin cần thiết'
+        )
+        values.action = this.state.action
+        if (save) {
+          this.props.onSubmit(values)
+        }
+      } else alert('Hãy điền đầy đủ các trường cần thiết')
+    })
   }
 
   onHandleChange = param => {
@@ -184,6 +200,7 @@ class FormEditCongVan extends Component {
             {/* Tim dong */}
             <Form.Item style={{ display: 'none' }}>
               {getFieldDecorator('timDong', {
+                initialValue: this.state.timDong,
                 rules: [
                   {
                     required: true,
@@ -204,7 +221,7 @@ class FormEditCongVan extends Component {
             {/* id */}
             <Form.Item style={{ display: 'none' }}>
               {getFieldDecorator('id', {
-                initialValue: -1,
+                initialValue: this.state.ID,
                 rules: [
                   {
                     required: true,
@@ -246,7 +263,9 @@ class FormEditCongVan extends Component {
             {/* Ngày ban hành */}
             <Form.Item label="Ngày ban hành" labelAlign="left" lhasFeedback>
               {getFieldDecorator('ngayBanHanh', {
-                initialValue: this.state.ngayBanHanh,
+                initialValue: this.state.ngayBanHanh
+                  ? this.state.ngayBanHanh
+                  : this.getToDay(),
                 rules: [
                   {
                     required: true,

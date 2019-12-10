@@ -116,6 +116,18 @@ class FormCongVan extends Component {
   render() {
     let tepTinState = this.state.tapTin
     let tepTin = tepTinState
+    let { listLoaiCongVan, listLinhVuc } = this.props
+
+    let linhVuc = listLinhVuc.find(x => x.maLinhVuc === this.state.maLinhVuc)
+    let loaiCongVan = listLoaiCongVan.find(x => x.maLoai === this.state.maLoai)
+    let txtLinhVuc = this.state.maLinhVuc
+    let txtLoaiCongVan = this.state.maLoai
+    if (linhVuc) {
+      txtLinhVuc = linhVuc.tenLinhVuc
+    }
+    if (loaiCongVan) {
+      txtLoaiCongVan = loaiCongVan.tenLoai
+    }
     try {
       if (tepTinState.split(',').length >= 1) {
         tepTin = tepTinState.split(',').map((x, index) => {
@@ -162,11 +174,11 @@ class FormCongVan extends Component {
               </tr>
               <tr>
                 <td>Lĩnh vực:</td>
-                <td>{this.state.maLinhVuc}</td>
+                <td>{txtLinhVuc}</td>
               </tr>
               <tr>
                 <td>Loại công văn:</td>
-                <td>{this.state.maLoai}</td>
+                <td>{txtLoaiCongVan}</td>
               </tr>
               <tr>
                 <td>Cơ quan ban hành:</td>
@@ -195,6 +207,10 @@ class FormCongVan extends Component {
               <tr>
                 <td>Trích yếu:</td>
                 <td>{this.state.trichYeu}</td>
+              </tr>
+              <tr>
+                <td>Nội dung:</td>
+                <td>{this.state.noiDung}</td>
               </tr>
               <tr>
                 <td>Tập tin:</td>

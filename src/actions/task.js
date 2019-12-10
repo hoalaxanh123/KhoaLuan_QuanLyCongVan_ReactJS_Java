@@ -94,3 +94,25 @@ export const addTask_Request = task => {
     )
   }
 }
+
+//edit a task
+export const editTask_Request = congVan => {
+  return dispatch => {
+    trackPromise(
+      apiTask
+        .editTask(congVan)
+        .then(res => {
+          dispatch(editTask(congVan))
+        })
+        .catch(error => {
+          Message(error, 'error', 3000, 'ERROR', 'Sửa metadata công văn')
+        })
+    )
+  }
+}
+export const editTask = congVan => {
+  return {
+    type: taskConstant.EDIT_TASK,
+    congVan: congVan
+  }
+}

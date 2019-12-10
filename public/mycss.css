@@ -4,6 +4,12 @@
 .highlight {
   font-size: 180px;
 }
+.name{
+  color:white;
+  font-size: 12px;
+  font-weight: 450;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .tableChiTietCongVan, .tableChiTietCongVan th, .tableChiTietCongVan td{
   padding: 1em;

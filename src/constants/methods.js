@@ -92,6 +92,14 @@ export default class CommonMethods {
               'Đăng nhập lỗi',
               'Login'
             )
+          } else if (error.response.status === 401) {
+            Message(
+              'Tài khoản của bạn không còn quyền truy cập, liên hệ quản trị viên để biết thêm thông tin chi tiết',
+              'error',
+              3000,
+              'Đăng nhập lỗi',
+              'Login'
+            )
           } else if (error.response) {
             Message(
               `Đã sảy ra vấn đề khi kết nối tới server, vui lòng kiểm tra lại<br/>

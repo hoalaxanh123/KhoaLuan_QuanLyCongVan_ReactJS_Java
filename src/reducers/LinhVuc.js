@@ -14,7 +14,6 @@ let addLinhVuc = (state, action) => {
   return lst
 }
 let editLinhVuc = (state, action) => {
-  debugger
   let lst = [...state.byId]
   var index = lst.findIndex(x => x.maLinhVuc === action.linhVuc.maLinhVuc)
   lst[index] = action.linhVuc

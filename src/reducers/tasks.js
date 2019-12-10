@@ -8,7 +8,12 @@ let deleteTask = (state, action) => {
   lst.splice(index, 1)
   return lst
 }
-
+let editCongVan = (state, action) => {
+  let lst = [...state.listTask]
+  var index = lst.findIndex(x => x.id === action.congVan.id)
+  lst[index] = action.congVan
+  return lst
+}
 const TaskReducer = (state = initialState, action) => {
   switch (action.type) {
     case taskContants.FETCH_TASK:
@@ -41,6 +46,16 @@ const TaskReducer = (state = initialState, action) => {
         'success'
       )
       return { ...state, listTask: lst }
+    case taskContants.EDIT_TASK:
+      let lst3 = editCongVan(state, action)
+      Message(
+        'Sửa thành công',
+        'success',
+        3000,
+        'DONE',
+        'Sửa metadata công văn'
+      )
+      return { ...state, listTask: lst3 }
     default:
       return state
   }

@@ -153,7 +153,9 @@ class ListCV extends Component {
       finalResult.forEach(key => {
         finalArr.push(this.props.listCV.find(x => x.id === key))
       })
+      finalArr.push(this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem))
       console.log('finalArr :', finalArr)
+
       listCV = [...finalArr]
     }
 
@@ -225,7 +227,7 @@ class ListCV extends Component {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
         listCV[index]['key'] = listCV[index].id
-        listCV[index]['description'] = listCV[index].trichYeu
+        listCV[index]['description'] = listCV[index].noiDung
         try {
           let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
           listCV[index]['ngayBanHanh'] = date
@@ -413,6 +415,8 @@ class ListCV extends Component {
           displayForm={this.state.displayFormCongVan}
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
+          listLoaiCongVan={this.props.listLoaiCongVan}
+          listLinhVuc={this.props.listLinhVuc}
         />
         <FormFind
           listLoaiCongVan={listLoaiCongVan}
