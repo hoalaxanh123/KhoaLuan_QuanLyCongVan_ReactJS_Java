@@ -48,6 +48,9 @@ class AxiosService {
       headers: { Authorization: 'Bearer ' + this.getToken() }
     })
   }
+  postWithoutToken(url, task) {
+    return this.intance.post(url, task)
+  }
   put(url, task) {
     return this.intance.put(url, task, {
       headers: { Authorization: 'Bearer ' + this.getToken() }

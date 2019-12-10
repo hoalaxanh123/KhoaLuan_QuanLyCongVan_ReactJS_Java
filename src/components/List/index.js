@@ -48,7 +48,8 @@ class ListCV extends Component {
     titleForm: '',
     lines: [],
     Finding: false,
-    cacDongTinDuoc: []
+    cacDongTinDuoc: [],
+    listCongVanResult: []
   }
 
   handleToggle = prop => enable => {
@@ -101,35 +102,23 @@ class ListCV extends Component {
     this.props.get_all_cong_van()
   }
   sendAPIToGetListCongVanByKeyWord = keyword => {
-    AxiosService.getHasParam(
-      API_URL_SEARCH,
-      JSON.stringify({ tuKhoa: keyword.trim() })
-    )
+    return AxiosService.postWithoutToken(API_URL_SEARCH, {
+      tuKhoa: keyword.trim()
+    })
       .then(response => {
         message.success('GỌi được này, ngon')
-        console.log(response)
+        console.log('response.data :', response.data)
+        if (response.data) {
+          let set = new Set(response.data)
+          return Array.from(set)
+        }
       })
       .catch(error => {
         message.error('Lỗi cmnr')
-        console.log('error.response :', error.response)
-        console.log('error.request :', error.request)
+        return []
       })
-
-    // AxiosService.getHasParam(API_URL_SEARCH, {
-    //   id: -1,
-    //   tuKhoa: keyword.trim()
-    // })
-    //   .then(res => {
-    //     console.log('--res :', res)
-    //     if (res.status === 200) {
-    //       return res.data
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log('------error :', error.response)
-    //     return []
-    //   })
   }
+
   filterByState = listCV => {
     let result = []
     let state = this.state
