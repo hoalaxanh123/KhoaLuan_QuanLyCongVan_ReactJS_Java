@@ -222,13 +222,16 @@ class ListCV extends Component {
         try {
           let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
           listCV[index]['ngayBanHanh'] = date
+        } catch (error) {
+          listCV[index]['ngayBanHanh'] = 'null'
+        }
+        try {
           if (!isNaN(listCV[index].maLinhVuc)) {
             listCV[index]['linhVuc'] = listLinhVuc.find(
               x => x.maLinhVuc === listCV[index].maLinhVuc
             ).tenLinhVuc
           }
         } catch (error) {
-          listCV[index]['ngayBanHanh'] = 'ERROR'
           listCV[index]['linhVuc'] = 'Unknown'
         }
       })

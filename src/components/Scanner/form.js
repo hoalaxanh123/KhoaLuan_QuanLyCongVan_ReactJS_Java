@@ -208,7 +208,7 @@ class FormCreateCongVan extends Component {
           </Form.Item>
           {/* Ngày ban hành */}
           <Form.Item hasFeedback>
-            {getFieldDecorator('NgayBanHanh', {
+            {getFieldDecorator('ngayBanHanh', {
               initialValue: dateProp ? dateProp : today,
               rules: [
                 {
