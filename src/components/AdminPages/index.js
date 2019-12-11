@@ -211,7 +211,6 @@ class Admin extends Component {
   onSubmit = param => {
     switch (param.action) {
       case constantAction.EDIT_TASK:
-        console.log('param :', param)
         this.props.edit_cong_van({
           id: param.id,
           timDong: param.timDong,
@@ -279,7 +278,6 @@ class Admin extends Component {
         this.hideForm()
         break
       case constantAction.EDIT_NGUOIDUNG:
-        console.log('param :', param)
         this.props.edit_user({
           diaChi: param.diaChi,
           email: param.email,

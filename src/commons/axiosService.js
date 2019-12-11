@@ -30,7 +30,6 @@ class AxiosService {
     })
   }
   getHasParam(url, task) {
-    console.log('task :', task)
     return this.intance.get(url, task, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',

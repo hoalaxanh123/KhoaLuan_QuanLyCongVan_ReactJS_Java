@@ -162,11 +162,9 @@ class LeftMenu extends Component {
         <div className="logo">
           <p>
             <b>PST</b> DLU
-            <h1>
-              <a href="/tai-khoan" className="name">
-                {name}
-              </a>
-            </h1>
+            <span className="name">
+              <a href="/tai-khoan">{name}</a>
+            </span>
           </p>
         </div>
         <Menu

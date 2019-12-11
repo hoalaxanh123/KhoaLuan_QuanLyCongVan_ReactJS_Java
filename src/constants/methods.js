@@ -55,6 +55,7 @@ export default class CommonMethods {
         .then(res => {
           switch (res.status) {
             case 200:
+              delete res.data.password
               this.setCookie(
                 USER_INFO,
                 JSON.stringify(res.data),

@@ -52,7 +52,6 @@ class FormUser extends Component {
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
       if (nextProp.action === EDIT_NGUOIDUNG) {
-        console.log('nextProp :', nextProp)
         this.setState({
           displayForm: nextProp.displayForm,
           TitleForm: nextProp.titleForm,
@@ -145,8 +144,6 @@ class FormUser extends Component {
     })
   }
   onHandleChange = (param, sdasd) => {
-    console.log('param :', param)
-    console.log('sdasd :', sdasd)
     var target = param.target
     var name = target.name
     var value

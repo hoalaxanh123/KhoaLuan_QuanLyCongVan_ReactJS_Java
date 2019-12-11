@@ -37,7 +37,6 @@ class FormCreateCongVan extends Component {
   }
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
-      console.log('nextProp.arrKeys :', nextProp.arrKeys)
       this.setState({
         trichDan: this.props.trichDan,
         arrayKeys: this.props.arrayKeys
@@ -62,7 +61,6 @@ class FormCreateCongVan extends Component {
         )
         if (save) {
           this.props.onCreate(values)
-          console.log('values :', values)
         }
       } else alert('Hãy điền đầy đủ các trường cần thiết')
     })

@@ -8,13 +8,7 @@ import * as actionLinhVuc from './../../actions/linhVuc'
 import TableCommon from './Table'
 import FormCongVan from './FormCongVan'
 import FormLines from './FormLines'
-import {
-  MAX_LENGTH_LINE,
-  MAX_LENGTH_SHORT_LINE,
-  API_URL_SEARCH
-} from '../../constants'
-import AxiosService from '../../commons/axiosService'
-import { message } from 'antd'
+import { MAX_LENGTH_LINE, MAX_LENGTH_SHORT_LINE } from '../../constants'
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -100,36 +94,7 @@ class ListCV extends Component {
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
   }
-  sendAPIToGetListCongVanByKeyWord = keyword => {
-    AxiosService.getHasParam(
-      API_URL_SEARCH,
-      JSON.stringify({ tuKhoa: keyword.trim() })
-    )
-      .then(response => {
-        message.success('GỌi được này, ngon')
-        console.log(response)
-      })
-      .catch(error => {
-        message.error('Lỗi cmnr')
-        console.log('error.response :', error.response)
-        console.log('error.request :', error.request)
-      })
 
-    // AxiosService.getHasParam(API_URL_SEARCH, {
-    //   id: -1,
-    //   tuKhoa: keyword.trim()
-    // })
-    //   .then(res => {
-    //     console.log('--res :', res)
-    //     if (res.status === 200) {
-    //       return res.data
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log('------error :', error.response)
-    //     return []
-    //   })
-  }
   filterByState = listCV => {
     let result = []
     let state = this.state
@@ -148,7 +113,6 @@ class ListCV extends Component {
       let set = new Set(arrResult2)
       let finalResult = Array.from(set)
 
-      console.log('finalResult :', finalResult)
       let finalArr = []
       finalResult.forEach(key => {
         finalArr.push(this.props.listCV.find(x => x.id === key))

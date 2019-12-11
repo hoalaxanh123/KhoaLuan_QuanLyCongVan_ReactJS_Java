@@ -15,7 +15,6 @@ export const fetchGetList = keyword => {
       apiCongVanSearch
         .getListTask(keyword)
         .then(res => {
-          console.log('res.data :', res.data)
           dispatch(fetchListTaskSuccess(res.data))
         })
         .catch(error => {

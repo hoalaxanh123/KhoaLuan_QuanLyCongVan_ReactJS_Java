@@ -54,7 +54,6 @@ class FormEditCongVan extends Component {
   UNSAFE_componentWillReceiveProps(nextProp) {
     if (this.props !== nextProp) {
       if (nextProp.action === EDIT_TASK) {
-        console.log('nextProp :', nextProp)
         let ngayCoHieuLuc = nextProp.selectedObj.ngayCoHieuLuc
           .toString()
           .substring(0, 10)
@@ -151,9 +150,7 @@ class FormEditCongVan extends Component {
           Loại công văn: {loaiCongVan.tenLoai}
         </Option>
       ))
-    } catch (error) {
-      console.log('error :', error)
-    }
+    } catch (error) {}
     const formItemLayout = {
       labelCol: { span: 24 }
     }

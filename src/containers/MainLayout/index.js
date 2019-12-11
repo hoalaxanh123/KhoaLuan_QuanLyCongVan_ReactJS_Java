@@ -16,6 +16,15 @@ class MainLayout extends Component {
     document.title = 'DLU | Số hóa công văn'
   }
   render() {
+    console.log('%cDừng lại', 'font-size: 50px;color:red;font-weight: bold')
+    console.log(
+      '%cĐây là một tính năng của trình duyệt dành cho các nhà phát triển. Nếu ai đó bảo bạn sao chép-dán nội dung nào đó vào đây để bật một tính năng của Facebook hoặc "hack" tài khoản của người khác, thì đó là hành vi lừa đảo và sẽ khiến họ có thể truy cập vào tài khoản của bạn.',
+      'font-size: 20px;color:red;background: yellow'
+    )
+    console.log(
+      '%cCopyright @2019 by DLU, Trường Đại học Đà Lạt',
+      'font-size: 15px;color:black'
+    )
     return (
       <Router>
         <Layout>
