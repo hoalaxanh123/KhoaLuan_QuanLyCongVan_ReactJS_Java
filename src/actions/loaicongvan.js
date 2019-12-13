@@ -33,7 +33,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  console.log('DEBUG: GET LIST LOAICONGVAN OK')
+  // console.log('DEBUG: GET LIST LOAICONGVAN OK')
   return {
     type: taskConstant.FETCH_LOAICONGVAN_SUCCESS,
     payload: data
@@ -57,7 +57,6 @@ export const deleteTask_Request = id => {
       apiLoaiCongVan
         .deleteTask(id)
         .then(res => {
-          console.log('res :', res)
           dispatch(deleteTask(id))
         })
         .catch(error => {
@@ -97,7 +96,6 @@ export const addTask = loaiCongVan => {
 
 //edit a task
 export const editTask_Request = loaiCongVan => {
-  console.log('loaiCongVan :', loaiCongVan)
   return dispatch => {
     trackPromise(
       apiLoaiCongVan

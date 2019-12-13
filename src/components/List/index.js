@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FormFind from './../FormFind'
+import * as actionCongVanSearch from './../../actions/congVanSearch'
 import * as action from './../../actions/task'
 import * as actionLoaiCongVan from './../../actions/loaicongvan'
 import * as actionLinhVuc from './../../actions/linhVuc'
 import TableCommon from './Table'
 import FormCongVan from './FormCongVan'
 import FormLines from './FormLines'
-import {
-  MAX_LENGTH_LINE,
-  MAX_LENGTH_SHORT_LINE,
-  API_URL_SEARCH
-} from '../../constants'
-import AxiosService from '../../commons/axiosService'
-import Axios from 'axios'
-import { message } from 'antd'
+import { MAX_LENGTH_LINE, MAX_LENGTH_SHORT_LINE } from '../../constants'
 
 const expandedRowRender = record => <p>{record.description}</p>
 const title = () => 'Here is title'
@@ -101,45 +95,35 @@ class ListCV extends Component {
     this.props.get_all_loai_cong_van()
     this.props.get_all_cong_van()
   }
-  sendAPIToGetListCongVanByKeyWord = keyword => {
-    return AxiosService.postWithoutToken(API_URL_SEARCH, {
-      tuKhoa: keyword.trim()
-    })
-      .then(response => {
-        message.success('GỌi được này, ngon')
-        console.log('response.data :', response.data)
-        if (response.data) {
-          let set = new Set(response.data)
-          return Array.from(set)
-        }
-      })
-      .catch(error => {
-        message.error('Lỗi cmnr')
-        return []
-      })
-  }
 
   filterByState = listCV => {
     let result = []
     let state = this.state
-
-    if (this.state.keyword.trim().length > 0) {
+    let tuKhoaTimKiem = this.state.keyword.trim()
+    if (tuKhoaTimKiem.length > 0) {
       console.log('Bắt đầu tìm')
-      let arrResult = this.sendAPIToGetListCongVanByKeyWord(this.state.keyword)
-      console.log('arrResult :', arrResult)
-      // if(!arrResult){
-      //   return
-      // }
-      // let arrResult2 = []
-      // for (let item of arrResult) {
-      //   arrResult2.concat(item)
-      // }
+      let arrResult = this.props.listCVSearch
+      if (!arrResult) {
+        return
+      }
+      let arrResult2 = []
+      arrResult.forEach(x => {
+        arrResult2 = arrResult2.concat(x)
+      })
 
-      // let set = new Set(arrResult2)
-      // let finalResult = Array.from(set)
+      let set = new Set(arrResult2)
+      let finalResult = Array.from(set)
 
-      // console.log('finalResult :', finalResult)
-      // listCV = [...finalResult]
+      let finalArr = []
+      finalResult.forEach(key => {
+        finalArr.push(this.props.listCV.find(x => x.id === key))
+      })
+      let temp = this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem)
+      if (temp)
+        finalArr.push(this.props.listCV.find(x => x.soKyHieu === tuKhoaTimKiem))
+      console.log('finalArr :', finalArr)
+
+      listCV = [...finalArr]
     }
 
     listCV.forEach(x => {
@@ -183,7 +167,7 @@ class ListCV extends Component {
         let temp = JSON.parse(x.timDong)
         let keys = Object.keys(temp)
         let lines = []
-        if (state.keyword !== '') {
+        if (state.keyword.length > 0) {
           for (let index = 1; index <= keys.length; index++) {
             if (
               temp[index]
@@ -194,10 +178,13 @@ class ListCV extends Component {
               lines.push(index)
             }
           }
+          if (lines.length) {
+            x['lines'] = lines
+          }
+        } else {
+          x['lines'] = []
         }
-        if (lines.length > 0) {
-          x['lines'] = lines
-        }
+
         result.push(x)
       }
     })
@@ -207,17 +194,20 @@ class ListCV extends Component {
     if (listLinhVuc.length !== 0) {
       listCV.forEach((linhvuc, index) => {
         listCV[index]['key'] = listCV[index].id
-        listCV[index]['description'] = listCV[index].trichYeu
+        listCV[index]['description'] = listCV[index].noiDung
         try {
           let date = listCV[index]['ngayBanHanh'].toString().substring(0, 10)
           listCV[index]['ngayBanHanh'] = date
+        } catch (error) {
+          listCV[index]['ngayBanHanh'] = 'null'
+        }
+        try {
           if (!isNaN(listCV[index].maLinhVuc)) {
             listCV[index]['linhVuc'] = listLinhVuc.find(
               x => x.maLinhVuc === listCV[index].maLinhVuc
             ).tenLinhVuc
           }
         } catch (error) {
-          listCV[index]['ngayBanHanh'] = 'ERROR'
           listCV[index]['linhVuc'] = 'Unknown'
         }
       })
@@ -261,7 +251,9 @@ class ListCV extends Component {
     }
   }
   handleSearch = state => {
-    console.log('state :', state)
+    if (state.keyword.trim().length > 0) {
+      this.props.search_cong_van({ tuKhoa: state.keyword.trim() })
+    }
     this.setState({
       keyword: state.keyword,
       loaiCongVan: state.loaiCongVan,
@@ -390,6 +382,8 @@ class ListCV extends Component {
           displayForm={this.state.displayFormCongVan}
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
+          listLoaiCongVan={this.props.listLoaiCongVan}
+          listLinhVuc={this.props.listLinhVuc}
         />
         <FormFind
           listLoaiCongVan={listLoaiCongVan}
@@ -422,6 +416,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     get_all_cong_van: () => {
       dispatch(action.fetchGetList())
     },
+    search_cong_van: keyword => {
+      dispatch(actionCongVanSearch.fetchGetList(keyword))
+    },
     get_all_loai_cong_van: () => {
       dispatch(actionLoaiCongVan.fetchGetList())
     },
@@ -434,6 +431,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     listCV: state.task.listTask,
+    listCVSearch: state.congVanSearch.listTask,
     listLoaiCongVan: state.loaiCongVan.byId,
     listLinhVuc: state.linhVuc.byId
   }

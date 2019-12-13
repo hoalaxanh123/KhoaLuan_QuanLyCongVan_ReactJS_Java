@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Table, Switch, Radio, Form, Collapse, Icon } from 'antd'
+import { API_NUMBER_RECORD_PER_PAGE } from '../../constants'
 const { Panel } = Collapse
 const FormItem = Form.Item
 
@@ -194,6 +195,12 @@ class TableCommon extends Component {
           {...this.state}
           columns={columns}
           dataSource={state.hasData ? data : null}
+          pagination={{
+            defaultPageSize: API_NUMBER_RECORD_PER_PAGE,
+            // showSizeChanger: true,
+            showQuickJumper: true
+            // pageSizeOptions: ['10', '20', '30', '50', '100'],
+          }}
           rowKey={this.props.rowKey}
         />
       </Card>

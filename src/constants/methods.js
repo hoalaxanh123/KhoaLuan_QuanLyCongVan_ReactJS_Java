@@ -55,6 +55,7 @@ export default class CommonMethods {
         .then(res => {
           switch (res.status) {
             case 200:
+              delete res.data.password
               this.setCookie(
                 USER_INFO,
                 JSON.stringify(res.data),
@@ -87,6 +88,14 @@ export default class CommonMethods {
           if (error.response.status === 404) {
             Message(
               'Sai tài khoản hoặc mật khẩu, vui lòng kiểm tra lại',
+              'error',
+              3000,
+              'Đăng nhập lỗi',
+              'Login'
+            )
+          } else if (error.response.status === 401) {
+            Message(
+              'Tài khoản của bạn không còn quyền truy cập, liên hệ quản trị viên để biết thêm thông tin chi tiết',
               'error',
               3000,
               'Đăng nhập lỗi',

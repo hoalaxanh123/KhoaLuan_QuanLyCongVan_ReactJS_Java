@@ -14,7 +14,6 @@ let addNguoiDung = (state, action) => {
   return lst
 }
 let editNguoiDung = (state, action) => {
-  debugger
   let lst = [...state.byId]
   var index = lst.findIndex(x => x.maTaiKhoan === action.nguoiDung.maTaiKhoan)
   lst[index] = action.nguoiDung
@@ -46,7 +45,6 @@ const NguoiDungReducer = (state = initialState, action) => {
       console.log('Error get api :', action.payload)
       return { ...state, byId: [] }
     case typeContants.DELETE_NGUOIDUNG:
-      debugger
       let lst = deleteNguoiDung(state, action)
       Message('Xoá thành công', 'success', 3000, 'DONE', 'Xoá người dùng')
       return { ...state, byId: lst }

@@ -1,19 +1,19 @@
 import { trackPromise } from 'react-promise-tracker'
-import * as apiTask from './../apis/task'
-import * as taskConstant from './../constants/task'
-import Message from './../method/Message'
+import * as apiCongVanSearch from '../apis/congVanSearch'
+import * as taskConstant from '../constants/task'
+import Message from '../method/Message'
 import { message } from 'antd'
 
 //Step 0: fetchGetList to call API
 //Step 1: dispatch(fetchListTask()) to reset state 'task' to empty ([])
 //Step 2: if success, dispatch(fetchListTaskSuccess(res.data)) to return data ( will parse to state 'task')
 //Step 3: if error, dispatch(fetchListTaskFail(res.data)) to return error
-export const fetchGetList = () => {
+export const fetchGetList = keyword => {
   return dispatch => {
     dispatch(fetchListTask()) // to reset state 'task' to empty ([])
     trackPromise(
-      apiTask
-        .getListTask()
+      apiCongVanSearch
+        .getListTask(keyword)
         .then(res => {
           dispatch(fetchListTaskSuccess(res.data))
         })
@@ -26,16 +26,15 @@ export const fetchGetList = () => {
 
 //Reset state task to empty []
 export const fetchListTask = () => {
-  // console.log('DEBUG: GET LIST CONGVAN OK')
   return {
-    type: taskConstant.FETCH_TASK
+    type: taskConstant.FETCH_CONGVAN_SEARCH
   }
 }
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
   return {
-    type: taskConstant.FETCH_TASK_SUCCESS,
+    type: taskConstant.FETCH_CONGVAN_SEARCH_SUCCESS,
     payload: data
   }
 }
@@ -46,7 +45,7 @@ export const fetchListTaskFail = error => {
   message.error('Lấy danh sách công văn bị lỗi ' + error, 10)
 
   return {
-    type: taskConstant.FETCH_TASK_FAIL,
+    type: taskConstant.FETCH_CONGVAN_SEARCH_FAIL,
     payload: error
   }
 }
@@ -55,7 +54,7 @@ export const fetchListTaskFail = error => {
 export const deleteTask_Request = id => {
   return dispatch => {
     trackPromise(
-      apiTask
+      apiCongVanSearch
         .deleteTask(id)
         .then(res => {
           dispatch(deleteTask(id))
@@ -77,7 +76,7 @@ export const deleteTask = id => {
 export const addTask_Request = task => {
   return dispatch => {
     trackPromise(
-      apiTask
+      apiCongVanSearch
         .addTask(task)
         .then(res => {
           Message(
@@ -92,27 +91,5 @@ export const addTask_Request = task => {
           Message(error, 'error', 3000, 'ERROR', 'Thêm công văn')
         })
     )
-  }
-}
-
-//edit a task
-export const editTask_Request = congVan => {
-  return dispatch => {
-    trackPromise(
-      apiTask
-        .editTask(congVan)
-        .then(res => {
-          dispatch(editTask(congVan))
-        })
-        .catch(error => {
-          Message(error, 'error', 3000, 'ERROR', 'Sửa metadata công văn')
-        })
-    )
-  }
-}
-export const editTask = congVan => {
-  return {
-    type: taskConstant.EDIT_TASK,
-    congVan: congVan
   }
 }

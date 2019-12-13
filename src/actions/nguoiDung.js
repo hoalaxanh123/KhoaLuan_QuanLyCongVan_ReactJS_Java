@@ -33,7 +33,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  console.log('DEBUG: GET LIST NGUOIDUNG OK')
+  // console.log('DEBUG: GET LIST NGUOIDUNG OK')
   return {
     type: taskConstant.FETCH_NGUOIDUNG_SUCCESS,
     payload: data

@@ -6,7 +6,8 @@ export const API_URL_UPFILE = 'http://localhost:9999/api/readFile'
 export const API_URL_DOWNFILE = 'http://localhost:9999/api/downloadFile'
 //API SEARCH
 export const API_URL_SEARCH = 'http://localhost:9999/api/congvan/search'
-
+//Number of record per page
+export const API_NUMBER_RECORD_PER_PAGE = 10
 //task == Công văn
 export const API_CONGVAN_ENDPOIN = 'congvan'
 export const CONGVAN = 'congvan'

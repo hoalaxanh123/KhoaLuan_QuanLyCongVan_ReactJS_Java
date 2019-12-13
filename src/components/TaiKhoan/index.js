@@ -24,7 +24,6 @@ class TaiKhoan extends Component {
   UNSAFE_componentWillMount() {
     document.title = 'DLU | Tài khoản'
     let user = JSON.parse(CommonMethods.getCookie(USER_INFO))
-    console.log('user :', user)
     this.setState({
       diaChi: user.diaChi,
       email: user.email,

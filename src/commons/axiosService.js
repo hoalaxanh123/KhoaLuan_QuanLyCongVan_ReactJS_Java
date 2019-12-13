@@ -30,7 +30,6 @@ class AxiosService {
     })
   }
   getHasParam(url, task) {
-    console.log('task :', task)
     return this.intance.get(url, task, {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -48,7 +47,7 @@ class AxiosService {
       headers: { Authorization: 'Bearer ' + this.getToken() }
     })
   }
-  postWithoutToken(url, task) {
+  postWitoutAuthen(url, task) {
     return this.intance.post(url, task)
   }
   put(url, task) {
@@ -57,11 +56,7 @@ class AxiosService {
     })
   }
   login(url, task) {
-    console.log('task :', task)
     return this.intance.post(url, task)
-    // return this.intance.post(url,task, {
-    //   headers: { Authorization: 'Bearer ' + this.getToken() }
-    // })
   }
 }
 export default new AxiosService()

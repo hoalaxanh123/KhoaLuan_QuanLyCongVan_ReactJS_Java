@@ -14,7 +14,6 @@ let addLoaiCongVan = (state, action) => {
   return lst
 }
 let editLoaiCongVan = (state, action) => {
-  debugger
   let lst = [...state.byId]
   var index = lst.findIndex(x => x.maLoai === action.loaiCongVan.maLoai)
   lst[index] = action.loaiCongVan

@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import { Layout, Menu, Icon } from 'antd'
 import CommonMethods from '../../constants/methods'
 import json_Routes from '../../Routers/routes'
+import { USER_INFO } from '../../constants'
 const { Sider } = Layout
 // const { SubMenu } = Menu
 
@@ -42,13 +43,13 @@ let menus = [
     exactYES: false,
     icon: 'scan'
   },
-  {
-    index: 3,
-    label: 'Ứng dụng mobile',
-    to: '/mobile-application',
-    exactYES: false,
-    icon: 'mobile'
-  },
+  // {
+  //   index: 3,
+  //   label: 'Ứng dụng mobile',
+  //   to: '/mobile-application',
+  //   exactYES: false,
+  //   icon: 'mobile'
+  // },
   {
     index: 4,
     label: 'Trang quản trị',
@@ -137,6 +138,10 @@ class LeftMenu extends Component {
   resize() {}
   render() {
     let defaultMenuKey = 1
+    let user = CommonMethods.getCookie(USER_INFO)
+    let name = user
+      ? 'Hi, ' + JSON.parse(CommonMethods.getCookie(USER_INFO)).hoTen
+      : ''
     try {
       let pathName = window.location.pathname
       let list = json_Routes
@@ -157,6 +162,9 @@ class LeftMenu extends Component {
         <div className="logo">
           <p>
             <b>PST</b> DLU
+            <span className="name">
+              <a href="/tai-khoan">{name}</a>
+            </span>
           </p>
         </div>
         <Menu

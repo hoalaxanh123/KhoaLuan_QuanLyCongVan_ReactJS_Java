@@ -33,7 +33,7 @@ export const fetchListTask = () => {
 
 //If success, set state task = data
 export const fetchListTaskSuccess = data => {
-  console.log('DEBUG: GET LIST LINHVUC OK')
+  // console.log('DEBUG: GET LIST LINHVUC OK')
   return {
     type: taskConstant.FETCH_LINHVUC_SUCCESS,
     payload: data

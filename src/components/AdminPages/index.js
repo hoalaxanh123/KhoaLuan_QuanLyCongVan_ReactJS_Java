@@ -169,7 +169,9 @@ class Admin extends Component {
     this.setState({
       displayForm: false,
       displayFormLinhVuc: false,
-      displayFormNguoiDung: false
+      displayFormNguoiDung: false,
+      displayFormCongVan: false,
+      displayFormEditCongVan: false
     })
   }
   showFormLinhVuc = (title, action = '', selectedObj = null) => {
@@ -208,6 +210,26 @@ class Admin extends Component {
 
   onSubmit = param => {
     switch (param.action) {
+      case constantAction.EDIT_TASK:
+        this.props.edit_cong_van({
+          id: param.id,
+          timDong: param.timDong,
+          soKyHieu: param.soKyHieu,
+          ngayBanHanh: param.ngayBanHanh,
+          nguoiKy: param.nguoiKy,
+          mucDo: param.mucDo,
+          coQuanBanHanh: param.coQuanBanHanh,
+          ngayCoHieuLuc: param.ngayCoHieuLuc,
+          trichYeu: param.trichYeu,
+          noiNhan: param.noiNhan,
+          maLinhVuc: param.maLinhVuc,
+          tapTin: param.tapTin,
+          maLoai: param.maLoai,
+          noiDung: param.noiDung
+        })
+
+        this.hideForm()
+        break
       case constantAction.ADD_LINHVUC:
         this.props.add_linh_vuc({
           maLinhVuc: -1,
@@ -256,7 +278,6 @@ class Admin extends Component {
         this.hideForm()
         break
       case constantAction.EDIT_NGUOIDUNG:
-        console.log('param :', param)
         this.props.edit_user({
           diaChi: param.diaChi,
           email: param.email,
@@ -635,6 +656,8 @@ class Admin extends Component {
           displayForm={this.state.displayFormCongVan}
           titleForm={this.state.titleForm}
           selectedObj={this.state.selectedObj}
+          listLoaiCongVan={this.props.listLoaiCongVan}
+          listLinhVuc={this.props.listLinhVuc}
         />
         <FormEditCongVan
           displayForm={this.state.displayFormEditCongVan}
@@ -744,6 +767,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     edit_linh_vuc: linhVuc => {
       dispatch(actionLinhVuc.editTask_Request(linhVuc))
+    },
+    edit_cong_van: congVan => {
+      dispatch(action.editTask_Request(congVan))
     },
     add_user: nguoiDung => {
       dispatch(actionNguoiDung.addTask_Request(nguoiDung))

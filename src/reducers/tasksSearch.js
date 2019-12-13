@@ -8,17 +8,12 @@ let deleteTask = (state, action) => {
   lst.splice(index, 1)
   return lst
 }
-let editCongVan = (state, action) => {
-  let lst = [...state.listTask]
-  var index = lst.findIndex(x => x.id === action.congVan.id)
-  lst[index] = action.congVan
-  return lst
-}
-const TaskReducer = (state = initialState, action) => {
+
+const CongVanSearch = (state = initialState, action) => {
   switch (action.type) {
-    case taskContants.FETCH_TASK:
+    case taskContants.FETCH_CONGVAN_SEARCH:
       return { ...state, listTask: [] }
-    case taskContants.FETCH_TASK_SUCCESS:
+    case taskContants.FETCH_CONGVAN_SEARCH_SUCCESS:
       if (action.payload.length === 0)
         Message(
           `Get data success but nothing to show`,
@@ -27,16 +22,8 @@ const TaskReducer = (state = initialState, action) => {
           'DONE',
           'Lấy danh sách công văn'
         )
-      // else
-      //   Message(
-      //     `Get list 'công văn' success `,
-      //     'success',
-      //     3000,
-      //     'DONE',
-      //     'Lấy danh sách công văn'
-      //   )
       return { ...state, listTask: action.payload }
-    case taskContants.FETCH_TASK_FAIL:
+    case taskContants.FETCH_CONGVAN_SEARCH_FAIL:
       console.log('Error get api :', action.payload)
       return { ...state, listTask: [] }
     case taskContants.DELETE_TASK:
@@ -46,18 +33,8 @@ const TaskReducer = (state = initialState, action) => {
         'success'
       )
       return { ...state, listTask: lst }
-    case taskContants.EDIT_TASK:
-      let lst3 = editCongVan(state, action)
-      Message(
-        'Sửa thành công',
-        'success',
-        3000,
-        'DONE',
-        'Sửa metadata công văn'
-      )
-      return { ...state, listTask: lst3 }
     default:
       return state
   }
 }
-export default TaskReducer
+export default CongVanSearch

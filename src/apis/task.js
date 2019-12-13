@@ -14,3 +14,7 @@ export const addTask = task => {
 export const deleteTask = id => {
   return axiosService.delete(`${API_URL}${endpoin}/${id}`)
 }
+
+export const editTask = congVan => {
+  return axiosService.put(`${API_URL}${endpoin}/${congVan.id}`, congVan)
+}
