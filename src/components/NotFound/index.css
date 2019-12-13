@@ -1,0 +1,46 @@
+.NotFound {
+  -webkit-animation-name: NotFoundAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: NotFoundAnimation;
+  animation-duration: 1.5s;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+}
+.NotFound h1{
+  font-size: 100px;
+  font-weight: bold;
+  color:red;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes NotFoundAnimation {
+  from {
+    opacity: 0;
+    padding: 100%;
+  }
+  to {
+    opacity: 1;
+    padding: 0%;
+
+  }
+}
+
+/* Standard syntax */
+@keyframes NotFoundAnimation {
+  from {
+    opacity: 0;
+    margin-left: -100px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+.DownloadButtonAndroid{
+  max-width: 130px;
+}
+.DownloadButtonIOS{
+  max-width: 140px;
+  margin-left: 5px;
+}

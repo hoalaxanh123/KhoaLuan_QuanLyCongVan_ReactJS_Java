@@ -1,0 +1,12 @@
+-Giữ tab OK
+-Tạo page tài khoản OK
+-làm phần tìm kiếm
+-Làm phần công văn detail
+-login
+-delete
+-edit and add
+-Scanner
+  .Rút trích thông tin
+  .Bài toán phân loại
+-Bắt trường hợp khi xoá lĩnh vực, xoá loại công văn cũng phải bắt trường hợp có công văn nào dính nó k nữa
+-Làm  modal confirm

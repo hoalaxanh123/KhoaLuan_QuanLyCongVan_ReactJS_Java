@@ -1,0 +1,217 @@
+.login-title{
+  font-size: 20px;
+}
+.highlight {
+  font-size: 180px;
+}
+
+.tableChiTietCongVan, .tableChiTietCongVan th, .tableChiTietCongVan td{
+  padding: 1em;
+  background: rgba(255, 246, 246, 0.5);
+  border-bottom: 2px solid white;
+}
+.tableChiTietCongVan{
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  width: 100%;
+}
+.found{
+  font-weight: bold;
+}
+.danger{color:red}
+.Active{
+  color: #1890ff;
+}
+.Deactive{
+  color:red;
+}
+
+.Link{
+  color: #1890ff;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  -webkit-text-decoration-skip: objects;
+}
+.Link:hover{
+  text-decoration: underline overline;
+}
+.TableOption{
+  background: transparent;
+}
+.divs {
+  -webkit-animation-name: divAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+  animation-name: divAnimation;
+  animation-duration: 0.5s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes divAnimation {
+  from {
+    opacity: 0.8;
+    margin-left: -10px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
+}
+@keyframes divAnimation {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ant-layout-content {
+  -webkit-animation-name: contentAnimation; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: contentAnimation;
+  animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes contentAnimation {
+  from {
+    background: rgb(0, 0, 0,0.9);
+  }
+  to {
+    background: transparent;
+  }
+}
+@keyframes contentAnimation {
+  from {
+    background: rgb(0, 0, 0,0.9);
+  }
+  to {
+    background: transparent;
+  }
+}
+
+
+.monition_width, body {
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 1.5s;
+}
+
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+  from {
+    opacity: 0;
+    width: 80%;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes example {
+  from {
+    opacity: 0;
+    width: 80%;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+
+.monition_height {
+  -webkit-animation-name: example2; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 1.5s;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example2 {
+  from {
+    opacity: 0;
+    height: 0px;
+  }
+  to {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+/* Standard syntax */
+@keyframes example2 {
+  from {
+    opacity: 0;
+    height: 0px;
+  }
+  to {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+.logo {
+  text-align: center;
+  color: white;
+  min-height: 60px;
+}
+.logo b{
+  font-size: 20px;
+  padding-top: 50%;
+  vertical-align: middle;
+}
+.logo p{
+  padding-top: 5%;
+}
+
+.ant-form-item-label label{
+  vertical-align: middle;
+}
+.ant-advanced-search-form .ant-form-item {
+  display: flex;
+}
+
+.ant-advanced-search-form .ant-form-item-control-wrapper {
+  flex: 1;
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("/images/loading3.gif") center no-repeat #fff ;
+}
+.Scanner_Card_Parent{
+  background:rgb(255, 255, blu255e) ;
+  }
+
+.LeftMenu{
+  position: fixed;
+  z-index: 9999999999999;
+}
+.ant-layout-sider-zero-width-trigger{
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 600px) {
+  .medium {
+    display: none;
+  }
+  .LeftMenu{
+    position: fixed;
+  }
+}
+
